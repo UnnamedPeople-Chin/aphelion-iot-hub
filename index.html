@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APHELION · IoT Landslide Early Warning System Hub</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Plus Jakarta Sans Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f5ff',
+              100: '#e0ecff',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              900: '#172554',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Tabular figures for technical data alignment */
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    /* Minimal smooth scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+    /* Print optimization */
+    @media print {
+      header, nav, #viewControls, #themeToggle, .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .card-print {
+        border: 1px solid #e2e8f0 !important;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen antialiased selection:bg-blue-500/20 selection:text-blue-600 transition-colors duration-150">
+
+  <!-- TOP HEADER / NAV -->
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- Technical Vector Icon -->
+        <div class="w-9 h-9 rounded-lg bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center shadow-sm">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">APHELION</span>
+            <span class="text-xs px-2 py-0.5 rounded font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">IK-2B</span>
+            <span class="text-xs px-2 py-0.5 rounded font-mono font-medium bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Form Submitted
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Praktikum Internet of Things — D3 Teknik Informatika POLINES</p>
+        </div>
+      </div>
+
+      <!-- Action Utilities -->
+      <div class="flex items-center gap-2">
+        <a href="https://youtu.be/6CwVYXepY2Q" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors">
+          <i data-lucide="play" class="w-3.5 h-3.5 text-red-500"></i>
+          <span>Demo Kating</span>
+        </a>
+
+        <button onclick="window.print()" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+          <span>Cetak</span>
+        </button>
+
+        <button id="themeToggle" aria-label="Toggle Theme" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-colors">
+          <i data-lucide="moon" id="moonIcon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" id="sunIcon" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO TECHNICAL BRIEF -->
+  <section class="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-2 text-xs font-mono text-blue-600 dark:text-blue-400 mb-2">
+            <span>PROYEK AKHIR SEMESTER 3</span>
+            <span>•</span>
+            <span>DOSEN: MR. LILIEK TRIYONO</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+            Sistem Deteksi Dini Tanah Longsor Berbasis ESP32 & Flutter
+          </h1>
+          <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Implementasi telemetri geoteknik real-time menggunakan modul akrometri/gyro MPU-6050, Capacitive Soil Moisture v1.2, Google Firebase Realtime Database, dan Dashboard Mobile Flutter. Acuan: <em>Geoscience Frontiers</em> (Elsevier 2026, Q1).
+          </p>
+
+          <!-- Core Tech Badges -->
+          <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400">
+            <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">ESP32-WROOM-32</span>
+            <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">MPU-6050 (I2C)</span>
+            <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Soil Moisture v1.2</span>
+            <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Firebase RTDB</span>
+            <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Flutter 3.x</span>
+          </div>
+        </div>
+
+        <!-- PROGRESS & METRICS PANEL -->
+        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-xl p-4 sm:p-5 min-w-[280px] lg:w-80 shadow-sm">
+          <div class="flex items-center justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+            <span>PROGRESS PENGERJAAN</span>
+            <span id="progressPercent" class="font-mono text-blue-600 dark:text-blue-400 font-bold tabular-nums">0%</span>
+          </div>
+          <!-- Progress Bar -->
+          <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden my-2">
+            <div id="progressBar" class="bg-blue-600 dark:bg-blue-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 mt-2">
+            <span id="taskCompletedCount" class="font-mono tabular-nums">0/24 Subtugas</span>
+            <span class="font-mono text-amber-600 dark:text-amber-400 font-medium">Sprint 2 Sedang Berjalan</span>
+          </div>
+          <div class="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs">
+            <span class="text-slate-500">Estimasi Biaya:</span>
+            <span class="font-mono font-semibold text-slate-900 dark:text-white">Rp 350.000 <span class="text-slate-400 font-normal">(~Rp 58k/org)</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION TABS & FILTERS -->
+  <div class="sticky top-16 z-40 bg-white/95 dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between overflow-x-auto py-2.5 gap-4">
+        <!-- View Switcher -->
+        <nav class="flex items-center gap-1.5" id="viewControls">
+          <button onclick="switchTab('roadmap')" id="tab-roadmap" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 transition-colors">
+            Roadmap 8 Minggu
+          </button>
+          <button onclick="switchTab('tupoksi')" id="tab-tupoksi" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            Tupoksi Anggota (6 PIC)
+          </button>
+          <button onclick="switchTab('architecture')" id="tab-architecture" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            Skematik Pinout
+          </button>
+          <button onclick="switchTab('budget')" id="tab-budget" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            Pengadaan & Budget
+          </button>
+          <button onclick="switchTab('kating')" id="tab-kating" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            Catatan Alumni
+          </button>
+        </nav>
+
+        <!-- Member Quick Filter (Only visible on roadmap tab) -->
+        <div id="memberFilterWrapper" class="flex items-center gap-1.5 flex-shrink-0 text-xs">
+          <span class="text-slate-400 text-[11px] hidden md:inline">Filter PIC:</span>
+          <select id="picFilter" onchange="filterByPic(this.value)" class="text-xs bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500">
+            <option value="all">Semua Anggota</option>
+            <option value="Jizdan">Jizdan (Ketua / Firmware)</option>
+            <option value="Haqqi">Haqqi (Hardware / Liaison)</option>
+            <option value="Kafka">Kafka (Flutter Mobile)</option>
+            <option value="Anisa">Anisa (Geoteknik / QA)</option>
+            <option value="Nazriel">Nazriel (Mekanik / Media)</option>
+            <option value="Raffael">Raffael (QoS / Report)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN TABBED CONTENT AREA -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: ROADMAP 8 MINGGU (INTERACTIVE CHECKLIST) -->
+    <!-- ========================================== -->
+    <div id="content-roadmap" class="tab-content space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Roadmap Sprint Pengerjaan (8 Minggu)</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Centang checklist tugas di bawah untuk update progres tim secara real-time (tersimpan otomatis).</p>
+        </div>
+        <button onclick="resetTasks()" class="self-start text-[11px] text-slate-400 hover:text-red-500 transition-colors flex items-center gap-1">
+          <i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reset Checklist
+        </button>
+      </div>
+
+      <!-- SPRINT CARDS GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="sprintGrid">
+
+        <!-- SPRINT 1 (DONE) -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Jizdan,Haqqi,Kafka,Anisa,Nazriel,Raffael">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400">MINGGU 1</span>
+              <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                Selesai
+              </span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Inisiasi & Pengajuan Judul</h3>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">28 Okt – 3 Nov 2026</p>
+
+            <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-1-1" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Rapat penentuan tema & pembagian tim Aphelion</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-1-2" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Bedah jurnal rujukan Q1 (Elsevier 2026)</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-1-3" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Penyusunan dokumen format Polines (.docx)</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-1-4" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Submit Google Form & konfirmasi email</span>
+              </label>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>PIC: Jizdan & Tim</span>
+            <span class="font-mono text-emerald-600 font-semibold">100%</span>
+          </div>
+        </div>
+
+        <!-- SPRINT 2 (ACTIVE) -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border-2 border-blue-500 dark:border-blue-500 rounded-xl p-4 flex flex-col justify-between shadow-sm" data-pics="Haqqi,Jizdan">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400">MINGGU 2</span>
+              <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> Berjalan
+              </span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Riset Kating & Pengadaan Alat</h3>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">4 Nov – 10 Nov 2026</p>
+
+            <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-2-1" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Wawancara alumni (Mas Faisal & Mas Irga)</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-2-2" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Analisis video demo & bedah anggaran kating</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-2-3" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Pembelian sensor (ESP32, MPU-6050, Soil v1.2)</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-2-4" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Deploy Web Hub Aphelion di GitHub Pages</span>
+              </label>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>PIC: Haqqi & Jizdan</span>
+            <span class="font-mono text-blue-600 font-semibold" id="sprint2-rate">75%</span>
+          </div>
+        </div>
+
+        <!-- SPRINT 3 -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Haqqi,Anisa">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono font-bold text-slate-400">MINGGU 3</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">Mendatang</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Perakitan Sensor & Kalibrasi</h3>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">11 Nov – 17 Nov 2026</p>
+
+            <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-3-1" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Wiring ESP32 ke MPU-6050 via I2C (GPIO 21/22)</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-3-2" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Uji ADC Soil Moisture Capacitive pada tanah basah</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-3-3" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Kalkulasi Roll/Pitch sudut kemiringan lereng</span>
+              </label>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>PIC: Haqqi & Anisa</span>
+            <span class="font-mono text-slate-400">0%</span>
+          </div>
+        </div>
+
+        <!-- SPRINT 4 -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Jizdan,Kafka">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono font-bold text-slate-400">MINGGU 4</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">Mendatang</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Firebase RTDB & UI Flutter</h3>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">18 Nov – 24 Nov 2026</p>
+
+            <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-4-1" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Setup Firebase RTDB project & security rules</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-4-2" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Firmware ESP32 publish JSON payload via Wi-Fi</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-4-3" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Flutter Mobile UI: Gauge kemiringan & alert</span>
+              </label>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>PIC: Jizdan & Kafka</span>
+            <span class="font-mono text-slate-400">0%</span>
+          </div>
+        </div>
+
+        <!-- SPRINT 5 -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Nazriel,Haqqi">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono font-bold text-slate-400">MINGGU 5</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">Mendatang</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Wadah Miniatur Lereng Tanah</h3>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">25 Nov – 1 Des 2026</p>
+
+            <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-5-1" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Pembuatan box miniatur lereng bertingkat</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-5-2" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Mekanisme kemiringan bertahap (anti-guncang manual)</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-5-3" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Pemasangan Active Buzzer 5V & Tri-State LED</span>
+              </label>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>PIC: Nazriel & Haqqi</span>
+            <span class="font-mono text-slate-400">0%</span>
+          </div>
+        </div>
+
+        <!-- SPRINT 6 -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Raffael,Anisa">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono font-bold text-slate-400">MINGGU 6</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">Mendatang</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Pengujian Ilmiah & Akurasi</h3>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">2 Des – 8 Des 2026</p>
+
+            <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-6-1" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Uji akurasi sudut kemiringan MPU-6050 vs Busur</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-6-2" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Pengukuran Latensi QoS jaringan (Delay ms)</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-6-3" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Pencatatan data pengujian untuk bab Analisis</span>
+              </label>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>PIC: Raffael & Anisa</span>
+            <span class="font-mono text-slate-400">0%</span>
+          </div>
+        </div>
+
+        <!-- SPRINT 7 -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Nazriel,Raffael">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono font-bold text-slate-400">MINGGU 7</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">Mendatang</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Paper Laporan & Video Demo</h3>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">9 Des – 15 Des 2026</p>
+
+            <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-7-1" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Penyusunan laporan lengkap berstandar IEEE/Q1</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-7-2" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Produksi video demo pengujian alat (YouTube)</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-7-3" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Clean code review repositori GitHub proyek</span>
+              </label>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>PIC: Nazriel & Raffael</span>
+            <span class="font-mono text-slate-400">0%</span>
+          </div>
+        </div>
+
+        <!-- SPRINT 8 -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Jizdan,Haqqi,Kafka,Anisa,Nazriel,Raffael">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono font-bold text-slate-400">MINGGU 8</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">Showtime</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Demo Langsung di Depan Dosen</h3>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">16 Des – 22 Des 2026</p>
+
+            <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-8-1" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Gladi bersih demonstrasi alat dan presentasi</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-8-2" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Ujian demonstrasi langsung di depan Mr. Liliek</span>
+              </label>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>PIC: Semua Anggota</span>
+            <span class="font-mono text-slate-400">0%</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: TUPOKSI 6 ANGGOTA -->
+    <!-- ========================================== -->
+    <div id="content-tupoksi" class="tab-content hidden space-y-6">
+      <div class="pb-2 border-b border-slate-200 dark:border-slate-800">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Matriks Tanggung Jawab & Tupoksi (6 Anggota)</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Pembagian tugas modular berorientasi hasil teknis tanpa tumpang tindih peran.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <!-- JIZDAN -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 card-print">
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="font-bold text-slate-900 dark:text-white text-sm">Jizdan Yuflikh Rachmat</h3>
+                <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">Ketua</span>
+              </div>
+              <p class="text-xs font-mono text-slate-400 mt-0.5">NIM: 3.34.25.1.12</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 block mb-1.5">Firmware ESP32 & Cloud Backend</span>
+            <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+              <li class="flex items-start gap-1.5">
+                <span class="text-blue-500 font-bold">•</span>
+                <span>Manajemen sprint mingguan & integrasi sistem keseluruhan</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-blue-500 font-bold">•</span>
+                <span>Pemrograman C++ ESP32 (Wi-Fi Manager, FreeRTOS telemetry task)</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-blue-500 font-bold">•</span>
+                <span>Integrasi database Firebase RTDB & struktur JSON payload</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- HAQQI -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 card-print">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="font-bold text-slate-900 dark:text-white text-sm">Haqqi Raya Syachputra</h3>
+              <p class="text-xs font-mono text-slate-400 mt-0.5">NIM: 3.34.25.1.11</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 block mb-1.5">Hardware Specialist & Alumni Liaison</span>
+            <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+              <li class="flex items-start gap-1.5">
+                <span class="text-emerald-500 font-bold">•</span>
+                <span>Riset komponen & komunikasi teknis dengan alumni (Kating)</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-emerald-500 font-bold">•</span>
+                <span>Perakitan sirkuit sensor MPU-6050, Soil Moisture, DHT22</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-emerald-500 font-bold">•</span>
+                <span>Kalibrasi pembacaan ADC sensor kelembapan tanah basah/kering</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- KAFKA -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 card-print">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="font-bold text-slate-900 dark:text-white text-sm">Kafka Nafisa</h3>
+              <p class="text-xs font-mono text-slate-400 mt-0.5">NIM: 3.34.25.1.13</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 block mb-1.5">Flutter Mobile App Engineer</span>
+            <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+              <li class="flex items-start gap-1.5">
+                <span class="text-indigo-500 font-bold">•</span>
+                <span>Desain arsitektur UI/UX dashboard mobile dengan Flutter</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-indigo-500 font-bold">•</span>
+                <span>Stream listener data realtime dari Firebase RTDB</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-indigo-500 font-bold">•</span>
+                <span>Visual gauge sudut kemiringan (Roll/Pitch) & notifikasi status</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ANISA -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 card-print">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="font-bold text-slate-900 dark:text-white text-sm">Anisa Aulia</h3>
+              <p class="text-xs font-mono text-slate-400 mt-0.5">NIM: 3.34.25.1.04</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 block mb-1.5">Geotechnical Logic & QA Testing</span>
+            <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+              <li class="flex items-start gap-1.5">
+                <span class="text-rose-500 font-bold">•</span>
+                <span>Penetapan ambang batas (Threshold) Aman, Waspada, Bahaya</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-rose-500 font-bold">•</span>
+                <span>Uji respons alarm lokal (Active Buzzer & LED Tri-state)</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-rose-500 font-bold">•</span>
+                <span>Validasi konsistensi pembacaan data fisik tanah sesuai jurnal</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- NAZRIEL -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 card-print">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="font-bold text-slate-900 dark:text-white text-sm">Nazriel Farras K.P.S</h3>
+              <p class="text-xs font-mono text-slate-400 mt-0.5">NIM: 3.34.25.1.20</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-[11px] font-semibold text-amber-600 dark:text-amber-400 block mb-1.5">Slope Enclosure Mechanic & Media</span>
+            <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+              <li class="flex items-start gap-1.5">
+                <span class="text-amber-500 font-bold">•</span>
+                <span>Desain & perakitan kotak miniatur lereng tanah berengsel</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-amber-500 font-bold">•</span>
+                <span>Inovasi mekanisme pemicu kemiringan lereng (anti goyang tangan)</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-amber-500 font-bold">•</span>
+                <span>Perekaman footage demonstrasi alat & penyusunan video YouTube</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- RAFFAEL -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 card-print">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="font-bold text-slate-900 dark:text-white text-sm">Raffael Deannova I.F</h3>
+              <p class="text-xs font-mono text-slate-400 mt-0.5">NIM: 3.34.25.1.22</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-[11px] font-semibold text-cyan-600 dark:text-cyan-400 block mb-1.5">QoS Testing & Scientific Report</span>
+            <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+              <li class="flex items-start gap-1.5">
+                <span class="text-cyan-500 font-bold">•</span>
+                <span>Pengujian Quality of Service (Latency, Packet Loss, Delay)</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-cyan-500 font-bold">•</span>
+                <span>Analisis data statistik akurasi sudut sensor MPU-6050 vs manual</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <span class="text-cyan-500 font-bold">•</span>
+                <span>Penyusunan laporan akhir komprehensif berstandar jurnal ilmiah</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: SKEMATIK PINOUT & ARSITEKTUR -->
+    <!-- ========================================== -->
+    <div id="content-architecture" class="tab-content hidden space-y-6">
+      <div class="pb-2 border-b border-slate-200 dark:border-slate-800">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Arsitektur Aliran Data & Tabel Pinout ESP32</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Peta koneksi pinout fisik dan jalur transmisi telemetri.</p>
+      </div>
+
+      <!-- PIPELINE FLOW DIAGRAM -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+        <h3 class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-4 font-semibold">Diagram Aliran Sistem End-to-End</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+          <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+            <span class="text-[10px] font-mono text-blue-500 font-bold uppercase">Lapisan 1: Sensor</span>
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white mt-1">MPU-6050 & Soil v1.2</h4>
+            <p class="text-xs text-slate-500 mt-1">Deteksi sudut lereng (X/Y) & kadar air tanah</p>
+          </div>
+          <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+            <span class="text-[10px] font-mono text-emerald-500 font-bold uppercase">Lapisan 2: Edge Controller</span>
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white mt-1">ESP32 DevKit V1</h4>
+            <p class="text-xs text-slate-500 mt-1">Sampling 100ms, filter data, & WiFi Publisher</p>
+          </div>
+          <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+            <span class="text-[10px] font-mono text-amber-500 font-bold uppercase">Lapisan 3: Cloud Broker</span>
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white mt-1">Firebase RTDB</h4>
+            <p class="text-xs text-slate-500 mt-1">Sinkronisasi payload JSON latensi rendah (Free Tier)</p>
+          </div>
+          <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+            <span class="text-[10px] font-mono text-indigo-500 font-bold uppercase">Lapisan 4: Visualisasi</span>
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white mt-1">Aplikasi Flutter</h4>
+            <p class="text-xs text-slate-500 mt-1">Tampilan gauge derajat kemiringan & peringatan bahaya</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PINOUT WIRING TABLE -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Tabel Alokasi Pinout ESP32 (Wiring Standard)</h3>
+          <span class="text-xs font-mono text-slate-400">Tegangan Logika: 3.3V DC</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 border-b border-slate-200 dark:border-slate-800 font-mono">
+                <th class="py-2.5 px-4">Modul / Komponen</th>
+                <th class="py-2.5 px-4">Pin Modul</th>
+                <th class="py-2.5 px-4">Pin ESP32</th>
+                <th class="py-2.5 px-4">Protokol / Fungsi</th>
+                <th class="py-2.5 px-4">Catatan Operasional</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">MPU-6050 (Gyro/Accel)</td>
+                <td class="py-2.5 px-4 font-mono">VCC, GND, SDA, SCL</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 21, GPIO 22</td>
+                <td class="py-2.5 px-4 font-mono">I2C (Address 0x68)</td>
+                <td class="py-2.5 px-4 text-slate-500">Gunakan pin I2C default ESP32, jangan pakai 5V agar aman</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Soil Moisture Capacitive v1.2</td>
+                <td class="py-2.5 px-4 font-mono">VCC, GND, AOUT</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 34 (ADC1)</td>
+                <td class="py-2.5 px-4 font-mono">Analog Input (ADC1_CH6)</td>
+                <td class="py-2.5 px-4 text-slate-500">ADC1 aman digunakan bersamaan saat Wi-Fi aktif (ADC2 bentrok)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Sensor DHT22 / DHT11</td>
+                <td class="py-2.5 px-4 font-mono">VCC, GND, DATA</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 4</td>
+                <td class="py-2.5 px-4 font-mono">Single-Bus Digital</td>
+                <td class="py-2.5 px-4 text-slate-500">Pasang pull-up resistor 10k ohm antara VCC dan DATA</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Active Buzzer 5V / 3.3V</td>
+                <td class="py-2.5 px-4 font-mono">(+), (-)</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">GPIO 18, GND</td>
+                <td class="py-2.5 px-4 font-mono">Digital Output (PWM/High)</td>
+                <td class="py-2.5 px-4 text-slate-500">Trigger bunyi alarm saat kemiringan > 35° atau air jenuh</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Indikator LED Tri-State</td>
+                <td class="py-2.5 px-4 font-mono">Hijau, Kuning, Merah</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">GPIO 19, GPIO 23, GPIO 5</td>
+                <td class="py-2.5 px-4 font-mono">Digital Output (GPIO)</td>
+                <td class="py-2.5 px-4 text-slate-500">Gunakan resistor 220 ohm pada anoda tiap LED</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: PENGADAAN & ESTIMASI BUDGET -->
+    <!-- ========================================== -->
+    <div id="content-budget" class="tab-content hidden space-y-6">
+      <div class="pb-2 border-b border-slate-200 dark:border-slate-800">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Daftar Pengadaan Komponen & Anggaran Tim</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Rincian belanja transparan dengan efisiensi biaya tanpa sewa hosting.</p>
+      </div>
+
+      <!-- COST COMPARISON BANNER -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-xs font-mono uppercase text-slate-400">Acuan Proyek Alumni (Kating TA 2025)</div>
+          <div class="text-2xl font-bold font-mono text-slate-700 dark:text-slate-300 mt-1">Rp 1.500.000,-</div>
+          <p class="text-xs text-slate-500 mt-2">Biaya bengkak akibat sewa cloud hosting VPS, domain tahunan, akrilik custom tebal, dan sensor pengganti.</p>
+        </div>
+        <div class="p-5 rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20">
+          <div class="text-xs font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold">Target Budget Kelompok Aphelion</div>
+          <div class="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">Rp 350.000,-</div>
+          <p class="text-xs text-emerald-700/80 dark:text-emerald-300/80 mt-2">Hemat 76% berkat arsitektur serverless (Firebase RTDB Free Tier) dan container mini modular.</p>
+        </div>
+      </div>
+
+      <!-- BILL OF MATERIALS TABLE -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Bill of Materials (BOM) & Status Pembelian</h3>
+          <span class="text-xs font-mono text-slate-500">Estimasi Patungan: ± Rp 58.000 / anak</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 border-b border-slate-200 dark:border-slate-800 font-mono">
+                <th class="py-2.5 px-4">Item Komponen</th>
+                <th class="py-2.5 px-4">Jumlah</th>
+                <th class="py-2.5 px-4">Estimasi Harga</th>
+                <th class="py-2.5 px-4">PIC Pembeli</th>
+                <th class="py-2.5 px-4 text-right">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">ESP32 DevKit V1 (30 Pin)</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono">Rp 55.000</td>
+                <td class="py-2.5 px-4">Jizdan</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Sensor MPU-6050 (Gyroscope + Accelerometer)</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono">Rp 22.000</td>
+                <td class="py-2.5 px-4">Haqqi</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Capacitive Soil Moisture Sensor v1.2 (Anti-Karat)</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono">Rp 18.000</td>
+                <td class="py-2.5 px-4">Haqqi</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Sensor Suhu & Kelembapan Udara (DHT22)</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono">Rp 30.000</td>
+                <td class="py-2.5 px-4">Haqqi</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Buzzer Aktif 5V, LED Set, Breadboard & Kabel Jumper</td>
+                <td class="py-2.5 px-4 font-mono">1 paket</td>
+                <td class="py-2.5 px-4 font-mono">Rp 35.000</td>
+                <td class="py-2.5 px-4">Haqqi</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Kontainer Miniatur Lereng & Dudukan Engsel</td>
+                <td class="py-2.5 px-4 font-mono">1 unit</td>
+                <td class="py-2.5 px-4 font-mono">Rp 75.000</td>
+                <td class="py-2.5 px-4">Nazriel</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Fabrikasi Sendiri</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Google Firebase RTDB & Flutter SDK</td>
+                <td class="py-2.5 px-4 font-mono">1 tenant</td>
+                <td class="py-2.5 px-4 font-mono text-emerald-600 dark:text-emerald-400 font-bold">Rp 0 (Free Tier)</td>
+                <td class="py-2.5 px-4">Jizdan & Kafka</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Aktif & Siap</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: RISALAH WAWANCARA & INSIGHT ALUMNI -->
+    <!-- ========================================== -->
+    <div id="content-kating" class="tab-content hidden space-y-6">
+      <div class="pb-2 border-b border-slate-200 dark:border-slate-800">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Hasil Wawancara Alumni & Analisis Kegagalan Alat</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Pelajaran dari Tugas Akhir D3 TI Polines 2025 (Faisal Aldi & Muhammad Irga A.P).</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <!-- INSIGHT 1 -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
+          <div class="text-[11px] font-mono font-bold text-red-500 uppercase mb-2">Evaluasi Pengujian Demo</div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Flaw: Akuarium Digoyang Tangan</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+            <em>"Dulu untuk longsornya buatan, jadi prototype aquariumnya digoyang-goyang sampai tanahnya longsor."</em> — Mas Faisal Aldi.
+          </p>
+          <div class="mt-3 p-2.5 rounded bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900 text-xs text-blue-900 dark:text-blue-300">
+            <strong>Solusi Aphelion:</strong> Wadah miniatur lereng dibuat dengan engsel pengatur sudut putar bertahap (0°–45°), sehingga longsor terpicu oleh gravitasi dan kejenuhan air alami saat demo di depan Mr. Liliek.
+          </div>
+        </div>
+
+        <!-- INSIGHT 2 -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
+          <div class="text-[11px] font-mono font-bold text-amber-500 uppercase mb-2">Evaluasi Sensor Tanah</div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Korosi Modul Resistif (FC-28)</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+            Sensor tanah murah tipe resistif (probe tembaga terbuka) terkorosi dan rusak dalam waktu 3–5 hari karena elektrolisis tanah basah.
+          </p>
+          <div class="mt-3 p-2.5 rounded bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900 text-xs text-blue-900 dark:text-blue-300">
+            <strong>Solusi Aphelion:</strong> Wajib menggunakan <em>Capacitive Soil Moisture Sensor v1.2</em>. Pengukuran kapasitansi tidak mengekspos tembaga langsung ke air tanah, sehingga umur pakai jauh lebih awet dan stabil.
+          </div>
+        </div>
+
+        <!-- INSIGHT 3 -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
+          <div class="text-[11px] font-mono font-bold text-emerald-500 uppercase mb-2">Evaluasi Firmware</div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Wi-Fi ADC Conflict pada ESP32</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+            Saat modul Wi-Fi ESP32 aktif mentransmisikan data, ADC2 otomatis terkunci oleh driver Wi-Fi internal. Jika sensor dicolok ke pin ADC2, pembacaan analog akan langsung error.
+          </p>
+          <div class="mt-3 p-2.5 rounded bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900 text-xs text-blue-900 dark:text-blue-300">
+            <strong>Solusi Aphelion:</strong> Sensor tanah dialokasikan khusus ke <strong>GPIO 34 (ADC1_CH6)</strong> yang independen dari subsistem radio Wi-Fi.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- VIDEO REFERENCE CARD -->
+      <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h4 class="text-sm font-bold text-slate-900 dark:text-white">Dokumentasi Video Demo Asli Kating (YouTube)</h4>
+          <p class="text-xs text-slate-500 mt-0.5">Judul: "Video Demo Lontar - Sistem Deteksi Dini Tanah Longsor Multiple Sensor Berbasis IoT"</p>
+        </div>
+        <a href="https://youtu.be/6CwVYXepY2Q" target="_blank" rel="noopener noreferrer" class="px-4 py-2 text-xs font-semibold rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors flex items-center gap-2 flex-shrink-0">
+          <i data-lucide="play-circle" class="w-4 h-4"></i>
+          <span>Buka Video di YouTube</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-400 font-mono">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>KELOMPOK APHELION • D3 TEKNIK INFORMATIKA (IK-2B) • POLITEKNIK NEGERI SEMARANG</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT: LOGIC & LOCALSTORAGE PERSISTENCE -->
+  <script>
+    // Lucide Icons init
+    lucide.createIcons();
+
+    // Dark/Light Theme Handler
+    const themeBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('aphelion_theme') === 'dark' || (!('aphelion_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('aphelion_theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('aphelion_theme', 'dark');
+      }
+    });
+
+    // Tab Navigation Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white', 'dark:bg-white', 'dark:text-slate-900');
+        btn.classList.add('text-slate-600', 'dark:text-slate-400');
+      });
+
+      const targetContent = document.getElementById('content-' + tabId);
+      const targetBtn = document.getElementById('tab-' + tabId);
+      const filterWrapper = document.getElementById('memberFilterWrapper');
+
+      if (targetContent) targetContent.classList.remove('hidden');
+      if (targetBtn) {
+        targetBtn.classList.add('bg-slate-900', 'text-white', 'dark:bg-white', 'dark:text-slate-900');
+        targetBtn.classList.remove('text-slate-600', 'dark:text-slate-400');
+      }
+
+      // Hide or show PIC filter based on tab
+      if (filterWrapper) {
+        filterWrapper.style.display = (tabId === 'roadmap') ? 'flex' : 'none';
+      }
+    }
+
+    // PIC Member Filter
+    function filterByPic(name) {
+      const cards = document.querySelectorAll('#sprintGrid .sprint-card');
+      cards.forEach(card => {
+        const pics = card.getAttribute('data-pics') || '';
+        if (name === 'all' || pics.includes(name)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Task Checklist LocalStorage Persistence & Calculation
+    function saveTaskState() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const state = {};
+      let completed = 0;
+
+      checkboxes.forEach(cb => {
+        state[cb.id] = cb.checked;
+        if (cb.checked) completed++;
+      });
+
+      localStorage.setItem('aphelion_tasks_state', JSON.stringify(state));
+      updateProgressUI(completed, checkboxes.length);
+    }
+
+    function loadTaskState() {
+      const saved = localStorage.getItem('aphelion_tasks_state');
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      let completed = 0;
+
+      if (saved) {
+        try {
+          const state = JSON.parse(saved);
+          checkboxes.forEach(cb => {
+            if (state[cb.id] !== undefined) {
+              cb.checked = state[cb.id];
+            }
+            if (cb.checked) completed++;
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      } else {
+        // default count
+        checkboxes.forEach(cb => {
+          if (cb.checked) completed++;
+        });
+      }
+
+      updateProgressUI(completed, checkboxes.length);
+    }
+
+    function updateProgressUI(completed, total) {
+      const percent = Math.round((completed / total) * 100);
+      const progressBar = document.getElementById('progressBar');
+      const progressPercent = document.getElementById('progressPercent');
+      const taskCount = document.getElementById('taskCompletedCount');
+
+      if (progressBar) progressBar.style.width = percent + '%';
+      if (progressPercent) progressPercent.textContent = percent + '%';
+      if (taskCount) taskCount.textContent = completed + '/' + total + ' Subtugas';
+    }
+
+    function resetTasks() {
+      if (confirm('Reset status checklist tugas ke awal?')) {
+        localStorage.removeItem('aphelion_tasks_state');
+        location.reload();
+      }
+    }
+
+    // Initialize state on load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadTaskState();
+    });
+  </script>
+</body>
+</html>
