@@ -284,18 +284,22 @@
                 <span class="text-slate-700 dark:text-slate-300">Analisis video demo & bedah anggaran kating</span>
               </label>
               <label class="flex items-start gap-2 cursor-pointer">
-                <input type="checkbox" id="task-2-3" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
-                <span class="text-slate-700 dark:text-slate-300">Pembelian sensor (ESP32, MPU-6050, Soil v1.2)</span>
+                <input type="checkbox" id="task-2-3" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Beli sensor offline (MPU-6050, Soil, SW-420 di Tembalang)</span>
               </label>
               <label class="flex items-start gap-2 cursor-pointer">
-                <input type="checkbox" id="task-2-4" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <input type="checkbox" id="task-2-4" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Order online: ADXL345 & Akuarium Akrilik P30xL20xT20cm</span>
+              </label>
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-2-5" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
                 <span class="text-slate-700 dark:text-slate-300">Deploy Web Hub Aphelion di GitHub Pages</span>
               </label>
             </div>
           </div>
           <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
             <span>PIC: Haqqi & Jizdan</span>
-            <span class="font-mono text-blue-600 font-semibold" id="sprint2-rate">75%</span>
+            <span class="font-mono text-blue-600 font-semibold" id="sprint2-rate">80%</span>
           </div>
         </div>
 
@@ -722,14 +726,28 @@
                 <td class="py-2.5 px-4 font-mono">VCC, GND, SDA, SCL</td>
                 <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 21, GPIO 22</td>
                 <td class="py-2.5 px-4 font-mono">I2C (Address 0x68)</td>
-                <td class="py-2.5 px-4 text-slate-500">Gunakan pin I2C default ESP32, jangan pakai 5V agar aman</td>
+                <td class="py-2.5 px-4 text-slate-500">Sensor kemiringan utama (Roll & Pitch lereng tanah)</td>
               </tr>
               <tr>
-                <td class="py-2.5 px-4 font-semibold">Soil Moisture Capacitive v1.2</td>
+                <td class="py-2.5 px-4 font-semibold">Vibration Sensor SW-420</td>
+                <td class="py-2.5 px-4 font-mono">VCC, GND, DO</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 27</td>
+                <td class="py-2.5 px-4 font-mono">Digital Input (Interrupt)</td>
+                <td class="py-2.5 px-4 text-slate-500">Deteksi getaran & retakan awal lereng (Sudah Dibeli di Arduinonano)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Soil Moisture Sensor</td>
                 <td class="py-2.5 px-4 font-mono">VCC, GND, AOUT</td>
                 <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 34 (ADC1)</td>
                 <td class="py-2.5 px-4 font-mono">Analog Input (ADC1_CH6)</td>
-                <td class="py-2.5 px-4 text-slate-500">ADC1 aman digunakan bersamaan saat Wi-Fi aktif (ADC2 bentrok)</td>
+                <td class="py-2.5 px-4 text-slate-500">ADC1 aman digunakan bersamaan saat Wi-Fi aktif (Sudah Dibeli di Temins)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">ADXL345 (Eksperimen Komparasi)</td>
+                <td class="py-2.5 px-4 font-mono">VCC, GND, SDA, SCL, CS</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 21, GPIO 22</td>
+                <td class="py-2.5 px-4 font-mono">I2C (Address 0x53)</td>
+                <td class="py-2.5 px-4 text-slate-500">Bus I2C paralel dengan MPU-6050 untuk analisis komparasi sensor</td>
               </tr>
               <tr>
                 <td class="py-2.5 px-4 font-semibold">Sensor DHT22 / DHT11</td>
@@ -783,9 +801,12 @@
 
       <!-- BILL OF MATERIALS TABLE -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Bill of Materials (BOM) & Status Pembelian</h3>
-          <span class="text-xs font-mono text-slate-500">Estimasi Patungan: ± Rp 58.000 / anak</span>
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Bill of Materials (BOM) & Tracking Belanja</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Realisasi offline 10 Nov: <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Rp 44.000</span> (Temins & Arduinonano)</p>
+          </div>
+          <span class="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded">Estimasi Patungan: ± Rp 40.000 – Rp 45.000 / anak</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs border-collapse">
@@ -793,37 +814,64 @@
               <tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 border-b border-slate-200 dark:border-slate-800 font-mono">
                 <th class="py-2.5 px-4">Item Komponen</th>
                 <th class="py-2.5 px-4">Jumlah</th>
-                <th class="py-2.5 px-4">Estimasi Harga</th>
+                <th class="py-2.5 px-4">Harga / Estimasi</th>
                 <th class="py-2.5 px-4">PIC Pembeli</th>
-                <th class="py-2.5 px-4 text-right">Status</th>
+                <th class="py-2.5 px-4 text-right">Status Pengadaan</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+              <tr class="bg-emerald-50/30 dark:bg-emerald-950/10">
+                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Sensor MPU-6050 (Gyroscope + Accelerometer)</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono font-semibold text-emerald-600 dark:text-emerald-400">Rp 26.000</td>
+                <td class="py-2.5 px-4">Haqqi & Jizdan</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Sudah Dibeli (Temins)</span>
+                </td>
+              </tr>
+              <tr class="bg-emerald-50/30 dark:bg-emerald-950/10">
+                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Sensor Kelembaban Tanah</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono font-semibold text-emerald-600 dark:text-emerald-400">Rp 10.000</td>
+                <td class="py-2.5 px-4">Haqqi & Jizdan</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Sudah Dibeli (Temins)</span>
+                </td>
+              </tr>
+              <tr class="bg-emerald-50/30 dark:bg-emerald-950/10">
+                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Vibration Sensor SW-420 (Deteksi Getaran)</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono font-semibold text-emerald-600 dark:text-emerald-400">Rp 8.000</td>
+                <td class="py-2.5 px-4">Haqqi & Jizdan</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Sudah Dibeli (Arduinonano)</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Sensor ADXL345 (Eksperimen Komparasi)</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono">Rp 25.000</td>
+                <td class="py-2.5 px-4">Haqqi</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Siap Order Online</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Akuarium Akrilik Polos Jadi (P30 x L15-20 x T20 cm, 3mm)</td>
+                <td class="py-2.5 px-4 font-mono">1 unit</td>
+                <td class="py-2.5 px-4 font-mono">Rp 55.000</td>
+                <td class="py-2.5 px-4">Nazriel</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Siap Order Online</span>
+                </td>
+              </tr>
               <tr>
                 <td class="py-2.5 px-4 font-semibold">ESP32 DevKit V1 (30 Pin)</td>
                 <td class="py-2.5 px-4 font-mono">1 pcs</td>
                 <td class="py-2.5 px-4 font-mono">Rp 55.000</td>
                 <td class="py-2.5 px-4">Jizdan</td>
                 <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-2.5 px-4 font-semibold">Sensor MPU-6050 (Gyroscope + Accelerometer)</td>
-                <td class="py-2.5 px-4 font-mono">1 pcs</td>
-                <td class="py-2.5 px-4 font-mono">Rp 22.000</td>
-                <td class="py-2.5 px-4">Haqqi</td>
-                <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-2.5 px-4 font-semibold">Capacitive Soil Moisture Sensor v1.2 (Anti-Karat)</td>
-                <td class="py-2.5 px-4 font-mono">1 pcs</td>
-                <td class="py-2.5 px-4 font-mono">Rp 18.000</td>
-                <td class="py-2.5 px-4">Haqqi</td>
-                <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Rencana Order</span>
                 </td>
               </tr>
               <tr>
@@ -832,7 +880,7 @@
                 <td class="py-2.5 px-4 font-mono">Rp 30.000</td>
                 <td class="py-2.5 px-4">Haqqi</td>
                 <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Rencana Order</span>
                 </td>
               </tr>
               <tr>
@@ -841,16 +889,7 @@
                 <td class="py-2.5 px-4 font-mono">Rp 35.000</td>
                 <td class="py-2.5 px-4">Haqqi</td>
                 <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Rencana Order</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-2.5 px-4 font-semibold">Kontainer Miniatur Lereng & Dudukan Engsel</td>
-                <td class="py-2.5 px-4 font-mono">1 unit</td>
-                <td class="py-2.5 px-4 font-mono">Rp 75.000</td>
-                <td class="py-2.5 px-4">Nazriel</td>
-                <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Fabrikasi Sendiri</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Rencana Order</span>
                 </td>
               </tr>
               <tr>
