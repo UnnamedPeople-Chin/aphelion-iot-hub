@@ -941,8 +941,13 @@
 
   <!-- JAVASCRIPT: LOGIC & LOCALSTORAGE PERSISTENCE -->
   <script>
-    // Lucide Icons init
-    lucide.createIcons();
+    // Lucide Icons init (with fallback guard)
+    function initIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+    initIcons();
 
     // Dark/Light Theme Handler
     const themeBtn = document.getElementById('themeToggle');
