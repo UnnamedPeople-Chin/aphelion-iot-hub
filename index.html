@@ -154,11 +154,11 @@
           </div>
           <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 mt-2">
             <span id="taskCompletedCount" class="font-mono tabular-nums">0/24 Subtugas</span>
-            <span class="font-mono text-amber-600 dark:text-amber-400 font-medium">Sprint 2 Sedang Berjalan</span>
+            <span class="font-mono text-amber-600 dark:text-amber-400 font-medium">Sprint 3 Sedang Berjalan</span>
           </div>
           <div class="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs">
-            <span class="text-slate-500">Estimasi Biaya:</span>
-            <span class="font-mono font-semibold text-slate-900 dark:text-white">Rp 350.000 <span class="text-slate-400 font-normal">(~Rp 58k/org)</span></span>
+            <span class="text-slate-500">Realisasi Keluar:</span>
+            <span class="font-mono font-semibold text-slate-900 dark:text-white">Rp 226.200 <span class="text-slate-400 font-normal">(~Rp 37,7k/org)</span></span>
           </div>
         </div>
       </div>
@@ -262,13 +262,13 @@
           </div>
         </div>
 
-        <!-- SPRINT 2 (ACTIVE) -->
-        <div class="sprint-card bg-white dark:bg-slate-900 border-2 border-blue-500 dark:border-blue-500 rounded-xl p-4 flex flex-col justify-between shadow-sm" data-pics="Haqqi,Jizdan">
+        <!-- SPRINT 2 (DONE) -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Haqqi,Jizdan,Anisa">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400">MINGGU 2</span>
-              <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> Berjalan
+              <span class="text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400">MINGGU 2</span>
+              <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                Selesai
               </span>
             </div>
             <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Riset Kating & Pengadaan Alat</h3>
@@ -288,8 +288,8 @@
                 <span class="text-slate-700 dark:text-slate-300">Beli sensor offline (MPU-6050, Soil, SW-420 di Tembalang)</span>
               </label>
               <label class="flex items-start gap-2 cursor-pointer">
-                <input type="checkbox" id="task-2-4" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
-                <span class="text-slate-700 dark:text-slate-300">Order online: ADXL345 & Akuarium Akrilik P30xL20xT20cm</span>
+                <input type="checkbox" id="task-2-4" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Order Akuarium Akrilik 40x25x28cm (Anisa)</span>
               </label>
               <label class="flex items-start gap-2 cursor-pointer">
                 <input type="checkbox" id="task-2-5" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
@@ -298,29 +298,35 @@
             </div>
           </div>
           <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
-            <span>PIC: Haqqi & Jizdan</span>
-            <span class="font-mono text-blue-600 font-semibold" id="sprint2-rate">80%</span>
+            <span>PIC: Haqqi, Jizdan & Anisa</span>
+            <span class="font-mono text-emerald-600 font-semibold" id="sprint2-rate">100%</span>
           </div>
         </div>
 
-        <!-- SPRINT 3 -->
-        <div class="sprint-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between" data-pics="Haqqi,Anisa">
+        <!-- SPRINT 3 (ACTIVE) -->
+        <div class="sprint-card bg-white dark:bg-slate-900 border-2 border-blue-500 dark:border-blue-500 rounded-xl p-4 flex flex-col justify-between shadow-sm" data-pics="Haqqi,Anisa,Jizdan">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="text-[11px] font-mono font-bold text-slate-400">MINGGU 3</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">Mendatang</span>
+              <span class="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400">MINGGU 3</span>
+              <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> Berjalan
+              </span>
             </div>
             <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">Perakitan Sensor & Kalibrasi</h3>
-            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">11 Nov – 17 Nov 2026</p>
+            <p class="text-[11px] text-slate-500 font-mono mt-0.5 mb-3">11 Nov – 18 Nov 2026</p>
 
             <div class="space-y-2 text-xs">
+              <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" id="task-3-0" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
+                <span class="text-slate-700 dark:text-slate-300">Finalisasi voting & order Servo Horn 25T (ADXL345 keep dulu)</span>
+              </label>
               <label class="flex items-start gap-2 cursor-pointer">
                 <input type="checkbox" id="task-3-1" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
                 <span class="text-slate-700 dark:text-slate-300">Wiring ESP32 ke MPU-6050 via I2C (GPIO 21/22)</span>
               </label>
               <label class="flex items-start gap-2 cursor-pointer">
                 <input type="checkbox" id="task-3-2" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
-                <span class="text-slate-700 dark:text-slate-300">Uji ADC Soil Moisture Capacitive pada tanah basah</span>
+                <span class="text-slate-700 dark:text-slate-300">Uji ADC Soil Moisture pada tanah basah & kering</span>
               </label>
               <label class="flex items-start gap-2 cursor-pointer">
                 <input type="checkbox" id="task-3-3" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
@@ -330,7 +336,7 @@
           </div>
           <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex justify-between items-center">
             <span>PIC: Haqqi & Anisa</span>
-            <span class="font-mono text-slate-400">0%</span>
+            <span class="font-mono text-blue-600 font-semibold">0%</span>
           </div>
         </div>
 
@@ -785,17 +791,30 @@
         <p class="text-xs text-slate-500 dark:text-slate-400">Rincian belanja transparan dengan efisiensi biaya tanpa sewa hosting.</p>
       </div>
 
-      <!-- COST COMPARISON BANNER -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- COST COMPARISON & REIMBURSE BANNER -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-xs font-mono uppercase text-slate-400">Acuan Proyek Alumni (Kating TA 2025)</div>
+          <div class="text-xs font-mono uppercase text-slate-400">Acuan Proyek Alumni (TA 2025)</div>
           <div class="text-2xl font-bold font-mono text-slate-700 dark:text-slate-300 mt-1">Rp 1.500.000,-</div>
-          <p class="text-xs text-slate-500 mt-2">Biaya bengkak akibat sewa cloud hosting VPS, domain tahunan, akrilik custom tebal, dan sensor pengganti.</p>
+          <p class="text-xs text-slate-500 mt-2">Biaya membengkak karena sewa VPS hosting, domain, & banyak komponen trial.</p>
         </div>
         <div class="p-5 rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20">
-          <div class="text-xs font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold">Target Budget Kelompok Aphelion</div>
-          <div class="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">Rp 350.000,-</div>
-          <p class="text-xs text-emerald-700/80 dark:text-emerald-300/80 mt-2">Hemat 76% berkat arsitektur serverless (Firebase RTDB Free Tier) dan container mini modular.</p>
+          <div class="text-xs font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold">Realisasi Keluar Kelompok Aphelion</div>
+          <div class="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">Rp 226.200,-</div>
+          <p class="text-xs text-emerald-700/80 dark:text-emerald-300/80 mt-2">Sudah termasuk akuarium akrilik 40×25×28 cm, sensor utama, dan buzzer (~Rp 37.700 / anak).</p>
+        </div>
+        <div class="p-5 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/40 dark:bg-blue-950/20">
+          <div class="text-xs font-mono uppercase text-blue-600 dark:text-blue-400 font-semibold">Rekap Talangan (Reimburse)</div>
+          <div class="mt-2 space-y-1.5 text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-600 dark:text-slate-300">Anisa (Aquarium + Buzzer):</span>
+              <span class="font-mono font-bold text-slate-900 dark:text-white">Rp 182.200</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-600 dark:text-slate-300">Jizdan/Haqqi (Sensor Tembalang):</span>
+              <span class="font-mono font-bold text-slate-900 dark:text-white">Rp 44.000</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -803,10 +822,10 @@
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
         <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Bill of Materials (BOM) & Tracking Belanja</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Realisasi offline 10 Nov: <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Rp 44.000</span> (Temins & Arduinonano)</p>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Bill of Materials (BOM) & Tracking Reimburse</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Total realisasi saat ini: <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Rp 226.200</span> (Aquarium Anisa Rp 177.700 + Buzzer Rp 4.500 + Sensor Rp 44.000)</p>
           </div>
-          <span class="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded">Estimasi Patungan: ± Rp 40.000 – Rp 45.000 / anak</span>
+          <span class="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded">Iuran Sementara: Rp 37.700 / anak (6 org)</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs border-collapse">
@@ -815,11 +834,20 @@
                 <th class="py-2.5 px-4">Item Komponen</th>
                 <th class="py-2.5 px-4">Jumlah</th>
                 <th class="py-2.5 px-4">Harga / Estimasi</th>
-                <th class="py-2.5 px-4">PIC Pembeli</th>
+                <th class="py-2.5 px-4">PIC Talangan / Pembeli</th>
                 <th class="py-2.5 px-4 text-right">Status Pengadaan</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+              <tr class="bg-emerald-50/30 dark:bg-emerald-950/10">
+                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Nikita Aquarium Acrylic 40x25x28cm (Urbansquad Store)</td>
+                <td class="py-2.5 px-4 font-mono">1 unit</td>
+                <td class="py-2.5 px-4 font-mono font-semibold text-emerald-600 dark:text-emerald-400">Rp 177.700</td>
+                <td class="py-2.5 px-4 font-medium text-blue-600 dark:text-blue-400">Anisa (Reimburse)</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Sudah Dibeli (Shopee)</span>
+                </td>
+              </tr>
               <tr class="bg-emerald-50/30 dark:bg-emerald-950/10">
                 <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Sensor MPU-6050 (Gyroscope + Accelerometer)</td>
                 <td class="py-2.5 px-4 font-mono">1 pcs</td>
@@ -851,45 +879,45 @@
                 <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Modul Active Buzzer Alarm (3-Pin Driver)</td>
                 <td class="py-2.5 px-4 font-mono">1 pcs</td>
                 <td class="py-2.5 px-4 font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Rp 4.500</td>
-                <td class="py-2.5 px-4">Anisa</td>
+                <td class="py-2.5 px-4 font-medium text-blue-600 dark:text-blue-400">Anisa (Reimburse)</td>
                 <td class="py-2.5 px-4 text-right">
                   <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Tersedia (Milik Anisa)</span>
                 </td>
               </tr>
               <tr class="bg-emerald-50/30 dark:bg-emerald-950/10">
-                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">ESP32 DevKit, Breadboard, Jumper & DHT</td>
+                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">ESP32 DevKit, Breadboard, Jumper, DHT & LCD 1602</td>
                 <td class="py-2.5 px-4 font-mono">1 paket</td>
                 <td class="py-2.5 px-4 font-mono text-emerald-600 dark:text-emerald-400 font-bold">Rp 0</td>
-                <td class="py-2.5 px-4">Kafka & Tim</td>
+                <td class="py-2.5 px-4">Kafka & Raffael</td>
                 <td class="py-2.5 px-4 text-right">
                   <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Tersedia (Milik Tim)</span>
                 </td>
               </tr>
               <tr class="bg-emerald-50/30 dark:bg-emerald-950/10">
-                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Motor Servo (Mekanik Pengatur Sudut Lereng)</td>
-                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Motor Servo MG996R (2 pcs)</td>
+                <td class="py-2.5 px-4 font-mono">2 pcs</td>
                 <td class="py-2.5 px-4 font-mono text-emerald-600 dark:text-emerald-400 font-bold">Rp 0</td>
-                <td class="py-2.5 px-4">Haqqi</td>
+                <td class="py-2.5 px-4">Jizdan / Haqqi</td>
                 <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Pinjam Kating</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Tersedia (Pinjam Kating)</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">Servo Horn 25T Metal (Voting: Panjang Metal 4/5)</td>
+                <td class="py-2.5 px-4 font-mono">1 pcs</td>
+                <td class="py-2.5 px-4 font-mono">Rp 20.500</td>
+                <td class="py-2.5 px-4">Jizdan</td>
+                <td class="py-2.5 px-4 text-right">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Voting Tim</span>
                 </td>
               </tr>
               <tr>
                 <td class="py-2.5 px-4 font-semibold">Sensor ADXL345 (Eksperimen Komparasi)</td>
                 <td class="py-2.5 px-4 font-mono">1 pcs</td>
-                <td class="py-2.5 px-4 font-mono">Rp 25.000</td>
-                <td class="py-2.5 px-4">Haqqi</td>
+                <td class="py-2.5 px-4 font-mono text-slate-400">~Rp 25k–47k</td>
+                <td class="py-2.5 px-4">Opsional</td>
                 <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Siap Order Online</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-2.5 px-4 font-semibold">Wadah Lereng (Opsi: Container Box / Akrilik P30)</td>
-                <td class="py-2.5 px-4 font-mono">1 unit</td>
-                <td class="py-2.5 px-4 font-mono">Rp 30.000 – Rp 60.000</td>
-                <td class="py-2.5 px-4">Kafka & Nazriel</td>
-                <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Diskusi Pemilihan</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">Keep Dulu</span>
                 </td>
               </tr>
               <tr>
@@ -1054,12 +1082,12 @@
         if (cb.checked) completed++;
       });
 
-      localStorage.setItem('aphelion_tasks_state', JSON.stringify(state));
+      localStorage.setItem('aphelion_tasks_state_v2', JSON.stringify(state));
       updateProgressUI(completed, checkboxes.length);
     }
 
     function loadTaskState() {
-      const saved = localStorage.getItem('aphelion_tasks_state');
+      const saved = localStorage.getItem('aphelion_tasks_state_v2');
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       let completed = 0;
 
@@ -1098,7 +1126,7 @@
 
     function resetTasks() {
       if (confirm('Reset status checklist tugas ke awal?')) {
-        localStorage.removeItem('aphelion_tasks_state');
+        localStorage.removeItem('aphelion_tasks_state_v2');
         location.reload();
       }
     }
