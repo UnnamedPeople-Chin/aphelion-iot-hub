@@ -158,7 +158,7 @@
           </div>
           <div class="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs">
             <span class="text-slate-500">Realisasi Keluar:</span>
-            <span class="font-mono font-semibold text-slate-900 dark:text-white">Rp 267.800 <span class="text-slate-400 font-normal">(~Rp 44,6k/org)</span></span>
+            <span class="font-mono font-semibold text-slate-900 dark:text-white">Rp 310.685 <span class="text-slate-400 font-normal">(~Rp 51,8k/org)</span></span>
           </div>
         </div>
       </div>
@@ -318,7 +318,7 @@
             <div class="space-y-2 text-xs">
               <label class="flex items-start gap-2 cursor-pointer">
                 <input type="checkbox" id="task-3-0" checked onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
-                <span class="text-slate-700 dark:text-slate-300">Order 2x Servo Horn 25T Metal (Jizdan) — ADXL345 keep dulu</span>
+                <span class="text-slate-700 dark:text-slate-300">Order 2x Servo Horn 25T Metal & ADXL345 (Jizdan)</span>
               </label>
               <label class="flex items-start gap-2 cursor-pointer">
                 <input type="checkbox" id="task-3-1" onchange="saveTaskState()" class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-0">
@@ -753,7 +753,7 @@
                 <td class="py-2.5 px-4 font-mono">VCC, GND, SDA, SCL, CS</td>
                 <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 21, GPIO 22</td>
                 <td class="py-2.5 px-4 font-mono">I2C (Address 0x53)</td>
-                <td class="py-2.5 px-4 text-slate-500">Bus I2C paralel dengan MPU-6050 untuk analisis komparasi sensor</td>
+                <td class="py-2.5 px-4 text-slate-500">Sambungkan CS ke 3.3V (mode I2C) & SDO ke GND (0x53), paralel dengan MPU-6050 (Sudah Dibeli di Shopee)</td>
               </tr>
               <tr>
                 <td class="py-2.5 px-4 font-semibold">Sensor DHT22 / DHT11</td>
@@ -800,8 +800,8 @@
         </div>
         <div class="p-5 rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20">
           <div class="text-xs font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold">Realisasi Keluar Kelompok Aphelion</div>
-          <div class="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">Rp 267.800,-</div>
-          <p class="text-xs text-emerald-700/80 dark:text-emerald-300/80 mt-2">Termasuk akuarium 40×25×28 cm, 2x Servo Horn 25T metal, sensor utama, & buzzer (~Rp 44.600 / anak).</p>
+          <div class="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">Rp 310.685,-</div>
+          <p class="text-xs text-emerald-700/80 dark:text-emerald-300/80 mt-2">Termasuk akuarium 40×25×28 cm, 2x Servo Horn 25T metal, ADXL345, sensor utama, & buzzer (~Rp 51.800 / anak).</p>
         </div>
         <div class="p-5 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/40 dark:bg-blue-950/20">
           <div class="text-xs font-mono uppercase text-blue-600 dark:text-blue-400 font-semibold">Rekap Talangan (Reimburse)</div>
@@ -811,8 +811,8 @@
               <span class="font-mono font-bold text-slate-900 dark:text-white">Rp 182.200</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-600 dark:text-slate-300">Jizdan (Sensor + 2x Horn):</span>
-              <span class="font-mono font-bold text-slate-900 dark:text-white">Rp 85.600</span>
+              <span class="text-slate-600 dark:text-slate-300">Jizdan (Sensor + 2x Horn + ADXL345):</span>
+              <span class="font-mono font-bold text-slate-900 dark:text-white">Rp 128.485</span>
             </div>
           </div>
         </div>
@@ -823,9 +823,9 @@
         <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h3 class="text-sm font-bold text-slate-900 dark:text-white">Bill of Materials (BOM) & Tracking Reimburse</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Total realisasi saat ini: <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Rp 267.800</span> (Anisa Rp 182.200 + Jizdan Rp 85.600)</p>
+            <p class="text-xs text-slate-500 mt-0.5">Total realisasi saat ini: <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Rp 310.685</span> (Anisa Rp 182.200 + Jizdan Rp 128.485)</p>
           </div>
-          <span class="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded">Iuran Sementara: ± Rp 44.600 / anak (6 org)</span>
+          <span class="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded">Iuran Sementara: ± Rp 51.800 / anak (6 org)</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs border-collapse">
@@ -908,16 +908,16 @@
                 <td class="py-2.5 px-4 font-mono font-semibold text-emerald-600 dark:text-emerald-400">Rp 41.600</td>
                 <td class="py-2.5 px-4 font-medium text-blue-600 dark:text-blue-400">Jizdan (Reimburse)</td>
                 <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Sudah Dibeli (Shopee)</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Dikirim (SPX)</span>
                 </td>
               </tr>
-              <tr>
-                <td class="py-2.5 px-4 font-semibold">Sensor ADXL345 (Eksperimen Komparasi)</td>
+              <tr class="bg-emerald-50/30 dark:bg-emerald-950/10">
+                <td class="py-2.5 px-4 font-semibold text-slate-900 dark:text-white">Sensor ADXL345 3-Axis Digital (Arduin0 / Rajacell)</td>
                 <td class="py-2.5 px-4 font-mono">1 pcs</td>
-                <td class="py-2.5 px-4 font-mono text-slate-400">~Rp 25k–47k</td>
-                <td class="py-2.5 px-4">Opsional</td>
+                <td class="py-2.5 px-4 font-mono font-semibold text-emerald-600 dark:text-emerald-400">Rp 42.885</td>
+                <td class="py-2.5 px-4 font-medium text-blue-600 dark:text-blue-400">Jizdan (Reimburse)</td>
                 <td class="py-2.5 px-4 text-right">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">Keep Dulu</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">Sudah Dibeli (Shopee)</span>
                 </td>
               </tr>
               <tr>
@@ -1082,12 +1082,12 @@
         if (cb.checked) completed++;
       });
 
-      localStorage.setItem('aphelion_tasks_state_v3', JSON.stringify(state));
+      localStorage.setItem('aphelion_tasks_state_v4', JSON.stringify(state));
       updateProgressUI(completed, checkboxes.length);
     }
 
     function loadTaskState() {
-      const saved = localStorage.getItem('aphelion_tasks_state_v3');
+      const saved = localStorage.getItem('aphelion_tasks_state_v4');
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       let completed = 0;
 
@@ -1126,7 +1126,7 @@
 
     function resetTasks() {
       if (confirm('Reset status checklist tugas ke awal?')) {
-        localStorage.removeItem('aphelion_tasks_state_v3');
+        localStorage.removeItem('aphelion_tasks_state_v4');
         location.reload();
       }
     }
