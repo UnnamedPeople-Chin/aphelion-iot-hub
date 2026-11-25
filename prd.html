@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRD — APHELION IoT Landslide Early Warning System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ==============================
+       RESET & BASE
+    ============================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --emerald-500: #10b981;
+      --emerald-100: #d1fae5;
+      --amber-500:  #f59e0b;
+      --amber-100:  #fef3c7;
+      --rose-500:   #f43f5e;
+      --rose-100:   #ffe4e6;
+      --indigo-500: #6366f1;
+      --indigo-100: #e0e7ff;
+    }
+
+    html { font-size: 10pt; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--slate-800);
+      background: white;
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ==============================
+       PRINT CONFIG
+    ============================== */
+    @page {
+      size: A4;
+      margin: 15mm 18mm 15mm 18mm;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      .page-break { page-break-before: always; }
+      .avoid-break { page-break-inside: avoid; }
+      body { font-size: 9pt; }
+      .cover { min-height: auto; }
+    }
+
+    /* ==============================
+       SCREEN WRAPPER
+    ============================== */
+    @media screen {
+      body { background: var(--slate-100); padding: 24px; }
+      .a4-sheet {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto 24px;
+        background: white;
+        box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+        border-radius: 4px;
+        padding: 18mm;
+      }
+      .print-btn {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        background: var(--blue-600);
+        color: white;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 50px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+        z-index: 999;
+      }
+      .print-btn:hover { background: var(--blue-700); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.5); }
+      .back-btn {
+        position: fixed;
+        bottom: 32px;
+        left: 32px;
+        background: var(--slate-900);
+        color: white;
+        text-decoration: none;
+        padding: 14px 20px;
+        border-radius: 50px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 4px 16px rgba(15,23,42,0.35);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+        z-index: 999;
+      }
+      .back-btn:hover { background: var(--slate-700); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,23,42,0.45); }
+      @media (max-width: 640px) {
+        .print-btn, .back-btn { bottom: 16px; padding: 10px 14px; font-size: 12px; }
+        .print-btn { right: 16px; }
+        .back-btn { left: 16px; }
+      }
+    }
+    @media print {
+      .a4-sheet { padding: 0; box-shadow: none; border-radius: 0; }
+    }
+
+    /* ==============================
+       TYPOGRAPHY
+    ============================== */
+    h1 { font-size: 22pt; font-weight: 800; line-height: 1.2; color: var(--slate-900); }
+    h2 { font-size: 13pt; font-weight: 700; color: var(--slate-900); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid var(--blue-600); }
+    h3 { font-size: 10.5pt; font-weight: 700; color: var(--slate-800); margin-bottom: 6px; }
+    h4 { font-size: 9.5pt; font-weight: 600; color: var(--slate-700); margin-bottom: 4px; }
+    p { margin-bottom: 8px; font-size: 9pt; }
+    ul, ol { padding-left: 18px; margin-bottom: 8px; }
+    li { font-size: 9pt; margin-bottom: 3px; }
+    code, .mono { font-family: 'JetBrains Mono', monospace; font-size: 8pt; }
+
+    /* ==============================
+       COVER PAGE
+    ============================== */
+    .cover {
+      min-height: 240mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 20px;
+    }
+    .cover-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 24px;
+    }
+    .logo-block { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--blue-600);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+    .logo-icon svg { width: 20px; height: 20px; }
+    .logo-text { font-size: 14pt; font-weight: 800; letter-spacing: -0.5px; color: var(--slate-900); }
+    .logo-sub { font-size: 7.5pt; color: var(--slate-500); font-family: 'JetBrains Mono', monospace; }
+    .doc-meta { text-align: right; font-size: 7.5pt; color: var(--slate-500); font-family: 'JetBrains Mono', monospace; line-height: 1.8; }
+
+    .cover-title-block { margin: 32px 0 24px; }
+    .doc-type-label {
+      display: inline-block;
+      font-size: 7pt;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue-600);
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .cover-divider { width: 60px; height: 4px; background: var(--blue-600); border-radius: 2px; margin: 14px 0; }
+
+    .cover-subtitle {
+      font-size: 11pt;
+      color: var(--slate-500);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .cover-badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
+    .badge {
+      font-size: 7.5pt;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--slate-100);
+      color: var(--slate-600);
+      border: 1px solid var(--slate-200);
+    }
+
+    .cover-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .cover-info-card {
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      padding: 10px 14px;
+      background: var(--slate-50);
+    }
+    .cover-info-label { font-size: 7pt; font-weight: 600; color: var(--slate-400); text-transform: uppercase; letter-spacing: 1px; font-family: 'JetBrains Mono', monospace; margin-bottom: 2px; }
+    .cover-info-value { font-size: 9pt; font-weight: 600; color: var(--slate-800); }
+
+    .cover-footer {
+      border-top: 1px solid var(--slate-200);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 7.5pt;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .status-active { background: var(--emerald-100); color: #065f46; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald-500); }
+
+    /* ==============================
+       TABLE OF CONTENTS
+    ============================== */
+    .toc { margin: 16px 0; }
+    .toc-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px dotted var(--slate-200);
+    }
+    .toc-item:last-child { border-bottom: none; }
+    .toc-num { font-size: 8.5pt; font-weight: 600; color: var(--blue-600); font-family: 'JetBrains Mono', monospace; margin-right: 8px; }
+    .toc-title { font-size: 8.5pt; color: var(--slate-700); flex: 1; }
+    .toc-page { font-size: 7.5pt; color: var(--slate-400); font-family: 'JetBrains Mono', monospace; }
+
+    /* ==============================
+       SECTION
+    ============================== */
+    .section { margin-bottom: 24px; }
+    .section-num {
+      display: inline-block;
+      font-size: 7pt;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue-600);
+      background: var(--blue-50);
+      padding: 1px 7px;
+      border-radius: 3px;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    /* ==============================
+       TABLES
+    ============================== */
+    .table-wrapper { overflow-x: auto; margin: 10px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+    thead th {
+      background: var(--slate-800);
+      color: white;
+      padding: 7px 10px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 8pt;
+    }
+    thead th:first-child { border-radius: 4px 0 0 0; }
+    thead th:last-child  { border-radius: 0 4px 0 0; }
+    tbody tr:nth-child(even) { background: var(--slate-50); }
+    tbody tr:hover { background: var(--blue-50); }
+    tbody td { padding: 7px 10px; border-bottom: 1px solid var(--slate-200); vertical-align: top; }
+    tbody td:first-child { font-weight: 500; color: var(--slate-700); }
+
+    .priority-high   { display:inline-block; padding:2px 7px; border-radius:12px; font-size:7pt; font-weight:700; background:var(--rose-100); color:#9f1239; }
+    .priority-med    { display:inline-block; padding:2px 7px; border-radius:12px; font-size:7pt; font-weight:700; background:var(--amber-100); color:#92400e; }
+    .priority-low    { display:inline-block; padding:2px 7px; border-radius:12px; font-size:7pt; font-weight:700; background:var(--emerald-100); color:#065f46; }
+    .tag-must  { display:inline-block; padding:2px 7px; border-radius:12px; font-size:7pt; font-weight:700; background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
+    .tag-should{ display:inline-block; padding:2px 7px; border-radius:12px; font-size:7pt; font-weight:700; background:#fffbeb; color:#d97706; border:1px solid #fde68a; }
+    .tag-could { display:inline-block; padding:2px 7px; border-radius:12px; font-size:7pt; font-weight:700; background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
+
+    /* ==============================
+       CALLOUT / INFO BOXES
+    ============================== */
+    .callout {
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 10px 0;
+      border-left: 4px solid;
+      font-size: 8.5pt;
+    }
+    .callout-blue   { background: var(--blue-50);  border-color: var(--blue-500); }
+    .callout-green  { background: var(--emerald-100); border-color: var(--emerald-500); }
+    .callout-amber  { background: var(--amber-100);   border-color: var(--amber-500); }
+    .callout-rose   { background: var(--rose-100);    border-color: var(--rose-500); }
+    .callout-title  { font-weight: 700; margin-bottom: 3px; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ==============================
+       ARCHITECTURE DIAGRAM
+    ============================== */
+    .arch-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin: 12px 0;
+      align-items: stretch;
+    }
+    .arch-node {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0;
+      padding: 12px 10px;
+      text-align: center;
+      position: relative;
+    }
+    .arch-node:first-child { border-radius: 8px 0 0 8px; border-right: none; }
+    .arch-node:last-child  { border-radius: 0 8px 8px 0; }
+    .arch-node:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14pt;
+      color: var(--blue-500);
+      z-index: 1;
+      background: white;
+      padding: 0 2px;
+    }
+    .arch-label { font-size: 6.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+    .arch-name  { font-size: 9pt; font-weight: 700; color: var(--slate-900); margin-bottom: 3px; }
+    .arch-desc  { font-size: 7pt; color: var(--slate-500); line-height: 1.4; }
+    .arch-label-1 { color: var(--blue-600); }
+    .arch-label-2 { color: var(--emerald-500); }
+    .arch-label-3 { color: var(--amber-500); }
+    .arch-label-4 { color: var(--indigo-500); }
+
+    /* ==============================
+       TEAM GRID
+    ============================== */
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+    .team-card {
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: var(--slate-50);
+    }
+    .team-name  { font-size: 9pt; font-weight: 700; color: var(--slate-900); }
+    .team-nim   { font-size: 7pt; color: var(--slate-400); font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+    .team-role  { font-size: 7.5pt; font-weight: 600; padding: 2px 7px; border-radius: 10px; display: inline-block; margin-bottom: 5px; }
+    .role-ketua    { background: var(--blue-100);    color: var(--blue-700); }
+    .role-hardware { background: var(--emerald-100); color: #065f46; }
+    .role-mobile   { background: var(--indigo-100);  color: #3730a3; }
+    .role-qa       { background: var(--rose-100);    color: #9f1239; }
+    .role-mech     { background: var(--amber-100);   color: #92400e; }
+    .role-qos      { background: #e0f2fe;            color: #0369a1; }
+    .team-tasks { font-size: 7.5pt; color: var(--slate-600); padding-left: 12px; }
+    .team-tasks li { margin-bottom: 2px; }
+
+    /* ==============================
+       SPRINT TIMELINE
+    ============================== */
+    .sprint-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0; }
+    .sprint-item {
+      border: 1px solid var(--slate-200);
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: var(--slate-50);
+    }
+    .sprint-item.done   { border-color: var(--emerald-500); background: #f0fdf4; }
+    .sprint-item.active { border-color: var(--blue-500);    background: var(--blue-50);  border-width: 2px; }
+    .sprint-week { font-size: 7pt; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 2px; }
+    .sprint-week.done   { color: var(--emerald-500); }
+    .sprint-week.active { color: var(--blue-600); }
+    .sprint-week.pending{ color: var(--slate-400); }
+    .sprint-title { font-size: 8pt; font-weight: 700; color: var(--slate-800); margin-bottom: 2px; }
+    .sprint-date  { font-size: 7pt; color: var(--slate-400); font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+    .sprint-status {
+      font-size: 6.5pt; font-weight: 700; padding: 1px 6px; border-radius: 10px;
+      display: inline-block; font-family: 'JetBrains Mono', monospace;
+    }
+    .sprint-status.done   { background: var(--emerald-100); color: #065f46; }
+    .sprint-status.active { background: var(--blue-100);    color: var(--blue-700); }
+    .sprint-status.pending{ background: var(--slate-200);   color: var(--slate-500); }
+
+    /* ==============================
+       PINOUT TABLE COLORS
+    ============================== */
+    .pin-sda  { background: #dbeafe; color: #1e40af; font-weight: 600; font-family: 'JetBrains Mono', monospace; padding: 1px 5px; border-radius: 3px; font-size: 7.5pt; }
+    .pin-scl  { background: #e0e7ff; color: #3730a3; font-weight: 600; font-family: 'JetBrains Mono', monospace; padding: 1px 5px; border-radius: 3px; font-size: 7.5pt; }
+    .pin-adc  { background: #d1fae5; color: #065f46; font-weight: 600; font-family: 'JetBrains Mono', monospace; padding: 1px 5px; border-radius: 3px; font-size: 7.5pt; }
+    .pin-gpio { background: #fef3c7; color: #92400e; font-weight: 600; font-family: 'JetBrains Mono', monospace; padding: 1px 5px; border-radius: 3px; font-size: 7.5pt; }
+    .pin-pwr  { background: #ffe4e6; color: #9f1239; font-weight: 600; font-family: 'JetBrains Mono', monospace; padding: 1px 5px; border-radius: 3px; font-size: 7.5pt; }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+    .doc-footer {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7pt;
+      color: var(--slate-400);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ==============================
+       MISC
+    ============================== */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
+    .metric-card { border: 1px solid var(--slate-200); border-radius: 8px; padding: 10px 14px; background: var(--slate-50); text-align: center; }
+    .metric-val { font-size: 16pt; font-weight: 800; color: var(--blue-600); font-family: 'JetBrains Mono', monospace; }
+    .metric-label { font-size: 7.5pt; color: var(--slate-500); margin-top: 2px; }
+    .four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
+
+    .risk-table td:nth-child(3) { font-size: 7.5pt; }
+    .kv-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--slate-100); font-size: 8.5pt; }
+    .kv-row:last-child { border-bottom: none; }
+    .kv-key { color: var(--slate-500); }
+    .kv-val { font-weight: 600; color: var(--slate-800); }
+
+    .alert-level {
+      border-radius: 6px; padding: 8px 12px; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 8.5pt;
+    }
+    .alert-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .alert-aman    { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .alert-aman    .alert-dot { background: #22c55e; }
+    .alert-waspada { background: #fffbeb; border: 1px solid #fde68a; }
+    .alert-waspada .alert-dot { background: #f59e0b; }
+    .alert-bahaya  { background: #fff1f2; border: 1px solid #fecdd3; }
+    .alert-bahaya  .alert-dot { background: #f43f5e; }
+    .alert-info strong { font-weight: 700; }
+
+    .glossary-item { margin-bottom: 6px; font-size: 8.5pt; }
+    .glossary-term { font-weight: 700; color: var(--blue-600); }
+  .toc-page{display:none}</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!--  HUB & PRINT BUTTONS (SCREEN ONLY)                           -->
+<!-- ============================================================ -->
+<a class="back-btn no-print" href="./">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+  </svg>
+  Kembali ke Hub
+</a>
+<button class="print-btn no-print" onclick="window.print()">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/>
+  </svg>
+  Simpan / Print ke PDF
+</button>
+
+<!-- ============================================================ -->
+<!--  HALAMAN 1 — COVER                                           -->
+<!-- ============================================================ -->
+<div class="a4-sheet">
+  <div class="cover">
+
+    <!-- Header -->
+    <div class="cover-header">
+      <div class="logo-block">
+        <div class="logo-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">APHELION</div>
+          <div class="logo-sub">IK-2B · D3 Teknik Informatika · POLINES</div>
+        </div>
+      </div>
+      <div class="doc-meta">
+        <div>DOC-TYPE: PRD v1.1</div>
+        <div>REVISI: 25 November 2026</div>
+        <div>DOSEN: Mr. Liliek Triyono</div>
+        <div>STATUS: AKTIF</div>
+      </div>
+    </div>
+
+    <!-- Title Block -->
+    <div class="cover-title-block">
+      <div class="doc-type-label">PRODUCT REQUIREMENTS DOCUMENT</div>
+      <h1>Sistem Deteksi Dini<br>Tanah Longsor Berbasis<br>ESP32 & Flutter</h1>
+      <div class="cover-divider"></div>
+      <p class="cover-subtitle">
+        Implementasi telemetri geoteknik real-time menggunakan sensor MPU-6050,
+        Capacitive Soil Moisture v1.2, Google Firebase Realtime Database,
+        dan Dashboard Mobile Flutter untuk peringatan dini bencana longsor.
+      </p>
+
+      <div class="cover-badges">
+        <span class="badge">ESP32-WROOM-32</span>
+        <span class="badge">MPU-6050 (I2C)</span>
+        <span class="badge">Soil Moisture v1.2</span>
+        <span class="badge">Firebase RTDB</span>
+        <span class="badge">Flutter 3.x</span>
+        <span class="badge">Geoscience Frontiers · 2026</span>
+      </div>
+    </div>
+
+    <!-- Info Grid -->
+    <div class="cover-info-grid">
+      <div class="cover-info-card">
+        <div class="cover-info-label">Institusi</div>
+        <div class="cover-info-value">Politeknik Negeri Semarang (POLINES)</div>
+      </div>
+      <div class="cover-info-card">
+        <div class="cover-info-label">Program Studi</div>
+        <div class="cover-info-value">D3 Teknik Informatika — Kelas IK-2B</div>
+      </div>
+      <div class="cover-info-card">
+        <div class="cover-info-label">Mata Kuliah</div>
+        <div class="cover-info-value">Praktikum Internet of Things — Semester 3</div>
+      </div>
+      <div class="cover-info-card">
+        <div class="cover-info-label">Referensi Jurnal</div>
+        <div class="cover-info-value">Geoscience Frontiers 17 (2026) · DOI: 10.1016/j.gsf.2025.102242</div>
+      </div>
+      <div class="cover-info-card">
+        <div class="cover-info-label">Realisasi Anggaran</div>
+        <div class="cover-info-value">Rp 268.000 (~Rp 44.700/orang)</div>
+      </div>
+      <div class="cover-info-card">
+        <div class="cover-info-label">Target Demo</div>
+        <div class="cover-info-value">16 – 22 Desember 2026</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="cover-footer">
+      <div>
+        <div style="font-size:8.5pt;font-weight:600;color:var(--slate-700);">Tim Pengembang: Jizdan · Haqqi · Kafka · Anisa · Nazriel · Raffael</div>
+        <div style="font-size:7.5pt;color:var(--slate-400);font-family:'JetBrains Mono',monospace;">Kelompok 6 Anggota · Sprint 5/8 · 25 Nov 2026</div>
+      </div>
+      <span class="status-badge status-active">
+        <span class="status-dot"></span>
+        IN DEVELOPMENT
+      </span>
+    </div>
+
+  </div><!-- /cover -->
+
+  <div class="doc-footer">
+    <span>APHELION · PRD v1.1 · Confidential — Internal Use Only</span>
+    <span>Halaman 1</span>
+  </div>
+</div><!-- /a4-sheet -->
+
+<!-- ============================================================ -->
+<!--  HALAMAN 2 — DAFTAR ISI & RINGKASAN EKSEKUTIF               -->
+<!-- ============================================================ -->
+<div class="a4-sheet">
+
+  <!-- DAFTAR ISI -->
+  <div class="section">
+    <div class="section-num">§ 00</div>
+    <h2>Daftar Isi</h2>
+    <div class="toc"><div class="toc-item"><span class="toc-num">01</span><span class="toc-title">Latar Belakang & Problem Statement</span></div><div class="toc-item"><span class="toc-num">02</span><span class="toc-title">Tujuan Produk & Sasaran Keberhasilan</span></div><div class="toc-item"><span class="toc-num">03</span><span class="toc-title">Ruang Lingkup</span></div><div class="toc-item"><span class="toc-num">04</span><span class="toc-title">Deskripsi Pengguna</span></div><div class="toc-item"><span class="toc-num">05</span><span class="toc-title">Arsitektur Sistem & Aliran Data</span></div><div class="toc-item"><span class="toc-num">05A</span><span class="toc-title">Diferensiasi & Gap Analysis (BARU)</span></div><div class="toc-item"><span class="toc-num">06</span><span class="toc-title">Spesifikasi Komponen Hardware</span></div><div class="toc-item"><span class="toc-num">07</span><span class="toc-title">Alokasi Pinout ESP32 (direvisi)</span></div><div class="toc-item"><span class="toc-num">07A</span><span class="toc-title">Rekayasa Hardware & Kalibrasi (BARU)</span></div><div class="toc-item"><span class="toc-num">08</span><span class="toc-title">Functional Requirements</span></div><div class="toc-item"><span class="toc-num">09</span><span class="toc-title">Non-Functional Requirements</span></div><div class="toc-item"><span class="toc-num">10</span><span class="toc-title">Logika Peringatan Bahaya (direvisi)</span></div><div class="toc-item"><span class="toc-num">11</span><span class="toc-title">Firebase RTDB, Payload & Security Rules</span></div><div class="toc-item"><span class="toc-num">12</span><span class="toc-title">Spesifikasi Aplikasi Flutter</span></div><div class="toc-item"><span class="toc-num">13</span><span class="toc-title">Rencana Pengujian & Kriteria Sukses</span></div><div class="toc-item"><span class="toc-num">14</span><span class="toc-title">Roadmap Sprint</span></div><div class="toc-item"><span class="toc-num">15</span><span class="toc-title">Pembagian Tugas Tim</span></div><div class="toc-item"><span class="toc-num">16</span><span class="toc-title">Anggaran</span></div><div class="toc-item"><span class="toc-num">17</span><span class="toc-title">Analisis Risiko</span></div><div class="toc-item"><span class="toc-num">18</span><span class="toc-title">Referensi</span></div><div class="toc-item"><span class="toc-num">19</span><span class="toc-title">Glosarium</span></div><div class="toc-item"><span class="toc-num">20</span><span class="toc-title">Keputusan Terbuka & Changelog (BARU)</span></div></div>
+  </div>
+
+  <!-- RINGKASAN EKSEKUTIF -->
+  <div class="section">
+    <div class="section-num">§ EXEC</div>
+    <h2>Ringkasan Eksekutif</h2>
+
+    <div class="four-col">
+      <div class="metric-card">
+        <div class="metric-val">6</div>
+        <div class="metric-label">Anggota Tim</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">8</div>
+        <div class="metric-label">Sprint Minggu</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">Rp 268K</div>
+        <div class="metric-label">Realisasi Biaya</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">2025</div>
+        <div class="metric-label">Terbit Jurnal Rujukan</div>
+      </div>
+    </div>
+
+    <p>
+      APHELION adalah sistem peringatan dini tanah longsor (<em>Landslide Early Warning System / LEWS</em>) berbasis
+      IoT yang dikembangkan oleh 6 mahasiswa D3 Teknik Informatika POLINES kelas IK-2B sebagai proyek akhir
+      Praktikum Internet of Things Semester 3. Sistem mengintegrasikan sensor geoteknik (<strong>MPU-6050</strong>
+      untuk sudut kemiringan lereng dan <strong>Capacitive Soil Moisture v1.2</strong> untuk kadar air tanah)
+      dengan mikrokontroler <strong>ESP32-WROOM-32</strong> sebagai edge node berkapabilitas Wi-Fi, diintegrasikan
+      ke cloud <strong>Google Firebase Realtime Database</strong>, dan divisualisasikan melalui aplikasi mobile
+      <strong>Flutter</strong> dengan notifikasi peringatan tiga level (Aman / Waspada / Bahaya).
+    </p>
+
+    <div class="callout callout-blue"><div class="callout-title">📖 Referensi Jurnal Utama</div>Amirthavarshini et al. (2026). <em>"Harnessing LoRa for real-time landslide monitoring and early alerts in Kerala’s terrain."</em> Geoscience Frontiers 17, 102242. DOI: <strong>10.1016/j.gsf.2025.102242</strong>. Pendukung: Marino et al. (2023), Sensors 23(4), 2299. Peringkat Scimago: verifikasi di scimagojr.com sebelum dicantumkan di laporan.</div>
+
+  <div class="doc-footer">
+    <span>APHELION · PRD v1.1</span>
+    <span>Halaman 2</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  HALAMAN 3 — LATAR BELAKANG s/d ARSITEKTUR                  -->
+<!-- ============================================================ -->
+<div class="a4-sheet page-break">
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 01</div>
+    <h2>Latar Belakang & Problem Statement</h2>
+    <p>Indonesia merupakan negara dengan risiko bencana tanah longsor yang sangat tinggi, terutama di wilayah
+    berlereng curam dengan curah hujan tinggi. Sistem peringatan dini konvensional umumnya mahal, sulit
+    dioperasikan secara mandiri, dan tidak dapat memberikan notifikasi real-time kepada warga terdampak.</p>
+
+    <div class="callout callout-rose">
+      <div class="callout-title">⚠️ Problem Statement</div>
+      Tidak adanya sistem peringatan dini tanah longsor berbiaya rendah, mudah diimplementasi, dan mampu memberikan
+      notifikasi otomatis real-time kepada pengguna melalui perangkat mobile, sehingga respons evakuasi dapat
+      dilakukan lebih cepat dan tepat.
+    </div>
+
+    <ul>
+      <li>Lereng rawan longsor membutuhkan pemantauan kelembaban tanah dan pergeseran kemiringan secara terus-menerus.</li>
+      <li>Solusi komersial yang ada memerlukan biaya instalasi dan operasional yang sangat tinggi.</li>
+      <li>Keterlambatan informasi kepada warga dan otoritas meningkatkan risiko korban jiwa.</li>
+      <li>Kurangnya platform open-source yang dapat direplikasi oleh komunitas lokal dengan komponen murah.</li>
+    </ul>
+  </div>
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 02</div>
+    <h2>Tujuan Produk & Sasaran Keberhasilan</h2>
+<div class="two-col"><div><h3>Tujuan Utama</h3><ul>
+<li>Membangun prototipe LEWS berbiaya rendah (≤ Rp 300.000 untuk BOM inti) berbasis ESP32.</li>
+<li>Mengukur kemiringan lereng (MPU-6050), kadar air tanah, dan getaran secara real-time.</li>
+<li>Mengirim data ke Firebase RTDB dan menampilkannya di aplikasi Flutter ber-login.</li>
+<li>Memberi peringatan 3 level (Aman/Waspada/Bahaya) beserta alasan pemicunya.</li>
+<li>Menetapkan threshold lewat eksperimen kalibrasi pada miniatur, bukan hanya meminjam angka jurnal.</li></ul></div>
+<div><h3>Key Results (target awal, dikunci setelah TC-09)</h3><ul>
+<li>Sudut MPU-6050 vs busur derajat: MAE ≤ 2° pada 0°–45° (RMSE dilaporkan).</li>
+<li>Latensi ESP32 → Firebase → Flutter ≤ 2 s (rata-rata dan P95, 50 siklus).</li>
+<li>Packet loss ≤ 1% pada uji 2 jam.</li>
+<li>Respons alarm lokal ≤ 500 ms.</li>
+<li>Diferensiasi terhadap jurnal rujukan terdokumentasi (§ 05A).</li></ul></div></div>
+  </div>
+  <div class="section avoid-break">
+    <div class="section-num">§ 03</div>
+    <h2>Ruang Lingkup (Scope)</h2>
+<div class="two-col"><div><h4>✅ Dalam Lingkup</h4><ul>
+<li>Firmware ESP32 (C++ / Arduino IDE), NTP, FirebaseClient</li><li>MPU-6050, Soil Moisture kapasitif, SW-420 (getaran)</li>
+<li>DHT22 dan LCD 16x2 (opsional, Could)</li><li>Firebase RTDB + Authentication + Security Rules</li>
+<li>Aplikasi Flutter Android (Login Google, Dashboard, Riwayat, Tentang)</li><li>Alarm lokal: Buzzer + LED 3 warna</li>
+<li>Miniatur lereng (akuarium) + servo kemiringan</li><li>Kalibrasi threshold, uji QoS, laporan, video demo</li></ul></div>
+<div><h4>❌ Di Luar Lingkup</h4><ul><li>Deployment lapangan nyata</li><li>SMS / Telegram, push notification saat aplikasi tertutup (butuh FCM + backend)</li>
+<li>Machine Learning</li><li>Buffer data offline (SD card) dan sumber daya mandiri (solar/baterai)</li><li>Aplikasi iOS, panel admin web, GPS</li></ul></div></div>
+  </div>
+  <div class="section avoid-break">
+    <div class="section-num">§ 05</div>
+    <h2>Arsitektur Sistem & Aliran Data</h2>
+<div class="arch-flow">
+<div class="arch-node"><div class="arch-label arch-label-1">Layer 1</div><div class="arch-name">Sensor Layer</div><div class="arch-desc">MPU-6050 · Soil v1.2<br>SW-420 · (DHT22)<br>Buzzer · LED · (LCD)</div></div>
+<div class="arch-node"><div class="arch-label arch-label-2">Layer 2</div><div class="arch-name">Edge Node</div><div class="arch-desc">ESP32-WROOM-32<br>Sampling 100 ms · NTP<br>Klasifikasi lokal</div></div>
+<div class="arch-node"><div class="arch-label arch-label-3">Layer 3</div><div class="arch-name">Cloud</div><div class="arch-desc">Firebase RTDB + Auth<br>Spark Plan<br>Security Rules</div></div>
+<div class="arch-node"><div class="arch-label arch-label-4">Layer 4</div><div class="arch-name">Mobile App</div><div class="arch-desc">Flutter 3.x<br>Login Google<br>Stream listener</div></div></div><div class="callout callout-blue"><div class="callout-title">Protokol & Keputusan Teknis</div>ESP32 → Firebase lewat pustaka <strong>FirebaseClient</strong> (pengganti Firebase-ESP32 yang ditandai deprecated; verifikasi status terbaru di GitHub). Sampling sensor 100 ms, publish 1 s. Klasifikasi status dijalankan <strong>di ESP32</strong> sehingga alarm lokal tetap bekerja saat Wi-Fi putus. Waktu disinkronkan via NTP. Flutter memakai stream listener tanpa polling.</div>
+  </div>
+<div class="section avoid-break">
+    <div class="section-num">§ 05A</div>
+    <h2>Diferensiasi & Gap Analysis terhadap Jurnal Rujukan</h2>
+<div class="table-wrapper"><table><thead><tr><th>Aspek</th><th>Amirthavarshini 2026 (utama)</th><th>Marino 2023*</th><th>TA Polines 2025</th><th>APHELION</th></tr></thead><tbody><tr><td>Sensor</td><td>MPU6050, soil capacitive, DHT22, piezometer (simulasi)</td><td>ESP32 + soil capacitive*</td><td>MPU6050, SW-420, soil</td><td>MPU-6050, soil v1.2, SW-420 (+DHT22)</td></tr><tr><td>Komunikasi</td><td>LoRa SX1276 ke hub Arduino</td><td>Wi-Fi → ThingSpeak*</td><td>Wi-Fi HTTP → Laravel/MySQL</td><td>Wi-Fi → Firebase RTDB</td></tr><tr><td>Antarmuka</td><td>Serial monitor, SOS ke GSI</td><td>Dashboard cloud*</td><td>Web dashboard + Telegram</td><td>Aplikasi mobile Flutter</td></tr><tr><td>Level status</td><td>Probabilitas ML (ExtraTrees)</td><td>-</td><td>4 level (Normal/Siaga/Waspada/Awas)</td><td>3 level + alasan pemicu</td></tr><tr><td>Validasi</td><td>Wokwi + hardware; dataset n=23</td><td>-</td><td>Simulasi akuarium + evaluasi BPBD</td><td>Akurasi, QoS, kalibrasi threshold terukur</td></tr><tr><td>Keterbatasan</td><td>Piezometer simulasi; ML data terbatas</td><td>-</td><td>Tanpa backup lokal, tanpa enkripsi</td><td>Wi-Fi only, tanpa buffer offline, uji lab</td></tr></tbody></table></div><p style="font-size:7.5pt">*Dari ringkasan di TA Polines; baca paper aslinya sebelum dikutip.</p><div class="callout callout-green"><div class="callout-title">Kontribusi yang diklaim</div>(1) Threshold diturunkan dari eksperimen kalibrasi miniatur (TC-09); (2) evaluasi kuantitatif akurasi sudut dan QoS; (3) status disertai <code>status_reason</code> (explainable tanpa ML); (4) dashboard mobile real-time ber-autentikasi. Klaim tidak boleh melebihi data uji yang benar-benar diperoleh.</div>
+  </div>
+  <div class="doc-footer">
+    <span>APHELION · PRD v1.1</span>
+    <span>Halaman 3</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  HALAMAN 4 — HARDWARE & PINOUT                               -->
+<!-- ============================================================ -->
+<div class="a4-sheet page-break">
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 04</div>
+    <h2>Deskripsi Pengguna (User Persona)</h2>
+    <div class="two-col">
+      <div class="cover-info-card">
+        <h4>👨‍💼 Operator Sistem (Primary User)</h4>
+        <p style="font-size:8pt;margin-top:4px;color:var(--slate-600);">
+          Mahasiswa/teknisi yang mengoperasikan perangkat fisik, melakukan kalibrasi sensor,
+          dan memastikan ESP32 terhubung ke Wi-Fi dan Firebase. Membutuhkan antarmuka
+          diagnostik yang jelas melalui Serial Monitor dan LED status.
+        </p>
+      </div>
+      <div class="cover-info-card">
+        <h4>📱 Pengguna Aplikasi (Secondary User)</h4>
+        <p style="font-size:8pt;margin-top:4px;color:var(--slate-600);">
+          Dosen atau observer yang memantau data real-time melalui aplikasi Flutter di
+          smartphone. Membutuhkan visualisasi gauge kemiringan yang intuitif, indikator
+          level bahaya yang jelas, dan histori data singkat.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 06</div>
+    <h2>Spesifikasi Komponen Hardware</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Komponen</th>
+            <th>Spesifikasi Teknis</th>
+            <th>Fungsi dalam Sistem</th>
+            <th>Harga Est.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>ESP32-WROOM-32</strong></td>
+            <td>Dual-core 240 MHz, 4MB Flash, Wi-Fi 802.11 b/g/n, BT 4.2, 3.3V logic</td>
+            <td>Mikrokontroler utama (edge node), pemrosesan data sensor, publisher Firebase</td>
+            <td>Rp 65.000</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>MPU-6050</strong></td>
+            <td>6-DoF IMU (3-axis gyro + 3-axis accel), I2C 400 kHz, addr 0x68/0x69</td>
+            <td>Deteksi sudut kemiringan lereng (Roll & Pitch) sebagai indikator pergeseran tanah</td>
+            <td>Rp 20.000</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Soil Moisture v1.2</strong></td>
+            <td>Kapasitif, Output analog 0–3.3V, resolusi ADC 12-bit ESP32</td>
+            <td>Mengukur kadar air tanah — tanah jenuh air meningkatkan risiko longsor</td>
+            <td>Rp 25.000</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Active Buzzer 5V</strong></td>
+            <td>85 dB, frekuensi 2.5 kHz, operasi 3.3–5V via transistor NPN</td>
+            <td>Alarm audio lokal saat status Waspada atau Bahaya terdeteksi</td>
+            <td>Rp 8.000</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>LED Tri-State</strong></td>
+            <td>LED Hijau (Aman), Kuning (Waspada), Merah (Bahaya), resistor 220Ω</td>
+            <td>Indikator visual level bahaya secara lokal pada prototipe fisik</td>
+            <td>Rp 10.000</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Servo Horn 25T Metal x2</strong> (aksesori; servo motor belum tercatat, lihat § 16)</td>
+            <td>Torsi ≥ 2 kg·cm, sudut 180°, kompatibel MG996R/SG90</td>
+            <td>Mekanisme kemiringan bertahap pada miniatur lereng tanah</td>
+            <td>Rp 40.000</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><strong>Komponen Pendukung</strong></td>
+            <td>Kabel jumper, breadboard, power supply 5V 2A, resistor assorted</td>
+            <td>Koneksi fisik antar komponen dan sumber daya</td>
+            <td>Rp 60.000</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><strong>Akuarium Akrilik</strong></td>
+            <td>Dimensi 40×25×28 cm, tebal 3mm</td>
+            <td>Wadah miniatur lereng tanah untuk simulasi demo kondisi longsor</td>
+            <td>Rp 40.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kv-row" style="margin-top:8px; border-top: 2px solid var(--slate-200); padding-top:8px;">
+      <span class="kv-key" style="font-weight:700;">TOTAL REALISASI ANGGARAN</span>
+      <span class="kv-val" style="color:var(--blue-600); font-size:10pt;">Rp 268.000 (≈ Rp 44.700/orang), belum termasuk item TBD (§ 16)</span>
+    </div>
+  </div>
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 07</div>
+    <h2>Alokasi Pinout ESP32 (mengacu Daftar_Alat_dan_Pin_ESP32)</h2>
+<div class="table-wrapper"><table><thead><tr><th>GPIO</th><th>Komponen</th><th>Mode</th><th>Catatan</th></tr></thead><tbody><tr><td><span class="pin-sda">GPIO 21</span></td><td>MPU-6050 SDA</td><td>I2C (Wire)</td><td>Bus utama IMU</td></tr><tr><td><span class="pin-scl">GPIO 22</span></td><td>MPU-6050 SCL</td><td>I2C (Wire)</td><td>3V3</td></tr><tr><td><span class="pin-sda">GPIO 32</span></td><td>LCD I2C SDA</td><td>I2C (Wire1)</td><td>Opsional; perlu instans Wire kedua</td></tr><tr><td><span class="pin-scl">GPIO 33</span></td><td>LCD I2C SCL</td><td>I2C (Wire1)</td><td>LCD di 5V: cek level logika (§ 07A)</td></tr><tr><td><span class="pin-adc">GPIO 34</span></td><td>Soil Moisture AOUT</td><td>ADC1 input</td><td>ADC1 aman saat Wi-Fi aktif</td></tr><tr><td><span class="pin-gpio">GPIO 27</span></td><td>SW-420 DO</td><td>Digital in</td><td>Pulsa dihitung per jendela waktu</td></tr><tr><td><span class="pin-gpio">GPIO 4</span></td><td>DHT22 DATA</td><td>Digital</td><td>Opsional</td></tr><tr><td><span class="pin-gpio">GPIO 18</span></td><td>Buzzer</td><td>Digital out</td><td>Transistor NPN bila arus melebihi batas GPIO</td></tr><tr><td><span class="pin-gpio">GPIO 14</span></td><td>LED Hijau/Biru (AMAN)</td><td>Digital out</td><td>Resistor 220–330Ω</td></tr><tr><td><span class="pin-gpio">GPIO 26</span></td><td>LED Kuning (WASPADA)</td><td>Digital out</td><td></td></tr><tr><td><span class="pin-gpio">GPIO 5</span></td><td>LED Merah (BAHAYA)</td><td>Digital out</td><td>Pin strapping; aman untuk LED</td></tr><tr><td><span class="pin-gpio">GPIO 13</span></td><td>Servo (sinyal)</td><td>PWM</td><td>USULAN, konfirmasi tim; catu 5V terpisah</td></tr><tr><td><span class="pin-pwr">3V3 / VIN / GND</span></td><td>Sensor / LCD, servo / semua</td><td>Power</td><td>Common ground wajib</td></tr></tbody></table></div><div class="callout callout-amber"><div class="callout-title">Perubahan dari v1.0</div>Pinout v1.0 (buzzer GPIO25, LED 26/27/14) bertabrakan dengan daftar alat tim (GPIO27 dipakai SW-420). v1.1 mengikuti daftar alat; tim hardware perlu mengonfirmasi.</div>
+  </div>
+<div class="section avoid-break">
+    <div class="section-num">§ 07A</div>
+    <h2>Rekayasa Hardware & Kalibrasi</h2>
+<ul>
+<li><strong>Sudut:</strong> v1.0 memakai max(|Roll|,|Pitch|) yang meremehkan kemiringan gabungan (roll 20° + pitch 20° ≈ 28° total). v1.1: <code>θ = arccos(az / √(ax²+ay²+az²))</code>, dengan <em>complementary filter</em> <code>θ = α(θ + ω·dt) + (1−α)·θ_acc</code>, α ≈ 0,96–0,98 (ditetapkan saat kalibrasi), offset MPU dikalibrasi tiap boot.</li>
+<li><strong>Kelembapan:</strong> <code>% = clamp((ADC_kering − ADC_raw) / (ADC_kering − ADC_basah) × 100, 0, 100)</code>. Titik kering = udara, basah = air; tambah titik tanah lembab. ADC dibaca multisampling (rata-rata 16×) karena ADC ESP32 tidak linier dan berderau. Persen dari jurnal lain tidak transferable ke sensor ini.</li>
+<li><strong>Getaran:</strong> SW-420 digital mudah berpicu palsu; gunakan hitungan pulsa per jendela 2 s, bukan satu pulsa.</li>
+<li><strong>Daya:</strong> servo memakai catu 5V terpisah (arus puncak dapat menyebabkan brownout ESP32) dengan ground bersama.</li>
+<li><strong>LCD I2C 5V:</strong> modul backpack umumnya menarik SDA/SCL ke 5V; pastikan level 3,3V aman bagi GPIO ESP32 (level shifter atau pull-up ke 3V3).</li></ul>
+  </div>
+  <div class="doc-footer">
+    <span>APHELION · PRD v1.1</span>
+    <span>Halaman 4</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  HALAMAN 5 — FUNCTIONAL & NON-FUNCTIONAL REQUIREMENTS        -->
+<!-- ============================================================ -->
+<div class="a4-sheet page-break">
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 08</div>
+    <h2>Functional Requirements (FR)</h2>
+<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Requirement</th><th>Deskripsi</th><th>Prioritas</th><th>MoSCoW</th></tr></thead><tbody><tr><td><code>FR-01</code></td><td>Pembacaan IMU</td><td>Roll, Pitch, dan sudut total tiap 100 ms dengan complementary filter</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-02</code></td><td>Soil Moisture</td><td>ADC1 GPIO34, multisampling, konversi % via kalibrasi</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-03</code></td><td>Getaran SW-420</td><td>Hitung pulsa per jendela 2 s sebagai indeks getaran</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-04</code></td><td>Wi-Fi & NTP</td><td>Konek otomatis saat boot dan sinkronisasi waktu NTP</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-05</code></td><td>Autentikasi</td><td>ESP32 dan Flutter terautentikasi Firebase Auth; Login Google di aplikasi</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-06</code></td><td>Publish RTDB</td><td>Tiap 1 s: roll, pitch, tilt, moisture, vibration, status, status_reason, timestamp server</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-07</code></td><td>Klasifikasi</td><td>3 level dengan aturan level-tertinggi, debounce, hysteresis (§ 10)</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-08</code></td><td>Alarm lokal</td><td>Buzzer dan LED sesuai § 10, tetap bekerja tanpa Wi-Fi</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-09</code></td><td>Dashboard Flutter</td><td>Gauge sudut, moisture, getaran, status + alasan, Trend Terkini real-time</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-10</code></td><td>Riwayat</td><td>History ditulis saat status berubah; aplikasi menampilkan 10 event terakhir</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-11</code></td><td>Reconnect</td><td>Reconnect Wi-Fi/Firebase dengan exponential backoff</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-12</code></td><td>Servo miniatur</td><td>Kemiringan bertahap pada miniatur lereng</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-13</code></td><td>Notifikasi lokal</td><td>Local notification saat aplikasi berjalan; push saat tertutup di luar lingkup</td><td><span class="priority-low">Rendah</span></td><td><span class="tag-could">Could</span></td></tr></tbody></table></div>
+  </div>
+  <div class="section avoid-break">
+    <div class="section-num">§ 09</div>
+    <h2>Non-Functional Requirements (NFR)</h2>
+<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Kategori</th><th>Requirement</th><th>Metrik Target</th></tr></thead><tbody><tr><td><code>NFR-01</code></td><td>Performa</td><td>Latensi end-to-end, diukur dengan timestamp server/NTP (bukan selisih jam HP)</td><td>≤ 2000 ms rata-rata; P95 dilaporkan; 50 siklus</td></tr><tr><td><code>NFR-02</code></td><td>Akurasi sudut</td><td>Galat vs busur derajat, 0°–45° interval 5°</td><td>MAE ≤ 2°; RMSE dilaporkan</td></tr><tr><td><code>NFR-03</code></td><td>Akurasi moisture</td><td>Klasifikasi kering/lembab/jenuh vs gravimetri</td><td>≥ 90% benar</td></tr><tr><td><code>NFR-04</code></td><td>QoS</td><td>Packet loss dan data completeness (diterima/dikirim)</td><td>≤ 1% loss (target awal), uji 2 jam</td></tr><tr><td><code>NFR-05</code></td><td>Ketersediaan</td><td>Waktu dengan data terbaru &lt; 5 s dibanding total waktu uji</td><td>≥ 99%</td></tr><tr><td><code>NFR-06</code></td><td>Responsivitas</td><td>Deteksi threshold sampai buzzer/LED aktif</td><td>≤ 500 ms</td></tr><tr><td><code>NFR-07</code></td><td>Biaya</td><td>BOM inti</td><td>≤ Rp 300.000</td></tr><tr><td><code>NFR-08</code></td><td>Laju</td><td>Sampling 100 ms; publish 1000 ms</td><td>-</td></tr><tr><td><code>NFR-09</code></td><td>Usability</td><td>Pengguna baru membaca status tanpa panduan</td><td>≤ 30 detik</td></tr></tbody></table></div>
+  </div>
+  <div class="doc-footer">
+    <span>APHELION · PRD v1.1</span>
+    <span>Halaman 5</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  HALAMAN 6 — ALERT LOGIC, FIREBASE, FLUTTER                 -->
+<!-- ============================================================ -->
+<div class="a4-sheet page-break">
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 10</div>
+    <h2>Logika Peringatan Bahaya (Alert Logic)</h2>
+<p>Level tiap parameter dihitung terpisah; status akhir = <strong>level tertinggi</strong>. Eskalasi butuh <strong>3 sampel berturut-turut</strong> di atas batas (debounce); penurunan butuh margin hysteresis (±2° atau ±3%) agar status tidak berkedip. Threshold di bawah bersifat <strong>sementara</strong> (mengacu Ringkasan Tubes) dan dikunci setelah TC-09.</p><div class="table-wrapper"><table><thead><tr><th>Status</th><th>Sudut total</th><th>Moisture</th><th>Getaran</th><th>Aksi lokal</th><th>Firebase</th></tr></thead><tbody><tr><td>🟢 AMAN</td><td>&lt; 20°</td><td>&lt; 50%</td><td>0 pulsa</td><td>LED hijau, buzzer mati</td><td>"AMAN"</td></tr><tr><td>🟡 WASPADA</td><td>20°–27°</td><td>50%–54%</td><td>≥ 3 pulsa/2 s</td><td>LED kuning; indikator Waspada di Flutter</td><td>"WASPADA"</td></tr><tr><td>🔴 BAHAYA</td><td>&gt; 27°</td><td>&gt; 54%</td><td>-</td><td>LED merah, buzzer kontinu, alert merah di Flutter</td><td>"BAHAYA"</td></tr></tbody></table></div><div class="callout callout-amber"><div class="callout-title">Catatan kritis</div>Pita Waspada moisture hanya 4% dan angkanya berasal dari sensor lain (YL-69/FC-28); pada sensor kapasitif nilainya bergantung kalibrasi sendiri. Level getaran (TA Polines: 1 = Waspada) dan 4 level nasional versi TA Polines tidak dipakai mentah; halaman rujukan 4 level di TA itu membahas status gunung api. <code>status_reason</code> berisi pemicu, misalnya "BAHAYA: tilt 31° &gt; 27°".</div>
+  </div>
+  <div class="section avoid-break">
+    <div class="section-num">§ 11</div>
+    <h2>Firebase RTDB, Payload & Security Rules</h2>
+<div class="two-col"><div><pre style="background:var(--slate-800);color:#e2e8f0;padding:10px;border-radius:8px;font-size:7pt;line-height:1.5;">aphelion/
+├── realtime/
+│   ├── roll, pitch, tilt   (number, °)
+│   ├── moisture            (number, %)
+│   ├── vibration           (int, pulsa/2 s)
+│   ├── status              ("AMAN|WASPADA|BAHAYA")
+│   ├── status_reason       (string)
+│   └── ts                  (server timestamp)
+└── history/{pushId}/ ...   (saat status berubah)</pre></div>
+<div><pre style="background:var(--slate-800);color:#e2e8f0;padding:10px;border-radius:8px;font-size:7pt;line-height:1.5;">// DRAFT rules
+"aphelion": {
+  ".read": "auth != null",
+  "realtime": {
+    ".write": "auth.uid === 'UID_ESP32'",
+    "tilt": {".validate": "newData.isNumber()"},
+    "status": {".validate":
+      "newData.isString()"}
+  }
+}</pre></div></div>
+<ul><li>Library ESP32: FirebaseClient. Auth ESP32: akun/UID khusus perangkat; hindari Legacy Secret (verifikasi status deprecation di dokumentasi Firebase).</li>
+<li>Rules "read/write: true" hanya untuk uji awal dan dilarang saat demo.</li><li>Timestamp memakai <code>ServerValue.TIMESTAMP</code>/NTP agar latensi valid.</li></ul>
+  </div>
+  <div class="section avoid-break">
+    <div class="section-num">§ 12</div>
+    <h2>Spesifikasi Aplikasi Flutter</h2>
+<div class="two-col"><div><h3>Stack</h3>
+<div class="kv-row"><span class="kv-key">Framework</span><span class="kv-val">Flutter 3.x, Android</span></div>
+<div class="kv-row"><span class="kv-key">Auth</span><span class="kv-val">firebase_auth + google_sign_in</span></div>
+<div class="kv-row"><span class="kv-key">Data</span><span class="kv-val">firebase_database (stream)</span></div>
+<div class="kv-row"><span class="kv-key">Versi paket</span><span class="kv-val">stabil terbaru (cek pub.dev)</span></div>
+<div class="kv-row"><span class="kv-key">State</span><span class="kv-val">Provider / StreamBuilder</span></div></div>
+<div><h3>Layar & Fitur</h3><ul><li>Login Google</li><li>Dashboard: gauge sudut, moisture, getaran, badge status + alasan</li>
+<li>Trend Terkini (grafik gabungan sensor)</li><li>Riwayat: 10 event perubahan status</li><li>Tentang (tim, jurnal rujukan, versi)</li>
+<li>Local notification (aplikasi berjalan)</li></ul></div></div>
+  </div>
+  <div class="doc-footer">
+    <span>APHELION · PRD v1.1</span>
+    <span>Halaman 6</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  HALAMAN 7 — TESTING, SPRINT, TUPOKSI                       -->
+<!-- ============================================================ -->
+<div class="a4-sheet page-break">
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 13</div>
+    <h2>Rencana Pengujian & Kriteria Sukses</h2>
+<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Skenario</th><th>Metode</th><th>Kriteria Lulus</th><th>PIC</th></tr></thead><tbody><tr><td><code>TC-01</code></td><td>Akurasi sudut</td><td>Bandingkan dengan busur derajat pada 0°–45° interval 5° (10 titik)</td><td>MAE ≤ 2°, RMSE dilaporkan</td><td>Raffael</td></tr><tr><td><code>TC-02</code></td><td>Akurasi moisture</td><td>Kering, lembab, jenuh vs gravimetri</td><td>≥ 90% benar</td><td>Anisa</td></tr><tr><td><code>TC-03</code></td><td>Latensi end-to-end</td><td>50 siklus, timestamp server/NTP</td><td>Rata-rata ≤ 2 s, P95 dilaporkan</td><td>Raffael</td></tr><tr><td><code>TC-04</code></td><td>Respons alarm</td><td>10 percobaan melewati threshold</td><td>≤ 500 ms</td><td>Anisa</td></tr><tr><td><code>TC-05</code></td><td>Transisi status</td><td>AMAN → WASPADA → BAHAYA → AMAN, termasuk uji debounce/hysteresis</td><td>Semua transisi benar, tanpa berkedip</td><td>Haqqi</td></tr><tr><td><code>TC-06</code></td><td>Reconnect Wi-Fi</td><td>Putus 30 s lalu sambung; alarm lokal tetap aktif</td><td>Reconnect ≤ 60 s</td><td>Jizdan</td></tr><tr><td><code>TC-07</code></td><td>Stress uptime & QoS</td><td>2 jam kontinu; hitung packet loss dan completeness</td><td>0 crash; loss ≤ 1%; uptime ≥ 99%</td><td>Raffael</td></tr><tr><td><code>TC-08</code></td><td>Usability</td><td>3 pengguna baru membaca status</td><td>3/3 dalam 30 s</td><td>Kafka</td></tr><tr><td><code>TC-09</code></td><td>Kalibrasi threshold (BARU)</td><td>Naikkan sudut dan basahi miniatur bertahap; catat sudut/kelembapan saat media mulai gagal</td><td>Threshold final dengan data pendukung</td><td>Anisa</td></tr><tr><td><code>TC-10</code></td><td>Getaran SW-420 (BARU)</td><td>Ketukan terukur vs diam; hitung pemicu palsu</td><td>Tidak ada pemicu palsu saat diam</td><td>Haqqi</td></tr></tbody></table></div><p style="font-size:7.5pt">PIC TC-09 dan TC-10 adalah usulan; laporan menyajikan hasil sebagai tabel dan grafik analisis, bukan langkah perakitan.</p>
+  </div>
+  <div class="section avoid-break">
+    <div class="section-num">§ 14</div>
+    <h2>Roadmap Sprint & Timeline (8 Minggu)</h2>
+<div class="sprint-grid"><div class="sprint-item done"><div class="sprint-week done">MINGGU 1</div><div class="sprint-title">Inisiasi & Judul</div><div class="sprint-date">28 Okt – 3 Nov</div><span class="sprint-status done">✓ Selesai</span></div><div class="sprint-item done"><div class="sprint-week done">MINGGU 2</div><div class="sprint-title">Riset & Pengadaan</div><div class="sprint-date">4 – 10 Nov</div><span class="sprint-status done">✓ Selesai</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 3</div><div class="sprint-title">Perakitan & Kalibrasi</div><div class="sprint-date">11 – 18 Nov</div><span class="sprint-status pending">Update status</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 4</div><div class="sprint-title">Firebase & Flutter UI</div><div class="sprint-date">18 – 24 Nov</div><span class="sprint-status pending">Update status</span></div><div class="sprint-item active"><div class="sprint-week active">MINGGU 5</div><div class="sprint-title">Miniatur Lereng</div><div class="sprint-date">25 Nov – 1 Des</div><span class="sprint-status active">▶ Berjalan</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 6</div><div class="sprint-title">Pengujian Ilmiah</div><div class="sprint-date">2 – 8 Des</div><span class="sprint-status pending">Mendatang</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 7</div><div class="sprint-title">Laporan & Video</div><div class="sprint-date">9 – 15 Des</div><span class="sprint-status pending">Mendatang</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 8</div><div class="sprint-title">Demo Dosen</div><div class="sprint-date">16 – 22 Des</div><span class="sprint-status pending">Showtime</span></div></div><div class="callout callout-amber"><div class="callout-title">Perlu diisi tim</div>Status Minggu 3–4 belum diketahui dari dokumen; perbarui sesuai kondisi sebenarnya.</div>
+  </div>
+  <div class="section avoid-break">
+    <div class="section-num">§ 15</div>
+    <h2>Pembagian Tugas (Tupoksi) Tim</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-name">Jizdan Yuflikh R.</div>
+        <div class="team-nim">NIM: 3.34.25.1.12</div>
+        <span class="team-role role-ketua">Ketua / Firmware</span>
+        <ul class="team-tasks">
+          <li>Manajemen sprint & integrasi sistem</li>
+          <li>Pemrograman C++ ESP32 & FreeRTOS</li>
+          <li>Integrasi Firebase RTDB & JSON payload</li>
+        </ul>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Haqqi Raya S.</div>
+        <div class="team-nim">NIM: 3.34.25.1.11</div>
+        <span class="team-role role-hardware">Hardware / Liaison</span>
+        <ul class="team-tasks">
+          <li>Riset komponen & komunikasi kating</li>
+          <li>Perakitan sirkuit sensor MPU-6050 + Soil</li>
+          <li>Kalibrasi ADC sensor kelembaban tanah</li>
+        </ul>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Kafka Nafisa</div>
+        <div class="team-nim">NIM: 3.34.25.1.13</div>
+        <span class="team-role role-mobile">Flutter Mobile</span>
+        <ul class="team-tasks">
+          <li>Arsitektur & UI/UX aplikasi Flutter</li>
+          <li>Firebase stream listener real-time</li>
+          <li>Gauge sudut & notifikasi bahaya</li>
+        </ul>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Anisa Aulia</div>
+        <div class="team-nim">NIM: 3.34.25.1.04</div>
+        <span class="team-role role-qa">Geoteknik / QA</span>
+        <ul class="team-tasks">
+          <li>Penetapan threshold Aman/Waspada/Bahaya</li>
+          <li>Pengujian alarm lokal Buzzer + LED</li>
+          <li>Penulisan laporan & paper ilmiah</li>
+        </ul>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Nazriel Farras K.P.S</div>
+        <div class="team-nim">NIM: 3.34.25.1.20</div>
+        <span class="team-role role-mech">Mekanikal / Media</span>
+        <ul class="team-tasks">
+          <li>Desain & fabrikasi miniatur lereng tanah</li>
+          <li>Mekanisme kemiringan bertahap (servo)</li>
+          <li>Produksi video demo YouTube</li>
+        </ul>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Raffael Deannova I.F</div>
+        <div class="team-nim">NIM: 3.34.25.1.22</div>
+        <span class="team-role role-qos">QoS / Laporan</span>
+        <ul class="team-tasks">
+          <li>Pengujian QoS (Latency, Packet Loss)</li>
+          <li>Analisis statistik akurasi sensor</li>
+          <li>Penyusunan laporan akhir komprehensif</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>APHELION · PRD v1.1</span>
+    <span>Halaman 7</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  HALAMAN 8 — BUDGET, RISIKO, REFERENSI, GLOSARIUM           -->
+<!-- ============================================================ -->
+<div class="a4-sheet page-break">
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 16</div>
+    <h2>Anggaran & Rencana Pengadaan</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>No</th><th>Item</th><th>Jumlah</th><th>Harga Satuan</th><th>Total</th><th>Sumber</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>ESP32 DevKit V1</td><td>1</td><td>Rp 65.000</td><td>Rp 65.000</td><td>Toko lokal Tembalang</td></tr>
+          <tr><td>2</td><td>MPU-6050 Module</td><td>1</td><td>Rp 20.000</td><td>Rp 20.000</td><td>Toko lokal Tembalang</td></tr>
+          <tr><td>3</td><td>Soil Moisture Kapasitif v1.2</td><td>1</td><td>Rp 25.000</td><td>Rp 25.000</td><td>Toko lokal Tembalang</td></tr>
+          <tr><td>4</td><td>Active Buzzer 5V</td><td>1</td><td>Rp 8.000</td><td>Rp 8.000</td><td>Toko lokal Tembalang</td></tr>
+          <tr><td>5</td><td>LED (Merah, Kuning, Hijau)</td><td>1 set</td><td>Rp 10.000</td><td>Rp 10.000</td><td>Toko lokal Tembalang</td></tr>
+          <tr><td>6</td><td>Servo Horn 25T Metal</td><td>2</td><td>Rp 20.000</td><td>Rp 40.000</td><td>Online (Jizdan)</td></tr>
+          <tr><td>7</td><td>Akuarium Akrilik 40×25×28 cm</td><td>1</td><td>Rp 40.000</td><td>Rp 40.000</td><td>Online (Anisa)</td></tr>
+          <tr><td>8</td><td>Kabel Jumper (M-M, M-F, F-F)</td><td>1 set</td><td>Rp 15.000</td><td>Rp 15.000</td><td>Toko lokal Tembalang</td></tr>
+          <tr><td>9</td><td>Breadboard 830 titik</td><td>1</td><td>Rp 20.000</td><td>Rp 20.000</td><td>Toko lokal Tembalang</td></tr>
+          <tr><td>10</td><td>Power Supply 5V 2A</td><td>1</td><td>Rp 25.000</td><td>Rp 25.000</td><td>Toko lokal Tembalang</td></tr>
+          <tr><td>11</td><td>Sensor SW-420</td><td>1</td><td>TBD</td><td>TBD</td><td>belum dibeli</td></tr><tr><td>12</td><td>Servo motor (MG996R/SG90)</td><td>2</td><td>TBD</td><td>TBD</td><td>belum tercatat</td></tr><tr><td>13</td><td>DHT22 · LCD 16x2 I2C (opsional)</td><td>1+1</td><td>TBD</td><td>TBD</td><td>opsional</td></tr><tr><td colspan="4" style="text-align:right;font-weight:700;padding:8px 10px;background:var(--slate-100);">TOTAL REALISASI (item 1–10)</td><td style="font-weight:800;color:var(--blue-600);background:var(--blue-50);">Rp 268.000</td><td style="background:var(--blue-50);">≈ Rp 44.700/org</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 17</div>
+    <h2>Analisis Risiko</h2>
+    <div class="table-wrapper">
+      <table class="risk-table">
+        <thead><tr><th>ID</th><th>Risiko</th><th>Dampak</th><th>Kemungkinan</th><th>Mitigasi</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>R-01</code></td><td>MPU-6050 drift pada suhu tinggi</td>
+            <td><span class="priority-med">Sedang</span></td>
+            <td><span class="priority-med">Sedang</span></td>
+            <td>Kalibrasi ulang offset pada setiap boot; gunakan complementary filter</td>
+          </tr>
+          <tr>
+            <td><code>R-02</code></td><td>Koneksi Wi-Fi tidak stabil saat demo</td>
+            <td><span class="priority-high">Tinggi</span></td>
+            <td><span class="priority-med">Sedang</span></td>
+            <td>Siapkan hotspot cadangan; implementasi reconnect otomatis dengan backoff</td>
+          </tr>
+          <tr>
+            <td><code>R-03</code></td><td>Firebase rate limit (free tier)</td>
+            <td><span class="priority-med">Sedang</span></td>
+            <td><span class="priority-low">Rendah</span></td>
+            <td>Throttle publish interval ke 1 detik; monitor Firebase usage dashboard</td>
+          </tr>
+          <tr>
+            <td><code>R-04</code></td><td>Sensor soil moisture tidak linier</td>
+            <td><span class="priority-med">Sedang</span></td>
+            <td><span class="priority-high">Tinggi</span></td>
+            <td>Kalibrasi 3 titik (kering/lembab/jenuh) dan gunakan lookup table atau regresi linier</td>
+          </tr>
+          <tr>
+            <td><code>R-05</code></td><td>Keterlambatan penyelesaian Flutter</td>
+            <td><span class="priority-high">Tinggi</span></td>
+            <td><span class="priority-low">Rendah</span></td>
+            <td>Siapkan fallback: web dashboard sederhana menggunakan Firebase Console</td>
+          </tr>
+          <tr>
+            <td><code>R-06</code></td><td>Komponen rusak/terbakar saat perakitan</td>
+            <td><span class="priority-high">Tinggi</span></td>
+            <td><span class="priority-low">Rendah</span></td>
+            <td>Beli 1 unit cadangan untuk ESP32 dan MPU-6050; periksa polaritas sebelum power ON</td>
+          </tr>
+        <tr><td><code>R-07</code></td><td>Wi-Fi putus, data tidak tersimpan (tanpa buffer)</td><td><span class="priority-med">Sedang</span></td><td><span class="priority-med">Sedang</span></td><td>Alarm lokal independen; catat sebagai keterbatasan; buffer SD di luar lingkup</td></tr><tr><td><code>R-08</code></td><td>LCD 5V merusak GPIO I2C 3,3V</td><td><span class="priority-high">Tinggi</span></td><td><span class="priority-med">Sedang</span></td><td>Cek level logika/level shifter sebelum power ON</td></tr><tr><td><code>R-09</code></td><td>Servo menyebabkan brownout ESP32</td><td><span class="priority-high">Tinggi</span></td><td><span class="priority-med">Sedang</span></td><td>Catu 5V terpisah, ground bersama, kapasitor</td></tr><tr><td><code>R-10</code></td><td>Threshold tidak valid pada media sebenarnya</td><td><span class="priority-high">Tinggi</span></td><td><span class="priority-med">Sedang</span></td><td>Kalibrasi eksperimen TC-09 dan debounce/hysteresis</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 18</div>
+    <h2>Referensi Jurnal Ilmiah</h2>
+<div class="callout callout-blue"><div class="callout-title">Referensi Utama</div>Amirthavarshini, R., Shamil, A.I.M., Raaj, P.S.A., &amp; Kanimozhi, G. (2026). Harnessing LoRa for real-time landslide monitoring and early alerts in Kerala’s terrain. <em>Geoscience Frontiers</em>, 17, 102242. DOI: 10.1016/j.gsf.2025.102242</div><div class="callout callout-green"><div class="callout-title">Referensi Pendukung</div>[1] Marino, P., et al. (2023). Prototype of an IoT-Based Low-Cost Sensor Network for the Hydrological Monitoring of Landslide-Prone Areas. <em>Sensors</em>, 23(4), 2299. DOI: 10.3390/s23042299<br>[2] Haddad, A., et al. (2025). Implementasi Wireless Sensor Network pada Pendeteksi Tanah Longsor Berbasis IoT dan LoRa. <em>JIRE</em>, 8(1).<br>[3] Aldi, F. &amp; Poetra, M.I.A. (2025). Sistem Deteksi Dini Tanah Longsor Multiple Sensor Berbasis IoT (Tugas Akhir). Politeknik Negeri Semarang.<br>[4] Mujahid, S., et al. (2020); Juansyah, D., et al. (2021), sumber ambang batas pembanding.<br>[5] Triyono, L. (2026). Buku Ajar IoT dan Sistem Terbenam Berbasis ESP32. Polines.</div><p style="font-size:7.5pt">Referensi v1.0 (aquaculture, irigasi tetes, sensor fisiologis) dihapus karena tidak relevan. Lengkapi dan verifikasi detail sitasi dari sumber aslinya.</p>
+  </div>
+  <div class="section avoid-break">
+    <div class="section-num">§ 19</div>
+    <h2>Glosarium</h2>
+    <div class="two-col">
+      <div>
+        <div class="glossary-item"><span class="glossary-term">ADC</span> — Analog-to-Digital Converter: komponen yang mengubah sinyal analog sensor menjadi nilai digital.</div>
+        <div class="glossary-item"><span class="glossary-term">BOM</span> — Bill of Materials: daftar komponen lengkap beserta harga dan jumlahnya.</div>
+        <div class="glossary-item"><span class="glossary-term">ESP32</span> — Mikrokontroler dual-core 240 MHz dengan Wi-Fi dan Bluetooth terintegrasi (Espressif Systems).</div>
+        <div class="glossary-item"><span class="glossary-term">Firebase RTDB</span> — Google Firebase Realtime Database: database NoSQL berbasis cloud dengan sinkronisasi real-time.</div>
+        <div class="glossary-item"><span class="glossary-term">IMU</span> — Inertial Measurement Unit: sensor yang mengukur percepatan, sudut orientasi, dan laju rotasi.</div>
+        <div class="glossary-item"><span class="glossary-term">IoT</span> — Internet of Things: jaringan perangkat fisik yang terhubung ke internet untuk pertukaran data.</div>
+      </div>
+      <div>
+        <div class="glossary-item"><span class="glossary-term">I2C</span> — Inter-Integrated Circuit: protokol komunikasi serial dua kabel (SDA/SCL) untuk sensor jarak dekat.</div>
+        <div class="glossary-item"><span class="glossary-term">LEWS</span> — Landslide Early Warning System: sistem peringatan dini untuk bencana tanah longsor.</div>
+        <div class="glossary-item"><span class="glossary-term">MPU-6050</span> — Sensor IMU 6-DoF (3-axis accelerometer + 3-axis gyroscope) oleh InvenSense.</div>
+        <div class="glossary-item"><span class="glossary-term">PRD</span> — Product Requirements Document: dokumen spesifikasi produk yang mendefinisikan apa yang harus dibangun.</div>
+        <div class="glossary-item"><span class="glossary-term">QoS</span> — Quality of Service: metrik pengukuran performa jaringan (latensi, packet loss, throughput).</div>
+        <div class="glossary-item"><span class="glossary-term">Roll/Pitch</span> — Sudut rotasi pada sumbu X (Roll = miring kiri-kanan) dan Y (Pitch = miring depan-belakang).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section avoid-break">
+    <div class="section-num">§ 20</div>
+    <h2>Keputusan Terbuka & Changelog v1.0 → v1.1</h2>
+<ul>
+<li><strong>Perlu konfirmasi dosen/tim:</strong> jurnal primer (diasumsikan Amirthavarshini sesuai Ringkasan); apakah SW-420, servo, DHT22, LCD dibeli; GPIO servo; PIC TC-09/TC-10; status Minggu 3–4; bahasa paper akhir.</li>
+<li><strong>Diperbaiki:</strong> inkonsistensi jurnal, threshold, anggaran, pinout, jumlah sampel uji; sudut gabungan; validitas pengukuran latensi; metrik akurasi (relatif diganti MAE/RMSE).</li>
+<li><strong>Ditambah:</strong> § 05A, § 07A, autentikasi dan Security Rules, <code>status_reason</code>, debounce/hysteresis, TC-09/TC-10, risiko R-07–R-10.</li></ul>
+  </div>
+
+  <div class="doc-footer">
+    <span>APHELION · PRD v1.1 · D3 Teknik Informatika POLINES IK-2B · 25 November 2026</span>
+    <span>Halaman 8 / 8</span>
+  </div>
+
+</div><!-- /a4-sheet -->
+
+</body>
+</html>
