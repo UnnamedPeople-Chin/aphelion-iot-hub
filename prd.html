@@ -505,8 +505,8 @@
         </div>
       </div>
       <div class="doc-meta">
-        <div>DOC-TYPE: PRD v1.1</div>
-        <div>REVISI: 25 November 2026</div>
+        <div>DOC-TYPE: PRD v1.2</div>
+        <div>REVISI: 26 November 2026</div>
         <div>DOSEN: Mr. Liliek Triyono</div>
         <div>STATUS: AKTIF</div>
       </div>
@@ -518,17 +518,19 @@
       <h1>Sistem Deteksi Dini<br>Tanah Longsor Berbasis<br>ESP32 & Flutter</h1>
       <div class="cover-divider"></div>
       <p class="cover-subtitle">
-        Implementasi telemetri geoteknik real-time menggunakan sensor MPU-6050,
-        Capacitive Soil Moisture v1.2, Google Firebase Realtime Database,
-        dan Dashboard Mobile Flutter untuk peringatan dini bencana longsor.
+        Implementasi telemetri geoteknik real-time menggunakan sensor MPU-6050 (kemiringan),
+        ADXL345 (getaran SPI), Capacitive Soil Moisture v1.2 (kelembapan tanah),
+        Google Firebase Realtime Database, dan Aplikasi Mobile Flutter <strong>TERRA</strong>
+        dengan ambang batas peringatan berbasis data percobaan miniatur.
       </p>
 
       <div class="cover-badges">
-        <span class="badge">ESP32-WROOM-32</span>
+        <span class="badge">ESP32-D 38-Pin</span>
         <span class="badge">MPU-6050 (I2C)</span>
+        <span class="badge">ADXL345 (SPI)</span>
         <span class="badge">Soil Moisture v1.2</span>
         <span class="badge">Firebase RTDB</span>
-        <span class="badge">Flutter 3.x</span>
+        <span class="badge">Flutter TERRA</span>
         <span class="badge">Geoscience Frontiers · 2026</span>
       </div>
     </div>
@@ -553,7 +555,7 @@
       </div>
       <div class="cover-info-card">
         <div class="cover-info-label">Realisasi Anggaran</div>
-        <div class="cover-info-value">Rp 268.000 (~Rp 44.700/orang)</div>
+        <div class="cover-info-value">Rp 310.685 (~Rp 51.800/orang)</div>
       </div>
       <div class="cover-info-card">
         <div class="cover-info-label">Target Demo</div>
@@ -565,7 +567,7 @@
     <div class="cover-footer">
       <div>
         <div style="font-size:8.5pt;font-weight:600;color:var(--slate-700);">Tim Pengembang: Jizdan · Haqqi · Kafka · Anisa · Nazriel · Raffael</div>
-        <div style="font-size:7.5pt;color:var(--slate-400);font-family:'JetBrains Mono',monospace;">Kelompok 6 Anggota · Sprint 5/8 · 25 Nov 2026</div>
+        <div style="font-size:7.5pt;color:var(--slate-400);font-family:'JetBrains Mono',monospace;">Kelompok 6 Anggota · Sprint 5/8 · 26 Nov 2026</div>
       </div>
       <span class="status-badge status-active">
         <span class="status-dot"></span>
@@ -576,7 +578,7 @@
   </div><!-- /cover -->
 
   <div class="doc-footer">
-    <span>APHELION · PRD v1.1 · Confidential — Internal Use Only</span>
+    <span>APHELION · PRD v1.2 · Confidential — Internal Use Only</span>
     <span>Halaman 1</span>
   </div>
 </div><!-- /a4-sheet -->
@@ -608,11 +610,11 @@
         <div class="metric-label">Sprint Minggu</div>
       </div>
       <div class="metric-card">
-        <div class="metric-val">Rp 268K</div>
-        <div class="metric-label">Realisasi Biaya</div>
+        <div class="metric-val">Rp 311K</div>
+        <div class="metric-label">Realisasi Biaya (Rp 310.685)</div>
       </div>
       <div class="metric-card">
-        <div class="metric-val">2025</div>
+        <div class="metric-val">2026</div>
         <div class="metric-label">Terbit Jurnal Rujukan</div>
       </div>
     </div>
@@ -620,17 +622,19 @@
     <p>
       APHELION adalah sistem peringatan dini tanah longsor (<em>Landslide Early Warning System / LEWS</em>) berbasis
       IoT yang dikembangkan oleh 6 mahasiswa D3 Teknik Informatika POLINES kelas IK-2B sebagai proyek akhir
-      Praktikum Internet of Things Semester 3. Sistem mengintegrasikan sensor geoteknik (<strong>MPU-6050</strong>
-      untuk sudut kemiringan lereng dan <strong>Capacitive Soil Moisture v1.2</strong> untuk kadar air tanah)
-      dengan mikrokontroler <strong>ESP32-WROOM-32</strong> sebagai edge node berkapabilitas Wi-Fi, diintegrasikan
-      ke cloud <strong>Google Firebase Realtime Database</strong>, dan divisualisasikan melalui aplikasi mobile
-      <strong>Flutter</strong> dengan notifikasi peringatan tiga level (Aman / Waspada / Bahaya).
+      Praktikum Internet of Things Semester 3. Sistem mengintegrasikan tiga sensor inti penentu risiko
+      (<strong>MPU-6050</strong> untuk kemiringan lereng Roll &amp; Pitch, <strong>ADXL345</strong> via SPI khusus
+      deteksi getaran tanah, dan <strong>Capacitive Soil Moisture v1.2</strong> untuk kelembapan tanah) bersama
+      sensor lingkungan pendukung (<strong>DHT22</strong>) pada mikrokontroler <strong>ESP32-D 38-Pin + Expansion Board</strong>,
+      terhubung ke <strong>Google Firebase Realtime Database</strong> (<code>terra-aphelion-iot</code>), dan
+      divisualisasikan pada aplikasi mobile Flutter <strong>TERRA</strong> dengan peringatan tiga level
+      (Aman / Waspada / Bahaya) yang ambang batasnya ditetapkan dari data percobaan miniatur.
     </p>
 
     <div class="callout callout-blue"><div class="callout-title">📖 Referensi Jurnal Utama</div>Amirthavarshini et al. (2026). <em>"Harnessing LoRa for real-time landslide monitoring and early alerts in Kerala’s terrain."</em> Geoscience Frontiers 17, 102242. DOI: <strong>10.1016/j.gsf.2025.102242</strong>. Pendukung: Marino et al. (2023), Sensors 23(4), 2299. Peringkat Scimago: verifikasi di scimagojr.com sebelum dicantumkan di laporan.</div>
 
   <div class="doc-footer">
-    <span>APHELION · PRD v1.1</span>
+    <span>APHELION · PRD v1.2</span>
     <span>Halaman 2</span>
   </div>
 </div>
@@ -666,45 +670,45 @@
     <div class="section-num">§ 02</div>
     <h2>Tujuan Produk & Sasaran Keberhasilan</h2>
 <div class="two-col"><div><h3>Tujuan Utama</h3><ul>
-<li>Membangun prototipe LEWS berbiaya rendah (≤ Rp 300.000 untuk BOM inti) berbasis ESP32.</li>
-<li>Mengukur kemiringan lereng (MPU-6050), kadar air tanah, dan getaran secara real-time.</li>
-<li>Mengirim data ke Firebase RTDB dan menampilkannya di aplikasi Flutter ber-login.</li>
-<li>Memberi peringatan 3 level (Aman/Waspada/Bahaya) beserta alasan pemicunya.</li>
-<li>Menetapkan threshold lewat eksperimen kalibrasi pada miniatur, bukan hanya meminjam angka jurnal.</li></ul></div>
+<li>Membangun prototipe LEWS berbiaya rendah (realisasi Rp 310.685, target ≤ Rp 350.000) berbasis ESP32-D 38-Pin.</li>
+<li>Mengukur 3 parameter penentu status: kemiringan lereng (MPU-6050), getaran tanah (ADXL345 SPI), dan kelembapan tanah (Soil Moisture v1.2).</li>
+<li>Mengirim data ke Firebase RTDB (<code>terra-aphelion-iot</code>) dan menampilkannya di aplikasi Flutter <strong>TERRA</strong> ber-login Google.</li>
+<li>Memberi peringatan 3 level (Aman/Waspada/Bahaya) dengan ambang batas yang diturunkan dari data percobaan miniatur (TC-09).</li>
+<li>Menyediakan alarm lokal independen (LED 3 warna + Buzzer + LCD 16x2) saat jaringan Wi-Fi terputus.</li></ul></div>
 <div><h3>Key Results (target awal, dikunci setelah TC-09)</h3><ul>
 <li>Sudut MPU-6050 vs busur derajat: MAE ≤ 2° pada 0°–45° (RMSE dilaporkan).</li>
+<li>Deteksi getaran ADXL345 SPI membedakan kondisi diam vs guncangan miniatur tanpa pemicu palsu (TC-10).</li>
 <li>Latensi ESP32 → Firebase → Flutter ≤ 2 s (rata-rata dan P95, 50 siklus).</li>
-<li>Packet loss ≤ 1% pada uji 2 jam.</li>
-<li>Respons alarm lokal ≤ 500 ms.</li>
-<li>Diferensiasi terhadap jurnal rujukan terdokumentasi (§ 05A).</li></ul></div></div>
+<li>Packet loss ≤ 1% pada uji 2 jam; respons alarm lokal ≤ 500 ms.</li>
+<li>Threshold final 3 parameter (kemiringan, getaran, kelembapan) didukung log percobaan TC-09.</li></ul></div></div>
   </div>
   <div class="section avoid-break">
     <div class="section-num">§ 03</div>
     <h2>Ruang Lingkup (Scope)</h2>
 <div class="two-col"><div><h4>✅ Dalam Lingkup</h4><ul>
-<li>Firmware ESP32 (C++ / Arduino IDE), NTP, FirebaseClient</li><li>MPU-6050, Soil Moisture kapasitif, SW-420 (getaran)</li>
-<li>DHT22 dan LCD 16x2 (opsional, Could)</li><li>Firebase RTDB + Authentication + Security Rules</li>
-<li>Aplikasi Flutter Android (Login Google, Dashboard, Riwayat, Tentang)</li><li>Alarm lokal: Buzzer + LED 3 warna</li>
-<li>Miniatur lereng (akuarium) + servo kemiringan</li><li>Kalibrasi threshold, uji QoS, laporan, video demo</li></ul></div>
+<li>Firmware ESP32-D 38-Pin (C++ / Arduino IDE), NTP, FirebaseClient</li><li>3 sensor penentu status: MPU-6050 (kemiringan), ADXL345 SPI (getaran), Soil Moisture v1.2 (kelembapan)</li>
+<li>Sensor &amp; display pendukung: DHT22 (suhu/kelembapan udara, informasional) &amp; LCD 16x2 I2C</li><li>Firebase RTDB + Auth + Security Rules (<code>terra-aphelion-iot</code>)</li>
+<li>Aplikasi Flutter Android <strong>TERRA</strong> (Login Google, Dashboard, Riwayat, Tentang)</li><li>Alarm lokal: Buzzer + LED 3 warna (Biru/Hijau, Kuning, Merah)</li>
+<li>Miniatur lereng (akuarium akrilik 40×25×28 cm) + 2× servo MG996R</li><li>Eksperimen data percobaan threshold (TC-09), uji QoS, laporan, video demo</li></ul></div>
 <div><h4>❌ Di Luar Lingkup</h4><ul><li>Deployment lapangan nyata</li><li>SMS / Telegram, push notification saat aplikasi tertutup (butuh FCM + backend)</li>
-<li>Machine Learning</li><li>Buffer data offline (SD card) dan sumber daya mandiri (solar/baterai)</li><li>Aplikasi iOS, panel admin web, GPS</li></ul></div></div>
+<li>Machine Learning &amp; penggunaan SW-420 di jalur utama (digantikan ADXL345 SPI)</li><li>Buffer data offline (SD card) dan sumber daya mandiri (solar/baterai)</li><li>Aplikasi iOS, panel admin web, GPS</li></ul></div></div>
   </div>
   <div class="section avoid-break">
     <div class="section-num">§ 05</div>
     <h2>Arsitektur Sistem & Aliran Data</h2>
 <div class="arch-flow">
-<div class="arch-node"><div class="arch-label arch-label-1">Layer 1</div><div class="arch-name">Sensor Layer</div><div class="arch-desc">MPU-6050 · Soil v1.2<br>SW-420 · (DHT22)<br>Buzzer · LED · (LCD)</div></div>
-<div class="arch-node"><div class="arch-label arch-label-2">Layer 2</div><div class="arch-name">Edge Node</div><div class="arch-desc">ESP32-WROOM-32<br>Sampling 100 ms · NTP<br>Klasifikasi lokal</div></div>
-<div class="arch-node"><div class="arch-label arch-label-3">Layer 3</div><div class="arch-name">Cloud</div><div class="arch-desc">Firebase RTDB + Auth<br>Spark Plan<br>Security Rules</div></div>
-<div class="arch-node"><div class="arch-label arch-label-4">Layer 4</div><div class="arch-name">Mobile App</div><div class="arch-desc">Flutter 3.x<br>Login Google<br>Stream listener</div></div></div><div class="callout callout-blue"><div class="callout-title">Protokol & Keputusan Teknis</div>ESP32 → Firebase lewat pustaka <strong>FirebaseClient</strong> (pengganti Firebase-ESP32 yang ditandai deprecated; verifikasi status terbaru di GitHub). Sampling sensor 100 ms, publish 1 s. Klasifikasi status dijalankan <strong>di ESP32</strong> sehingga alarm lokal tetap bekerja saat Wi-Fi putus. Waktu disinkronkan via NTP. Flutter memakai stream listener tanpa polling.</div>
+<div class="arch-node"><div class="arch-label arch-label-1">Layer 1</div><div class="arch-name">Sensor Layer</div><div class="arch-desc">MPU-6050 · ADXL345 (SPI)<br>Soil v1.2 · DHT22 (info)<br>Buzzer · LED · LCD 16x2</div></div>
+<div class="arch-node"><div class="arch-label arch-label-2">Layer 2</div><div class="arch-name">Edge Node</div><div class="arch-desc">ESP32-D 38-Pin + Shield<br>Sampling 100 ms · NTP<br>Klasifikasi 3 parameter</div></div>
+<div class="arch-node"><div class="arch-label arch-label-3">Layer 3</div><div class="arch-name">Cloud</div><div class="arch-desc">Firebase RTDB + Auth<br><code>terra-aphelion-iot</code><br>Region Singapore (SG)</div></div>
+<div class="arch-node"><div class="arch-label arch-label-4">Layer 4</div><div class="arch-name">Mobile App</div><div class="arch-desc">Flutter 3.x (TERRA)<br>Login Google<br>Stream listener</div></div></div><div class="callout callout-blue"><div class="callout-title">Protokol & Keputusan Teknis</div>ESP32 → Firebase lewat pustaka <strong>FirebaseClient</strong>. Sampling sensor 100 ms, publish 1 s. MPU-6050 (I2C) khusus mengukur kemiringan (Roll/Pitch), sedangkan ADXL345 (SPI 4-wire terpisah) khusus mengukur getaran agar tidak bentrok bus I2C. Klasifikasi status dijalankan <strong>di ESP32</strong> hanya dari 3 data inti (kemiringan, getaran, kelembapan tanah) sehingga alarm lokal tetap aktif saat Wi-Fi putus.</div>
   </div>
 <div class="section avoid-break">
     <div class="section-num">§ 05A</div>
     <h2>Diferensiasi & Gap Analysis terhadap Jurnal Rujukan</h2>
-<div class="table-wrapper"><table><thead><tr><th>Aspek</th><th>Amirthavarshini 2026 (utama)</th><th>Marino 2023*</th><th>TA Polines 2025</th><th>APHELION</th></tr></thead><tbody><tr><td>Sensor</td><td>MPU6050, soil capacitive, DHT22, piezometer (simulasi)</td><td>ESP32 + soil capacitive*</td><td>MPU6050, SW-420, soil</td><td>MPU-6050, soil v1.2, SW-420 (+DHT22)</td></tr><tr><td>Komunikasi</td><td>LoRa SX1276 ke hub Arduino</td><td>Wi-Fi → ThingSpeak*</td><td>Wi-Fi HTTP → Laravel/MySQL</td><td>Wi-Fi → Firebase RTDB</td></tr><tr><td>Antarmuka</td><td>Serial monitor, SOS ke GSI</td><td>Dashboard cloud*</td><td>Web dashboard + Telegram</td><td>Aplikasi mobile Flutter</td></tr><tr><td>Level status</td><td>Probabilitas ML (ExtraTrees)</td><td>-</td><td>4 level (Normal/Siaga/Waspada/Awas)</td><td>3 level + alasan pemicu</td></tr><tr><td>Validasi</td><td>Wokwi + hardware; dataset n=23</td><td>-</td><td>Simulasi akuarium + evaluasi BPBD</td><td>Akurasi, QoS, kalibrasi threshold terukur</td></tr><tr><td>Keterbatasan</td><td>Piezometer simulasi; ML data terbatas</td><td>-</td><td>Tanpa backup lokal, tanpa enkripsi</td><td>Wi-Fi only, tanpa buffer offline, uji lab</td></tr></tbody></table></div><p style="font-size:7.5pt">*Dari ringkasan di TA Polines; baca paper aslinya sebelum dikutip.</p><div class="callout callout-green"><div class="callout-title">Kontribusi yang diklaim</div>(1) Threshold diturunkan dari eksperimen kalibrasi miniatur (TC-09); (2) evaluasi kuantitatif akurasi sudut dan QoS; (3) status disertai <code>status_reason</code> (explainable tanpa ML); (4) dashboard mobile real-time ber-autentikasi. Klaim tidak boleh melebihi data uji yang benar-benar diperoleh.</div>
+<div class="table-wrapper"><table><thead><tr><th>Aspek</th><th>Amirthavarshini 2026 (utama)</th><th>Marino 2023*</th><th>TA Polines 2025</th><th>APHELION (v1.2)</th></tr></thead><tbody><tr><td>Sensor</td><td>MPU6050, soil capacitive, DHT22, piezometer (simulasi)</td><td>ESP32 + soil capacitive*</td><td>MPU6050, SW-420, soil</td><td>MPU-6050 (kemiringan), ADXL345 SPI (getaran), Soil v1.2 (+DHT22 info)</td></tr><tr><td>Komunikasi</td><td>LoRa SX1276 ke hub Arduino</td><td>Wi-Fi → ThingSpeak*</td><td>Wi-Fi HTTP → Laravel/MySQL</td><td>Wi-Fi → Firebase RTDB (SG)</td></tr><tr><td>Antarmuka</td><td>Serial monitor, SOS ke GSI</td><td>Dashboard cloud*</td><td>Web dashboard + Telegram</td><td>Aplikasi mobile Flutter (TERRA)</td></tr><tr><td>Level status</td><td>Probabilitas ML (ExtraTrees)</td><td>-</td><td>4 level (Normal/Siaga/Waspada/Awas)</td><td>3 level dari 3 parameter inti (threshold empiris TC-09)</td></tr><tr><td>Validasi</td><td>Wokwi + hardware; dataset n=23</td><td>-</td><td>Simulasi akuarium + evaluasi BPBD</td><td>Data percobaan threshold (TC-09), ADXL345 (TC-10), akurasi &amp; QoS</td></tr><tr><td>Keterbatasan</td><td>Piezometer simulasi; ML data terbatas</td><td>-</td><td>Tanpa backup lokal, tanpa enkripsi</td><td>Wi-Fi only, tanpa buffer offline, uji lab</td></tr></tbody></table></div><p style="font-size:7.5pt">*Dari ringkasan di TA Polines; baca paper aslinya sebelum dikutip.</p><div class="callout callout-green"><div class="callout-title">Kontribusi yang diklaim</div>(1) Threshold 3 level (kemiringan, getaran, kelembapan) diturunkan langsung dari data percobaan miniatur (TC-09), bukan disalin mentah dari jurnal; (2) pemisahan sensor kemiringan (MPU-6050 I2C) dan getaran digital presisi (ADXL345 SPI) menggantikan SW-420 biner; (3) evaluasi kuantitatif akurasi sudut dan QoS; (4) dashboard mobile real-time <strong>TERRA</strong> ber-autentikasi.</div>
   </div>
   <div class="doc-footer">
-    <span>APHELION · PRD v1.1</span>
+    <span>APHELION · PRD v1.2</span>
     <span>Halaman 3</span>
   </div>
 </div>
@@ -739,7 +743,7 @@
 
   <div class="section avoid-break">
     <div class="section-num">§ 06</div>
-    <h2>Spesifikasi Komponen Hardware</h2>
+    <h2>Spesifikasi Komponen Hardware (Aktual)</h2>
     <div class="table-wrapper">
       <table>
         <thead>
@@ -748,92 +752,98 @@
             <th>Komponen</th>
             <th>Spesifikasi Teknis</th>
             <th>Fungsi dalam Sistem</th>
-            <th>Harga Est.</th>
+            <th>Realisasi</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>1</td>
-            <td><strong>ESP32-WROOM-32</strong></td>
-            <td>Dual-core 240 MHz, 4MB Flash, Wi-Fi 802.11 b/g/n, BT 4.2, 3.3V logic</td>
-            <td>Mikrokontroler utama (edge node), pemrosesan data sensor, publisher Firebase</td>
-            <td>Rp 65.000</td>
+            <td><strong>ESP32-D 38-Pin + Expansion Board 38-Pin</strong></td>
+            <td>Dual-core 240 MHz, Wi-Fi/BT, logika 3.3V, shield 38-pin (rail 3.3V/5V/GND)</td>
+            <td>Edge node utama, pembacaan 3 sensor inti, klasifikasi lokal &amp; publisher Firebase</td>
+            <td>Rp 0 (Tim)</td>
           </tr>
           <tr>
             <td>2</td>
             <td><strong>MPU-6050</strong></td>
-            <td>6-DoF IMU (3-axis gyro + 3-axis accel), I2C 400 kHz, addr 0x68/0x69</td>
-            <td>Deteksi sudut kemiringan lereng (Roll & Pitch) sebagai indikator pergeseran tanah</td>
-            <td>Rp 20.000</td>
+            <td>6-DoF IMU (3-axis gyro + accel), I2C addr <code>0x68</code> (<code>AD0→GND</code>)</td>
+            <td><strong>Parameter Inti 1:</strong> Deteksi kemiringan lereng (Roll &amp; Pitch)</td>
+            <td>Rp 26.000</td>
           </tr>
           <tr>
             <td>3</td>
-            <td><strong>Soil Moisture v1.2</strong></td>
-            <td>Kapasitif, Output analog 0–3.3V, resolusi ADC 12-bit ESP32</td>
-            <td>Mengukur kadar air tanah — tanah jenuh air meningkatkan risiko longsor</td>
-            <td>Rp 25.000</td>
+            <td><strong>ADXL345 3-Axis Digital</strong></td>
+            <td>Akselerometer 3-axis 13-bit, SPI 4-wire + INT1, 3.3V logic</td>
+            <td><strong>Parameter Inti 2:</strong> Deteksi getaran &amp; delta guncangan tanah (pengganti SW-420)</td>
+            <td>Rp 42.885</td>
           </tr>
           <tr>
             <td>4</td>
-            <td><strong>Active Buzzer 5V</strong></td>
-            <td>85 dB, frekuensi 2.5 kHz, operasi 3.3–5V via transistor NPN</td>
-            <td>Alarm audio lokal saat status Waspada atau Bahaya terdeteksi</td>
-            <td>Rp 8.000</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td><strong>LED Tri-State</strong></td>
-            <td>LED Hijau (Aman), Kuning (Waspada), Merah (Bahaya), resistor 220Ω</td>
-            <td>Indikator visual level bahaya secara lokal pada prototipe fisik</td>
+            <td><strong>Soil Moisture v1.2</strong></td>
+            <td>Kapasitif, output analog 0–3.3V, ADC1 ESP32 12-bit (wajib VCC 3.3V)</td>
+            <td><strong>Parameter Inti 3:</strong> Mengukur kadar air / kelembapan tanah</td>
             <td>Rp 10.000</td>
           </tr>
           <tr>
+            <td>5</td>
+            <td><strong>DHT22 &amp; LCD 16x2 I2C</strong></td>
+            <td>DHT22 1-Wire 3.3V; LCD 16x2 backpack I2C 5V</td>
+            <td>Info lingkungan (suhu/kelembapan udara, non-pemicu) &amp; tampilan status lokal</td>
+            <td>Rp 0 (Tim)</td>
+          </tr>
+          <tr>
             <td>6</td>
-            <td><strong>Servo Horn 25T Metal x2</strong> (aksesori; servo motor belum tercatat, lihat § 16)</td>
-            <td>Torsi ≥ 2 kg·cm, sudut 180°, kompatibel MG996R/SG90</td>
-            <td>Mekanisme kemiringan bertahap pada miniatur lereng tanah</td>
-            <td>Rp 40.000</td>
+            <td><strong>Active Buzzer 3-Pin &amp; LED Tri-State</strong></td>
+            <td>Buzzer 3.3–5V; LED Biru/Hijau (Aman), Kuning (Waspada), Merah (Bahaya) + 220Ω</td>
+            <td>Alarm audio dan indikator visual lokal independen tanpa Wi-Fi</td>
+            <td>Rp 4.500</td>
           </tr>
           <tr>
             <td>7</td>
-            <td><strong>Komponen Pendukung</strong></td>
-            <td>Kabel jumper, breadboard, power supply 5V 2A, resistor assorted</td>
-            <td>Koneksi fisik antar komponen dan sumber daya</td>
-            <td>Rp 60.000</td>
+            <td><strong>2× MG996R Servo + 2× Metal Horn 25T</strong></td>
+            <td>Servo torsi tinggi 180° (pinjam kating) + 2× horn metal 25T panjang</td>
+            <td>Mekanisme penggerak kemiringan bertahap pada miniatur lereng</td>
+            <td>Rp 41.600</td>
           </tr>
           <tr>
             <td>8</td>
-            <td><strong>Akuarium Akrilik</strong></td>
-            <td>Dimensi 40×25×28 cm, tebal 3mm</td>
-            <td>Wadah miniatur lereng tanah untuk simulasi demo kondisi longsor</td>
-            <td>Rp 40.000</td>
+            <td><strong>Akuarium Akrilik Nikita</strong></td>
+            <td>Dimensi 40×25×28 cm, bahan akrilik bening</td>
+            <td>Wadah miniatur lereng tanah untuk percobaan TC-09 &amp; demo dosen</td>
+            <td>Rp 177.700</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td><strong>SW-420 (Dibeli Awal / Non-Aktif)</strong></td>
+            <td>Sensor getaran digital biner (digantikan ADXL345 SPI)</td>
+            <td>Dibeli di tahap awal sebelum migrasi ke ADXL345; disimpan sebagai cadangan/arsip</td>
+            <td>Rp 8.000</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="kv-row" style="margin-top:8px; border-top: 2px solid var(--slate-200); padding-top:8px;">
-      <span class="kv-key" style="font-weight:700;">TOTAL REALISASI ANGGARAN</span>
-      <span class="kv-val" style="color:var(--blue-600); font-size:10pt;">Rp 268.000 (≈ Rp 44.700/orang), belum termasuk item TBD (§ 16)</span>
+      <span class="kv-key" style="font-weight:700;">TOTAL REALISASI ANGGARAN (NOTA AKTUAL)</span>
+      <span class="kv-val" style="color:var(--blue-600); font-size:10pt;">Rp 310.685 (≈ Rp 51.800/orang · Anisa Rp 182.200 + Jizdan Rp 128.485)</span>
     </div>
   </div>
 
   <div class="section avoid-break">
     <div class="section-num">§ 07</div>
-    <h2>Alokasi Pinout ESP32 (mengacu Daftar_Alat_dan_Pin_ESP32)</h2>
-<div class="table-wrapper"><table><thead><tr><th>GPIO</th><th>Komponen</th><th>Mode</th><th>Catatan</th></tr></thead><tbody><tr><td><span class="pin-sda">GPIO 21</span></td><td>MPU-6050 SDA</td><td>I2C (Wire)</td><td>Bus utama IMU</td></tr><tr><td><span class="pin-scl">GPIO 22</span></td><td>MPU-6050 SCL</td><td>I2C (Wire)</td><td>3V3</td></tr><tr><td><span class="pin-sda">GPIO 32</span></td><td>LCD I2C SDA</td><td>I2C (Wire1)</td><td>Opsional; perlu instans Wire kedua</td></tr><tr><td><span class="pin-scl">GPIO 33</span></td><td>LCD I2C SCL</td><td>I2C (Wire1)</td><td>LCD di 5V: cek level logika (§ 07A)</td></tr><tr><td><span class="pin-adc">GPIO 34</span></td><td>Soil Moisture AOUT</td><td>ADC1 input</td><td>ADC1 aman saat Wi-Fi aktif</td></tr><tr><td><span class="pin-gpio">GPIO 27</span></td><td>SW-420 DO</td><td>Digital in</td><td>Pulsa dihitung per jendela waktu</td></tr><tr><td><span class="pin-gpio">GPIO 4</span></td><td>DHT22 DATA</td><td>Digital</td><td>Opsional</td></tr><tr><td><span class="pin-gpio">GPIO 18</span></td><td>Buzzer</td><td>Digital out</td><td>Transistor NPN bila arus melebihi batas GPIO</td></tr><tr><td><span class="pin-gpio">GPIO 14</span></td><td>LED Hijau/Biru (AMAN)</td><td>Digital out</td><td>Resistor 220–330Ω</td></tr><tr><td><span class="pin-gpio">GPIO 26</span></td><td>LED Kuning (WASPADA)</td><td>Digital out</td><td></td></tr><tr><td><span class="pin-gpio">GPIO 5</span></td><td>LED Merah (BAHAYA)</td><td>Digital out</td><td>Pin strapping; aman untuk LED</td></tr><tr><td><span class="pin-gpio">GPIO 13</span></td><td>Servo (sinyal)</td><td>PWM</td><td>USULAN, konfirmasi tim; catu 5V terpisah</td></tr><tr><td><span class="pin-pwr">3V3 / VIN / GND</span></td><td>Sensor / LCD, servo / semua</td><td>Power</td><td>Common ground wajib</td></tr></tbody></table></div><div class="callout callout-amber"><div class="callout-title">Perubahan dari v1.0</div>Pinout v1.0 (buzzer GPIO25, LED 26/27/14) bertabrakan dengan daftar alat tim (GPIO27 dipakai SW-420). v1.1 mengikuti daftar alat; tim hardware perlu mengonfirmasi.</div>
+    <h2>Alokasi Pinout ESP32-D 38-Pin (Revisi ADXL345 SPI)</h2>
+<div class="table-wrapper"><table><thead><tr><th>GPIO</th><th>Komponen</th><th>Mode / Bus</th><th>Catatan Teknis</th></tr></thead><tbody><tr><td><span class="pin-sda">GPIO 21</span> / <span class="pin-scl">GPIO 22</span></td><td>MPU-6050 (SDA / SCL)</td><td>I2C Bus 1 (<code>TwoWire(1)</code>)</td><td>Khusus kemiringan Roll &amp; Pitch; <code>AD0 → GND</code> (0x68), VCC 3.3V</td></tr><tr><td><span class="pin-sda">GPIO 32</span> / <span class="pin-scl">GPIO 33</span></td><td>LCD 16x2 I2C (SDA / SCL)</td><td>I2C Bus 0 (<code>Wire</code>)</td><td>VCC wajib 5V untuk kontras; cek level logika SDA/SCL (§ 07A)</td></tr><tr><td><span class="pin-gpio">GPIO 25 / 13* / 23 / 19 / 27</span></td><td>ADXL345 (CS / SCLK / MOSI / MISO / INT1)</td><td>SPI 4-Wire + Interrupt</td><td>Khusus getaran; *disarankan swap SCLK <code>18</code> ↔ Buzzer <code>13</code> agar native VSPI</td></tr><tr><td><span class="pin-adc">GPIO 35</span></td><td>Soil Moisture v1.2 AOUT</td><td>Analog (ADC1_CH7)</td><td>ADC1 aman saat Wi-Fi aktif; <strong>VCC wajib 3.3V</strong> agar AOUT tidak melebihi batas GPIO</td></tr><tr><td><span class="pin-gpio">GPIO 4</span></td><td>DHT22 DATA</td><td>Digital 1-Wire</td><td>Data suhu/kelembapan udara (informasional, bukan pemicu status)</td></tr><tr><td><span class="pin-gpio">GPIO 18*</span></td><td>Active Buzzer (+)</td><td>Digital Out</td><td>*Bila SCLK ADXL345 dipindah ke native VSPI 18, Buzzer pindah ke <code>GPIO 13</code></td></tr><tr><td><span class="pin-gpio">GPIO 14 / 26 / 5</span></td><td>LED Biru(Hijau) / Kuning / Merah</td><td>Digital Out</td><td>AMAN (14), WASPADA (26), BAHAYA (5); resistor 220Ω per LED</td></tr><tr><td><span class="pin-gpio">GPIO 16 &amp; 17</span></td><td>2× Servo MG996R (Sinyal)</td><td>PWM (Usulan)</td><td>Catu 5V eksternal terpisah (min. 2A) + common GND ke shield</td></tr><tr><td><span class="pin-pwr">3V3 / 5V / GND</span></td><td>Expansion Board 38-Pin</td><td>Power Rail</td><td>Jumper shield di 3.3V; common ground wajib antar semua modul</td></tr></tbody></table></div><div class="callout callout-amber"><div class="callout-title">Perubahan dari v1.1 → v1.2</div>SW-420 diganti penuh dengan <strong>ADXL345 via SPI 4-wire</strong>, Soil Moisture dipindah ke <code>GPIO 35</code> sesuai draf pinout Raffael (25 Nov 2026), dan board dikunci ke <strong>ESP32-D 38-Pin + Expansion Shield</strong>. Tim hardware tinggal mengonfirmasi swap SCLK <code>GPIO 18</code> ↔ Buzzer <code>GPIO 13</code> dan pin servo <code>GPIO 16/17</code> sebelum penyolderan/rakit final.</div>
   </div>
 <div class="section avoid-break">
     <div class="section-num">§ 07A</div>
     <h2>Rekayasa Hardware & Kalibrasi</h2>
 <ul>
-<li><strong>Sudut:</strong> v1.0 memakai max(|Roll|,|Pitch|) yang meremehkan kemiringan gabungan (roll 20° + pitch 20° ≈ 28° total). v1.1: <code>θ = arccos(az / √(ax²+ay²+az²))</code>, dengan <em>complementary filter</em> <code>θ = α(θ + ω·dt) + (1−α)·θ_acc</code>, α ≈ 0,96–0,98 (ditetapkan saat kalibrasi), offset MPU dikalibrasi tiap boot.</li>
-<li><strong>Kelembapan:</strong> <code>% = clamp((ADC_kering − ADC_raw) / (ADC_kering − ADC_basah) × 100, 0, 100)</code>. Titik kering = udara, basah = air; tambah titik tanah lembab. ADC dibaca multisampling (rata-rata 16×) karena ADC ESP32 tidak linier dan berderau. Persen dari jurnal lain tidak transferable ke sensor ini.</li>
-<li><strong>Getaran:</strong> SW-420 digital mudah berpicu palsu; gunakan hitungan pulsa per jendela 2 s, bukan satu pulsa.</li>
-<li><strong>Daya:</strong> servo memakai catu 5V terpisah (arus puncak dapat menyebabkan brownout ESP32) dengan ground bersama.</li>
-<li><strong>LCD I2C 5V:</strong> modul backpack umumnya menarik SDA/SCL ke 5V; pastikan level 3,3V aman bagi GPIO ESP32 (level shifter atau pull-up ke 3V3).</li></ul>
+<li><strong>Kemiringan (MPU-6050):</strong> Menghitung Roll, Pitch, dan sudut gabungan <code>θ = arccos(az / √(ax²+ay²+az²))</code> dengan <em>complementary filter</em> <code>θ = α(θ + ω·dt) + (1−α)·θ_acc</code> (α ≈ 0,96–0,98); offset gyro/accel dikalibrasi tiap boot pada posisi datar.</li>
+<li><strong>Getaran (ADXL345 SPI):</strong> Berbeda dari SW-420 yang biner, ADXL345 membaca percepatan 3-sumbu (<code>ax, ay, az</code>) secara presisi. Indeks getaran dihitung dari deviasi magnitudo terhadap gravitasi <code>vibration_delta = |√(ax²+ay²+az²) − 1.0g|</code> (satuan <code>g</code>) dan status flag/hitungan event <code>vibration</code>. Baseline diam diukur di TC-10 agar noise lantai tidak memicu false alarm.</li>
+<li><strong>Kelembapan Tanah (Soil Moisture v1.2):</strong> <code>% = clamp((ADC_kering − ADC_raw) / (ADC_kering − ADC_basah) × 100, 0, 100)</code> dengan multisampling 16× pada <code>GPIO 35</code> (VCC wajib 3.3V agar tidak merusak ADC ESP32). Kalibrasi 3 titik (kering, lembab, jenuh air) dilakukan langsung pada media tanah miniatur.</li>
+<li><strong>Daya &amp; Proteksi:</strong> 2× servo MG996R wajib catu 5V eksternal terpisah (hindari brownout ESP32) dengan common GND; backpack LCD I2C 5V dicek tegangan tarik SDA/SCL-nya agar aman bagi GPIO 3.3V.</li></ul>
   </div>
   <div class="doc-footer">
-    <span>APHELION · PRD v1.1</span>
+    <span>APHELION · PRD v1.2</span>
     <span>Halaman 4</span>
   </div>
 </div>
@@ -846,15 +856,15 @@
   <div class="section avoid-break">
     <div class="section-num">§ 08</div>
     <h2>Functional Requirements (FR)</h2>
-<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Requirement</th><th>Deskripsi</th><th>Prioritas</th><th>MoSCoW</th></tr></thead><tbody><tr><td><code>FR-01</code></td><td>Pembacaan IMU</td><td>Roll, Pitch, dan sudut total tiap 100 ms dengan complementary filter</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-02</code></td><td>Soil Moisture</td><td>ADC1 GPIO34, multisampling, konversi % via kalibrasi</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-03</code></td><td>Getaran SW-420</td><td>Hitung pulsa per jendela 2 s sebagai indeks getaran</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-04</code></td><td>Wi-Fi & NTP</td><td>Konek otomatis saat boot dan sinkronisasi waktu NTP</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-05</code></td><td>Autentikasi</td><td>ESP32 dan Flutter terautentikasi Firebase Auth; Login Google di aplikasi</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-06</code></td><td>Publish RTDB</td><td>Tiap 1 s: roll, pitch, tilt, moisture, vibration, status, status_reason, timestamp server</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-07</code></td><td>Klasifikasi</td><td>3 level dengan aturan level-tertinggi, debounce, hysteresis (§ 10)</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-08</code></td><td>Alarm lokal</td><td>Buzzer dan LED sesuai § 10, tetap bekerja tanpa Wi-Fi</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-09</code></td><td>Dashboard Flutter</td><td>Gauge sudut, moisture, getaran, status + alasan, Trend Terkini real-time</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-10</code></td><td>Riwayat</td><td>History ditulis saat status berubah; aplikasi menampilkan 10 event terakhir</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-11</code></td><td>Reconnect</td><td>Reconnect Wi-Fi/Firebase dengan exponential backoff</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-12</code></td><td>Servo miniatur</td><td>Kemiringan bertahap pada miniatur lereng</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-13</code></td><td>Notifikasi lokal</td><td>Local notification saat aplikasi berjalan; push saat tertutup di luar lingkup</td><td><span class="priority-low">Rendah</span></td><td><span class="tag-could">Could</span></td></tr></tbody></table></div>
+<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Requirement</th><th>Deskripsi</th><th>Prioritas</th><th>MoSCoW</th></tr></thead><tbody><tr><td><code>FR-01</code></td><td>Pembacaan Kemiringan</td><td>MPU-6050 membaca Roll, Pitch, dan sudut total tiap 100 ms dengan complementary filter</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-02</code></td><td>Kelembapan Tanah</td><td>Soil Moisture v1.2 pada ADC1 <code>GPIO 35</code>, multisampling 16×, konversi % via kalibrasi</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-03</code></td><td>Getaran ADXL345</td><td>ADXL345 SPI membaca delta percepatan (<code>vibration_delta</code>) &amp; indeks <code>vibration</code> secara kontinu</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-04</code></td><td>Wi-Fi &amp; NTP</td><td>Konek otomatis saat boot dan sinkronisasi waktu NTP</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-05</code></td><td>Autentikasi</td><td>ESP32 dan Flutter terautentikasi Firebase Auth; Login Google di aplikasi TERRA</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-06</code></td><td>Publish RTDB</td><td>Tiap 1 s ke <code>/realtime</code>: roll, pitch, moisture, soil_raw_adc, vibration, vibration_delta, air_temp, air_humidity, LED/buzzer, status, timestamp</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-07</code></td><td>Klasifikasi 3 Parameter</td><td>3 level (AMAN/WASPADA/BAHAYA) hanya dari kemiringan, getaran, kelembapan tanah; threshold dari TC-09 + debounce &amp; hysteresis</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-08</code></td><td>Alarm Lokal</td><td>Buzzer, LED 3 warna, dan LCD 16x2 tetap bekerja independen tanpa Wi-Fi</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-09</code></td><td>Dashboard TERRA</td><td>Gauge kemiringan, kelembapan, getaran, info suhu/kelembapan udara, badge status + alasan real-time</td><td><span class="priority-high">Tinggi</span></td><td><span class="tag-must">Must</span></td></tr><tr><td><code>FR-10</code></td><td>Riwayat Event</td><td>Tulis ke <code>/history/{pushId}</code> saat status berubah (status lama/baru, pemicu, 3 parameter); tampilkan riwayat terbaru</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-11</code></td><td>Reconnect</td><td>Reconnect Wi-Fi/Firebase dengan exponential backoff</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-12</code></td><td>Servo Miniatur</td><td>2× MG996R menggerakkan kemiringan bertahap pada miniatur akuarium</td><td><span class="priority-med">Sedang</span></td><td><span class="tag-should">Should</span></td></tr><tr><td><code>FR-13</code></td><td>Notifikasi Lokal</td><td>Local notification saat aplikasi berjalan; push saat tertutup di luar lingkup</td><td><span class="priority-low">Rendah</span></td><td><span class="tag-could">Could</span></td></tr></tbody></table></div>
   </div>
   <div class="section avoid-break">
     <div class="section-num">§ 09</div>
     <h2>Non-Functional Requirements (NFR)</h2>
-<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Kategori</th><th>Requirement</th><th>Metrik Target</th></tr></thead><tbody><tr><td><code>NFR-01</code></td><td>Performa</td><td>Latensi end-to-end, diukur dengan timestamp server/NTP (bukan selisih jam HP)</td><td>≤ 2000 ms rata-rata; P95 dilaporkan; 50 siklus</td></tr><tr><td><code>NFR-02</code></td><td>Akurasi sudut</td><td>Galat vs busur derajat, 0°–45° interval 5°</td><td>MAE ≤ 2°; RMSE dilaporkan</td></tr><tr><td><code>NFR-03</code></td><td>Akurasi moisture</td><td>Klasifikasi kering/lembab/jenuh vs gravimetri</td><td>≥ 90% benar</td></tr><tr><td><code>NFR-04</code></td><td>QoS</td><td>Packet loss dan data completeness (diterima/dikirim)</td><td>≤ 1% loss (target awal), uji 2 jam</td></tr><tr><td><code>NFR-05</code></td><td>Ketersediaan</td><td>Waktu dengan data terbaru &lt; 5 s dibanding total waktu uji</td><td>≥ 99%</td></tr><tr><td><code>NFR-06</code></td><td>Responsivitas</td><td>Deteksi threshold sampai buzzer/LED aktif</td><td>≤ 500 ms</td></tr><tr><td><code>NFR-07</code></td><td>Biaya</td><td>BOM inti</td><td>≤ Rp 300.000</td></tr><tr><td><code>NFR-08</code></td><td>Laju</td><td>Sampling 100 ms; publish 1000 ms</td><td>-</td></tr><tr><td><code>NFR-09</code></td><td>Usability</td><td>Pengguna baru membaca status tanpa panduan</td><td>≤ 30 detik</td></tr></tbody></table></div>
+<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Kategori</th><th>Requirement</th><th>Metrik Target</th></tr></thead><tbody><tr><td><code>NFR-01</code></td><td>Performa</td><td>Latensi end-to-end, diukur dengan timestamp server/NTP (bukan selisih jam HP)</td><td>≤ 2000 ms rata-rata; P95 dilaporkan; 50 siklus</td></tr><tr><td><code>NFR-02</code></td><td>Akurasi sudut</td><td>Galat MPU-6050 vs busur derajat, 0°–45° interval 5°</td><td>MAE ≤ 2°; RMSE dilaporkan</td></tr><tr><td><code>NFR-03</code></td><td>Akurasi moisture</td><td>Klasifikasi kering/lembab/jenuh pada media miniatur vs gravimetri</td><td>≥ 90% benar</td></tr><tr><td><code>NFR-04</code></td><td>QoS</td><td>Packet loss dan data completeness (diterima/dikirim)</td><td>≤ 1% loss (target awal), uji 2 jam</td></tr><tr><td><code>NFR-05</code></td><td>Ketersediaan</td><td>Waktu dengan data terbaru &lt; 5 s dibanding total waktu uji</td><td>≥ 99%</td></tr><tr><td><code>NFR-06</code></td><td>Responsivitas</td><td>Deteksi threshold sampai buzzer/LED aktif</td><td>≤ 500 ms</td></tr><tr><td><code>NFR-07</code></td><td>Biaya</td><td>Total realisasi BOM + miniatur akuarium</td><td>≤ Rp 350.000 (aktual Rp 310.685)</td></tr><tr><td><code>NFR-08</code></td><td>Laju</td><td>Sampling sensor 100 ms; publish RTDB 1000 ms</td><td>-</td></tr><tr><td><code>NFR-09</code></td><td>Usability</td><td>Pengguna baru membaca status tanpa panduan di aplikasi TERRA</td><td>≤ 30 detik</td></tr></tbody></table></div>
   </div>
   <div class="doc-footer">
-    <span>APHELION · PRD v1.1</span>
+    <span>APHELION · PRD v1.2</span>
     <span>Halaman 5</span>
   </div>
 </div>
@@ -866,49 +876,61 @@
 
   <div class="section avoid-break">
     <div class="section-num">§ 10</div>
-    <h2>Logika Peringatan Bahaya (Alert Logic)</h2>
-<p>Level tiap parameter dihitung terpisah; status akhir = <strong>level tertinggi</strong>. Eskalasi butuh <strong>3 sampel berturut-turut</strong> di atas batas (debounce); penurunan butuh margin hysteresis (±2° atau ±3%) agar status tidak berkedip. Threshold di bawah bersifat <strong>sementara</strong> (mengacu Ringkasan Tubes) dan dikunci setelah TC-09.</p><div class="table-wrapper"><table><thead><tr><th>Status</th><th>Sudut total</th><th>Moisture</th><th>Getaran</th><th>Aksi lokal</th><th>Firebase</th></tr></thead><tbody><tr><td>🟢 AMAN</td><td>&lt; 20°</td><td>&lt; 50%</td><td>0 pulsa</td><td>LED hijau, buzzer mati</td><td>"AMAN"</td></tr><tr><td>🟡 WASPADA</td><td>20°–27°</td><td>50%–54%</td><td>≥ 3 pulsa/2 s</td><td>LED kuning; indikator Waspada di Flutter</td><td>"WASPADA"</td></tr><tr><td>🔴 BAHAYA</td><td>&gt; 27°</td><td>&gt; 54%</td><td>-</td><td>LED merah, buzzer kontinu, alert merah di Flutter</td><td>"BAHAYA"</td></tr></tbody></table></div><div class="callout callout-amber"><div class="callout-title">Catatan kritis</div>Pita Waspada moisture hanya 4% dan angkanya berasal dari sensor lain (YL-69/FC-28); pada sensor kapasitif nilainya bergantung kalibrasi sendiri. Level getaran (TA Polines: 1 = Waspada) dan 4 level nasional versi TA Polines tidak dipakai mentah; halaman rujukan 4 level di TA itu membahas status gunung api. <code>status_reason</code> berisi pemicu, misalnya "BAHAYA: tilt 31° &gt; 27°".</div>
+    <h2>Logika Peringatan Bahaya (Berbasis Data Percobaan)</h2>
+<p>Penentuan status bahaya <strong>hanya menggunakan 3 parameter inti</strong>: <strong>(1) Kemiringan lereng</strong> (MPU-6050), <strong>(2) Getaran tanah</strong> (ADXL345 SPI), dan <strong>(3) Kelembapan tanah</strong> (Soil Moisture v1.2). Data DHT22 (suhu &amp; kelembapan udara) bersifat informasional di dashboard dan tidak memicu alarm. Level tiap parameter dievaluasi terpisah; status akhir = <strong>level tertinggi</strong>, dengan eskalasi <strong>3 sampel berturut-turut</strong> (debounce) dan margin hysteresis saat turun agar status tidak berkedip.</p>
+<div class="table-wrapper"><table><thead><tr><th>Status</th><th>1. Kemiringan (MPU-6050)</th><th>2. Getaran (ADXL345)</th><th>3. Kelembapan (Soil v1.2)</th><th>Aksi Lokal</th><th>Firebase</th></tr></thead><tbody><tr><td>🔵/🟢 AMAN</td><td><code>&lt; θ_waspada</code><br><small>[TBD · TC-09]</small></td><td><code>Δa &lt; g_waspada</code><br><small>[TBD · TC-09/10]</small></td><td><code>&lt; M_waspada</code><br><small>[TBD · TC-09]</small></td><td>LED Biru/Hijau, buzzer mati</td><td><code>"AMAN"</code></td></tr><tr><td>🟡 WASPADA</td><td><code>θ_waspada – θ_bahaya</code><br><small>[TBD · TC-09]</small></td><td><code>g_waspada – g_bahaya</code><br><small>[TBD · TC-09/10]</small></td><td><code>M_waspada – M_bahaya</code><br><small>[TBD · TC-09]</small></td><td>LED Kuning, peringatan kuning di TERRA</td><td><code>"WASPADA"</code></td></tr><tr><td>🔴 BAHAYA</td><td><code>&gt; θ_bahaya</code><br><small>[TBD · TC-09]</small></td><td><code>&gt; g_bahaya</code><br><small>[TBD · TC-09/10]</small></td><td><code>&gt; M_bahaya</code><br><small>[TBD · TC-09]</small></td><td>LED Merah, buzzer aktif, alert merah di TERRA</td><td><code>"BAHAYA"</code></td></tr></tbody></table></div>
+<div class="callout callout-blue"><div class="callout-title">Protokol Penetapan Ambang Batas Empiris (TC-09)</div>Angka batas <strong>tidak disalin mentah dari jurnal</strong> karena media tanah, sensor kapasitif v1.2, dan akselerometer ADXL345 pada miniatur 40×25×28 cm memiliki karakteristik fisik tersendiri. Pada Sprint 5–6 (TC-09), tim akan merekam minimal 3 skenario berulang: (a) lereng stabil &amp; tanah kering/normal → batas <strong>AMAN</strong>, (b) mulai muncul retakan/pergeseran kecil &amp; tanah lembab/getaran awal → batas <strong>WASPADA</strong>, (c) tanah jenuh/longsor nyata &amp; guncangan besar → batas <strong>BAHAYA</strong>. Nilai final <code>θ</code>, <code>g</code>, dan <code>M</code> akan dikunci di PRD v1.3 dan firmware ESP32 setelah data percobaan diperoleh.</div>
   </div>
   <div class="section avoid-break">
     <div class="section-num">§ 11</div>
-    <h2>Firebase RTDB, Payload & Security Rules</h2>
-<div class="two-col"><div><pre style="background:var(--slate-800);color:#e2e8f0;padding:10px;border-radius:8px;font-size:7pt;line-height:1.5;">aphelion/
+    <h2>Firebase RTDB, Payload & Security Rules (Live)</h2>
+<div class="two-col"><div><pre style="background:var(--slate-800);color:#e2e8f0;padding:10px;border-radius:8px;font-size:6.8pt;line-height:1.45;">// Project: terra-aphelion-iot (asia-southeast1)
+/
 ├── realtime/
-│   ├── roll, pitch, tilt   (number, °)
-│   ├── moisture            (number, %)
-│   ├── vibration           (int, pulsa/2 s)
-│   ├── status              ("AMAN|WASPADA|BAHAYA")
-│   ├── status_reason       (string)
-│   └── ts                  (server timestamp)
-└── history/{pushId}/ ...   (saat status berubah)</pre></div>
-<div><pre style="background:var(--slate-800);color:#e2e8f0;padding:10px;border-radius:8px;font-size:7pt;line-height:1.5;">// DRAFT rules
-"aphelion": {
-  ".read": "auth != null",
-  "realtime": {
-    ".write": "auth.uid === 'UID_ESP32'",
-    "tilt": {".validate": "newData.isNumber()"},
-    "status": {".validate":
-      "newData.isString()"}
+│   ├── status           ("AMAN|WASPADA|BAHAYA")
+│   ├── roll, pitch      (number, ° · MPU-6050)
+│   ├── moisture         (number, % · Soil v1.2)
+│   ├── soil_raw_adc     (int, 0–4095 · GPIO 35)
+│   ├── vibration        (int, 0/1 · ADXL345)
+│   ├── vibration_delta  (number, g · ADXL345)
+│   ├── air_temp, air_humidity (DHT22, info)
+│   ├── led_blue, led_yellow, led_red (0/1)
+│   ├── buzzer_active    (0/1)
+│   └── timestamp        ({".sv":"timestamp"})
+└── history/{pushId}/
+    ├── status_lama, status_baru, pemicu
+    ├── roll, pitch, moisture, vibration
+    └── timestamp</pre></div>
+<div><pre style="background:var(--slate-800);color:#e2e8f0;padding:10px;border-radius:8px;font-size:6.8pt;line-height:1.45;">// Deployed Rules (aktif di Firebase):
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
   }
-}</pre></div></div>
-<ul><li>Library ESP32: FirebaseClient. Auth ESP32: akun/UID khusus perangkat; hindari Legacy Secret (verifikasi status deprecation di dokumentasi Firebase).</li>
-<li>Rules "read/write: true" hanya untuk uji awal dan dilarang saat demo.</li><li>Timestamp memakai <code>ServerValue.TIMESTAMP</code>/NTP agar latensi valid.</li></ul>
+}
+
+// Target Hardening sebelum Demo:
+// - realtime/.write: khusus auth.uid ESP32
+// - validasi tipe status &amp; angka sensor
+// - history: append-only saat status berubah</pre></div></div>
+<ul><li>RTDB Singapore sudah live &amp; ter-seed (<code>rtdb_seed.json</code>), Google Sign-In aktif, dan <code>google-services.json</code> (<code>com.aphelion.terra</code>) sudah tersedia di Google Drive tim.</li>
+<li>Library ESP32: <strong>FirebaseClient</strong> + timestamp <code>ServerValue.TIMESTAMP</code>/NTP agar pengukuran latensi end-to-end valid.</li></ul>
   </div>
   <div class="section avoid-break">
     <div class="section-num">§ 12</div>
-    <h2>Spesifikasi Aplikasi Flutter</h2>
+    <h2>Spesifikasi Aplikasi Flutter (TERRA)</h2>
 <div class="two-col"><div><h3>Stack</h3>
+<div class="kv-row"><span class="kv-key">Nama &amp; Package</span><span class="kv-val">TERRA (<code>com.aphelion.terra</code>)</span></div>
 <div class="kv-row"><span class="kv-key">Framework</span><span class="kv-val">Flutter 3.x, Android</span></div>
 <div class="kv-row"><span class="kv-key">Auth</span><span class="kv-val">firebase_auth + google_sign_in</span></div>
-<div class="kv-row"><span class="kv-key">Data</span><span class="kv-val">firebase_database (stream)</span></div>
-<div class="kv-row"><span class="kv-key">Versi paket</span><span class="kv-val">stabil terbaru (cek pub.dev)</span></div>
-<div class="kv-row"><span class="kv-key">State</span><span class="kv-val">Provider / StreamBuilder</span></div></div>
-<div><h3>Layar & Fitur</h3><ul><li>Login Google</li><li>Dashboard: gauge sudut, moisture, getaran, badge status + alasan</li>
-<li>Trend Terkini (grafik gabungan sensor)</li><li>Riwayat: 10 event perubahan status</li><li>Tentang (tim, jurnal rujukan, versi)</li>
-<li>Local notification (aplikasi berjalan)</li></ul></div></div>
+<div class="kv-row"><span class="kv-key">Data</span><span class="kv-val">firebase_database (stream <code>/realtime</code>)</span></div>
+<div class="kv-row"><span class="kv-key">UI Reference</span><span class="kv-val">Figma TERRA — Flutter UI</span></div></div>
+<div><h3>Layar & Fitur</h3><ul><li>Login Google (terhubung Firebase Auth)</li><li>Dashboard: badge status 3 level, kartu 3 parameter inti (Kemiringan Roll/Pitch, Getaran ADXL345, Kelembapan Tanah) + info lingkungan DHT22</li>
+<li>Grafik Trend Terkini (real-time stream)</li><li>Riwayat: daftar perubahan status + pemicu dari <code>/history</code></li><li>Tentang (tim Aphelion, jurnal rujukan, versi)</li>
+<li>Local notification saat aplikasi berjalan</li></ul></div></div>
   </div>
   <div class="doc-footer">
-    <span>APHELION · PRD v1.1</span>
+    <span>APHELION · PRD v1.2</span>
     <span>Halaman 6</span>
   </div>
 </div>
@@ -921,12 +943,12 @@
   <div class="section avoid-break">
     <div class="section-num">§ 13</div>
     <h2>Rencana Pengujian & Kriteria Sukses</h2>
-<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Skenario</th><th>Metode</th><th>Kriteria Lulus</th><th>PIC</th></tr></thead><tbody><tr><td><code>TC-01</code></td><td>Akurasi sudut</td><td>Bandingkan dengan busur derajat pada 0°–45° interval 5° (10 titik)</td><td>MAE ≤ 2°, RMSE dilaporkan</td><td>Raffael</td></tr><tr><td><code>TC-02</code></td><td>Akurasi moisture</td><td>Kering, lembab, jenuh vs gravimetri</td><td>≥ 90% benar</td><td>Anisa</td></tr><tr><td><code>TC-03</code></td><td>Latensi end-to-end</td><td>50 siklus, timestamp server/NTP</td><td>Rata-rata ≤ 2 s, P95 dilaporkan</td><td>Raffael</td></tr><tr><td><code>TC-04</code></td><td>Respons alarm</td><td>10 percobaan melewati threshold</td><td>≤ 500 ms</td><td>Anisa</td></tr><tr><td><code>TC-05</code></td><td>Transisi status</td><td>AMAN → WASPADA → BAHAYA → AMAN, termasuk uji debounce/hysteresis</td><td>Semua transisi benar, tanpa berkedip</td><td>Haqqi</td></tr><tr><td><code>TC-06</code></td><td>Reconnect Wi-Fi</td><td>Putus 30 s lalu sambung; alarm lokal tetap aktif</td><td>Reconnect ≤ 60 s</td><td>Jizdan</td></tr><tr><td><code>TC-07</code></td><td>Stress uptime & QoS</td><td>2 jam kontinu; hitung packet loss dan completeness</td><td>0 crash; loss ≤ 1%; uptime ≥ 99%</td><td>Raffael</td></tr><tr><td><code>TC-08</code></td><td>Usability</td><td>3 pengguna baru membaca status</td><td>3/3 dalam 30 s</td><td>Kafka</td></tr><tr><td><code>TC-09</code></td><td>Kalibrasi threshold (BARU)</td><td>Naikkan sudut dan basahi miniatur bertahap; catat sudut/kelembapan saat media mulai gagal</td><td>Threshold final dengan data pendukung</td><td>Anisa</td></tr><tr><td><code>TC-10</code></td><td>Getaran SW-420 (BARU)</td><td>Ketukan terukur vs diam; hitung pemicu palsu</td><td>Tidak ada pemicu palsu saat diam</td><td>Haqqi</td></tr></tbody></table></div><p style="font-size:7.5pt">PIC TC-09 dan TC-10 adalah usulan; laporan menyajikan hasil sebagai tabel dan grafik analisis, bukan langkah perakitan.</p>
+<div class="table-wrapper"><table><thead><tr><th>ID</th><th>Skenario</th><th>Metode</th><th>Kriteria Lulus</th><th>PIC</th></tr></thead><tbody><tr><td><code>TC-01</code></td><td>Akurasi sudut MPU-6050</td><td>Bandingkan dengan busur derajat pada 0°–45° interval 5° (10 titik)</td><td>MAE ≤ 2°, RMSE dilaporkan</td><td>Raffael</td></tr><tr><td><code>TC-02</code></td><td>Kalibrasi Soil v1.2</td><td>Kering, lembab, jenuh pada media tanah miniatur vs gravimetri</td><td>≥ 90% klasifikasi benar</td><td>Anisa</td></tr><tr><td><code>TC-03</code></td><td>Latensi end-to-end</td><td>50 siklus ESP32 → Firebase SG → Flutter TERRA (timestamp server/NTP)</td><td>Rata-rata ≤ 2 s, P95 dilaporkan</td><td>Raffael</td></tr><tr><td><code>TC-04</code></td><td>Respons alarm lokal</td><td>10 percobaan melewati threshold 3 parameter</td><td>LED &amp; Buzzer aktif ≤ 500 ms</td><td>Anisa</td></tr><tr><td><code>TC-05</code></td><td>Transisi status</td><td>AMAN → WASPADA → BAHAYA → AMAN, uji debounce &amp; hysteresis</td><td>Semua transisi benar, tanpa berkedip</td><td>Haqqi</td></tr><tr><td><code>TC-06</code></td><td>Reconnect Wi-Fi</td><td>Putus 30 s lalu sambung; alarm lokal tetap aktif independen</td><td>Reconnect ≤ 60 s</td><td>Jizdan</td></tr><tr><td><code>TC-07</code></td><td>Stress uptime &amp; QoS</td><td>2 jam kontinu; hitung packet loss &amp; completeness</td><td>0 crash; loss ≤ 1%; uptime ≥ 99%</td><td>Raffael</td></tr><tr><td><code>TC-08</code></td><td>Usability TERRA</td><td>3 pengguna baru membaca status &amp; 3 parameter tanpa panduan</td><td>3/3 berhasil dalam ≤ 30 s</td><td>Kafka</td></tr><tr><td><code>TC-09</code></td><td><strong>Percobaan Threshold 3 Parameter</strong></td><td>Eksperimen bertahap pada miniatur: ubah sudut, beri getaran ADXL345, dan basahi tanah hingga retak/longsor; rekam data stabil–waspada–bahaya</td><td>Diperoleh angka threshold empiris (kemiringan, getaran, kelembapan) + tabel log uji</td><td>Anisa &amp; Haqqi</td></tr><tr><td><code>TC-10</code></td><td><strong>Validasi Getaran ADXL345 (SPI)</strong></td><td>Ukur <code>vibration_delta</code> saat diam (baseline noise) vs ketukan/getaran lereng bertingkat</td><td>Baseline diam stabil, 0 false trigger, respons guncangan terukur</td><td>Haqqi &amp; Jizdan</td></tr></tbody></table></div><p style="font-size:7.5pt">Hasil TC-09 dan TC-10 dikerjakan sebelum penguncian firmware final agar batas status di ESP32 dan TERRA 100% berbasis data percobaan.</p>
   </div>
   <div class="section avoid-break">
     <div class="section-num">§ 14</div>
-    <h2>Roadmap Sprint & Timeline (8 Minggu)</h2>
-<div class="sprint-grid"><div class="sprint-item done"><div class="sprint-week done">MINGGU 1</div><div class="sprint-title">Inisiasi & Judul</div><div class="sprint-date">28 Okt – 3 Nov</div><span class="sprint-status done">✓ Selesai</span></div><div class="sprint-item done"><div class="sprint-week done">MINGGU 2</div><div class="sprint-title">Riset & Pengadaan</div><div class="sprint-date">4 – 10 Nov</div><span class="sprint-status done">✓ Selesai</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 3</div><div class="sprint-title">Perakitan & Kalibrasi</div><div class="sprint-date">11 – 18 Nov</div><span class="sprint-status pending">Update status</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 4</div><div class="sprint-title">Firebase & Flutter UI</div><div class="sprint-date">18 – 24 Nov</div><span class="sprint-status pending">Update status</span></div><div class="sprint-item active"><div class="sprint-week active">MINGGU 5</div><div class="sprint-title">Miniatur Lereng</div><div class="sprint-date">25 Nov – 1 Des</div><span class="sprint-status active">▶ Berjalan</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 6</div><div class="sprint-title">Pengujian Ilmiah</div><div class="sprint-date">2 – 8 Des</div><span class="sprint-status pending">Mendatang</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 7</div><div class="sprint-title">Laporan & Video</div><div class="sprint-date">9 – 15 Des</div><span class="sprint-status pending">Mendatang</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 8</div><div class="sprint-title">Demo Dosen</div><div class="sprint-date">16 – 22 Des</div><span class="sprint-status pending">Showtime</span></div></div><div class="callout callout-amber"><div class="callout-title">Perlu diisi tim</div>Status Minggu 3–4 belum diketahui dari dokumen; perbarui sesuai kondisi sebenarnya.</div>
+    <h2>Roadmap Sprint & Timeline (8 Minggu — Diselaraskan v1.2)</h2>
+<div class="sprint-grid"><div class="sprint-item done"><div class="sprint-week done">MINGGU 1</div><div class="sprint-title">Inisiasi &amp; Judul</div><div class="sprint-date">28 Okt – 3 Nov</div><span class="sprint-status done">✓ Selesai</span></div><div class="sprint-item done"><div class="sprint-week done">MINGGU 2</div><div class="sprint-title">Riset &amp; Pengadaan</div><div class="sprint-date">4 – 10 Nov</div><span class="sprint-status done">✓ Selesai</span></div><div class="sprint-item done"><div class="sprint-week done">MINGGU 3</div><div class="sprint-title">Komponen &amp; Desain UI</div><div class="sprint-date">11 – 18 Nov</div><span class="sprint-status done">✓ Selesai</span></div><div class="sprint-item done"><div class="sprint-week done">MINGGU 4</div><div class="sprint-title">Firebase Live &amp; Pinout</div><div class="sprint-date">18 – 24 Nov</div><span class="sprint-status done">✓ Selesai</span></div><div class="sprint-item active"><div class="sprint-week active">MINGGU 5</div><div class="sprint-title">Rakit, Miniatur &amp; TC-09</div><div class="sprint-date">25 Nov – 1 Des</div><span class="sprint-status active">▶ Berjalan</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 6</div><div class="sprint-title">Kunci Threshold &amp; Uji QoS</div><div class="sprint-date">2 – 8 Des</div><span class="sprint-status pending">Mendatang</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 7</div><div class="sprint-title">Laporan &amp; Video Demo</div><div class="sprint-date">9 – 15 Des</div><span class="sprint-status pending">Mendatang</span></div><div class="sprint-item pending"><div class="sprint-week pending">MINGGU 8</div><div class="sprint-title">Demo Dosen</div><div class="sprint-date">16 – 22 Des</div><span class="sprint-status pending">Showtime</span></div></div><div class="callout callout-green"><div class="callout-title">Urutan Kerja Sprint 5 → 6</div>(1) Finalisasi wiring ESP32-D 38-Pin (MPU-6050 + ADXL345 SPI + Soil v1.2) &amp; miniatur akuarium → (2) Jalankan percobaan <strong>TC-09 &amp; TC-10</strong> untuk mengunci ambang batas 3 parameter → (3) Kunci logika firmware ESP32 + integrasi penuh Flutter TERRA → (4) Uji akurasi, latensi, dan QoS 2 jam (TC-01 s/d TC-08).</div>
   </div>
   <div class="section avoid-break">
     <div class="section-num">§ 15</div>
@@ -996,7 +1018,7 @@
   </div>
 
   <div class="doc-footer">
-    <span>APHELION · PRD v1.1</span>
+    <span>APHELION · PRD v1.2</span>
     <span>Halaman 7</span>
   </div>
 </div>
@@ -1008,22 +1030,22 @@
 
   <div class="section avoid-break">
     <div class="section-num">§ 16</div>
-    <h2>Anggaran & Rencana Pengadaan</h2>
+    <h2>Anggaran & Realisasi Pengadaan (Update Nota)</h2>
     <div class="table-wrapper">
       <table>
-        <thead><tr><th>No</th><th>Item</th><th>Jumlah</th><th>Harga Satuan</th><th>Total</th><th>Sumber</th></tr></thead>
+        <thead><tr><th>No</th><th>Item Komponen</th><th>Qty</th><th>Realisasi</th><th>Talangan / Sumber</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>ESP32 DevKit V1</td><td>1</td><td>Rp 65.000</td><td>Rp 65.000</td><td>Toko lokal Tembalang</td></tr>
-          <tr><td>2</td><td>MPU-6050 Module</td><td>1</td><td>Rp 20.000</td><td>Rp 20.000</td><td>Toko lokal Tembalang</td></tr>
-          <tr><td>3</td><td>Soil Moisture Kapasitif v1.2</td><td>1</td><td>Rp 25.000</td><td>Rp 25.000</td><td>Toko lokal Tembalang</td></tr>
-          <tr><td>4</td><td>Active Buzzer 5V</td><td>1</td><td>Rp 8.000</td><td>Rp 8.000</td><td>Toko lokal Tembalang</td></tr>
-          <tr><td>5</td><td>LED (Merah, Kuning, Hijau)</td><td>1 set</td><td>Rp 10.000</td><td>Rp 10.000</td><td>Toko lokal Tembalang</td></tr>
-          <tr><td>6</td><td>Servo Horn 25T Metal</td><td>2</td><td>Rp 20.000</td><td>Rp 40.000</td><td>Online (Jizdan)</td></tr>
-          <tr><td>7</td><td>Akuarium Akrilik 40×25×28 cm</td><td>1</td><td>Rp 40.000</td><td>Rp 40.000</td><td>Online (Anisa)</td></tr>
-          <tr><td>8</td><td>Kabel Jumper (M-M, M-F, F-F)</td><td>1 set</td><td>Rp 15.000</td><td>Rp 15.000</td><td>Toko lokal Tembalang</td></tr>
-          <tr><td>9</td><td>Breadboard 830 titik</td><td>1</td><td>Rp 20.000</td><td>Rp 20.000</td><td>Toko lokal Tembalang</td></tr>
-          <tr><td>10</td><td>Power Supply 5V 2A</td><td>1</td><td>Rp 25.000</td><td>Rp 25.000</td><td>Toko lokal Tembalang</td></tr>
-          <tr><td>11</td><td>Sensor SW-420</td><td>1</td><td>TBD</td><td>TBD</td><td>belum dibeli</td></tr><tr><td>12</td><td>Servo motor (MG996R/SG90)</td><td>2</td><td>TBD</td><td>TBD</td><td>belum tercatat</td></tr><tr><td>13</td><td>DHT22 · LCD 16x2 I2C (opsional)</td><td>1+1</td><td>TBD</td><td>TBD</td><td>opsional</td></tr><tr><td colspan="4" style="text-align:right;font-weight:700;padding:8px 10px;background:var(--slate-100);">TOTAL REALISASI (item 1–10)</td><td style="font-weight:800;color:var(--blue-600);background:var(--blue-50);">Rp 268.000</td><td style="background:var(--blue-50);">≈ Rp 44.700/org</td></tr>
+          <tr><td>1</td><td>Nikita Akuarium Akrilik 40×25×28 cm</td><td>1 unit</td><td>Rp 177.700</td><td>Anisa (Online)</td><td>Diterima</td></tr>
+          <tr><td>2</td><td>Sensor ADXL345 3-Axis Digital (SPI/I2C)</td><td>1 pcs</td><td>Rp 42.885</td><td>Jizdan (Shopee)</td><td>Diterima</td></tr>
+          <tr><td>3</td><td>Metal Horn Servo 25T Panjang (Silver &amp; Merah)</td><td>2 pcs</td><td>Rp 41.600</td><td>Jizdan (Online)</td><td>Diterima</td></tr>
+          <tr><td>4</td><td>Sensor MPU-6050 (Gyro + Accel)</td><td>1 pcs</td><td>Rp 26.000</td><td>Jizdan (Tembalang)</td><td>Diterima</td></tr>
+          <tr><td>5</td><td>Sensor Kelembapan Tanah (Soil Moisture v1.2)</td><td>1 pcs</td><td>Rp 10.000</td><td>Jizdan (Tembalang)</td><td>Diterima</td></tr>
+          <tr><td>6</td><td>Vibration Sensor SW-420 <em>(awal, diganti ADXL345)</em></td><td>1 pcs</td><td>Rp 8.000</td><td>Jizdan (Tembalang)</td><td>Arsip/Cadangan</td></tr>
+          <tr><td>7</td><td>Active Buzzer Alarm 3-Pin Driver</td><td>1 pcs</td><td>Rp 4.500</td><td>Anisa</td><td>Diterima</td></tr>
+          <tr><td>8</td><td>ESP32-D 38-Pin + Shield 38-Pin, Jumper, DHT22, LCD 16x2, LED</td><td>1 paket</td><td>Rp 0</td><td>Milik Tim (Kafka/Raffael/Anisa)</td><td>Tersedia</td></tr>
+          <tr><td>9</td><td>Motor Servo MG996R</td><td>2 pcs</td><td>Rp 0</td><td>Pinjam Kating (Jizdan/Haqqi)</td><td>Tersedia</td></tr>
+          <tr><td>10</td><td>Google Firebase RTDB (Spark Plan) &amp; Flutter SDK</td><td>1 tenant</td><td>Rp 0</td><td>Free Tier</td><td>Aktif</td></tr>
+          <tr><td colspan="3" style="text-align:right;font-weight:700;padding:8px 10px;background:var(--slate-100);">TOTAL REALISASI (Anisa Rp 182.200 + Jizdan Rp 128.485)</td><td style="font-weight:800;color:var(--blue-600);background:var(--blue-50);">Rp 310.685</td><td colspan="2" style="background:var(--blue-50);">≈ Rp 51.800 / anggota (6 org)</td></tr>
         </tbody>
       </table>
     </div>
@@ -1088,16 +1110,16 @@
     <div class="two-col">
       <div>
         <div class="glossary-item"><span class="glossary-term">ADC</span> — Analog-to-Digital Converter: komponen yang mengubah sinyal analog sensor menjadi nilai digital.</div>
+        <div class="glossary-item"><span class="glossary-term">ADXL345</span> — Sensor akselerometer digital 3-sumbu (SPI/I2C) untuk mendeteksi getaran &amp; guncangan lereng.</div>
         <div class="glossary-item"><span class="glossary-term">BOM</span> — Bill of Materials: daftar komponen lengkap beserta harga dan jumlahnya.</div>
         <div class="glossary-item"><span class="glossary-term">ESP32</span> — Mikrokontroler dual-core 240 MHz dengan Wi-Fi dan Bluetooth terintegrasi (Espressif Systems).</div>
         <div class="glossary-item"><span class="glossary-term">Firebase RTDB</span> — Google Firebase Realtime Database: database NoSQL berbasis cloud dengan sinkronisasi real-time.</div>
         <div class="glossary-item"><span class="glossary-term">IMU</span> — Inertial Measurement Unit: sensor yang mengukur percepatan, sudut orientasi, dan laju rotasi.</div>
-        <div class="glossary-item"><span class="glossary-term">IoT</span> — Internet of Things: jaringan perangkat fisik yang terhubung ke internet untuk pertukaran data.</div>
       </div>
       <div>
-        <div class="glossary-item"><span class="glossary-term">I2C</span> — Inter-Integrated Circuit: protokol komunikasi serial dua kabel (SDA/SCL) untuk sensor jarak dekat.</div>
+        <div class="glossary-item"><span class="glossary-term">I2C / SPI</span> — Protokol komunikasi serial (I2C untuk MPU-6050 &amp; LCD; SPI 4-wire untuk ADXL345).</div>
         <div class="glossary-item"><span class="glossary-term">LEWS</span> — Landslide Early Warning System: sistem peringatan dini untuk bencana tanah longsor.</div>
-        <div class="glossary-item"><span class="glossary-term">MPU-6050</span> — Sensor IMU 6-DoF (3-axis accelerometer + 3-axis gyroscope) oleh InvenSense.</div>
+        <div class="glossary-item"><span class="glossary-term">MPU-6050</span> — Sensor IMU 6-DoF (3-axis accelerometer + 3-axis gyroscope) untuk sudut kemiringan Roll/Pitch.</div>
         <div class="glossary-item"><span class="glossary-term">PRD</span> — Product Requirements Document: dokumen spesifikasi produk yang mendefinisikan apa yang harus dibangun.</div>
         <div class="glossary-item"><span class="glossary-term">QoS</span> — Quality of Service: metrik pengukuran performa jaringan (latensi, packet loss, throughput).</div>
         <div class="glossary-item"><span class="glossary-term">Roll/Pitch</span> — Sudut rotasi pada sumbu X (Roll = miring kiri-kanan) dan Y (Pitch = miring depan-belakang).</div>
@@ -1107,15 +1129,14 @@
 
   <div class="section avoid-break">
     <div class="section-num">§ 20</div>
-    <h2>Keputusan Terbuka & Changelog v1.0 → v1.1</h2>
+    <h2>Keputusan Terbuka & Changelog v1.1 → v1.2</h2>
 <ul>
-<li><strong>Perlu konfirmasi dosen/tim:</strong> jurnal primer (diasumsikan Amirthavarshini sesuai Ringkasan); apakah SW-420, servo, DHT22, LCD dibeli; GPIO servo; PIC TC-09/TC-10; status Minggu 3–4; bahasa paper akhir.</li>
-<li><strong>Diperbaiki:</strong> inkonsistensi jurnal, threshold, anggaran, pinout, jumlah sampel uji; sudut gabungan; validitas pengukuran latensi; metrik akurasi (relatif diganti MAE/RMSE).</li>
-<li><strong>Ditambah:</strong> § 05A, § 07A, autentikasi dan Security Rules, <code>status_reason</code>, debounce/hysteresis, TC-09/TC-10, risiko R-07–R-10.</li></ul>
+<li><strong>Diperbarui di v1.2 (26 Nov 2026):</strong> migrasi sensor getaran dari SW-420 ke <strong>ADXL345 (SPI 4-wire)</strong>; pinout diselaraskan ke <strong>ESP32-D 38-Pin + Expansion Shield</strong> (Soil <code>GPIO 35</code>); logika peringatan dikunci ke <strong>3 parameter inti saja</strong> (kemiringan, getaran, kelembapan tanah) dengan ambang batas <strong>[TBD — Data Percobaan TC-09]</strong>; anggaran diperbarui ke nota aktual <strong>Rp 310.685</strong> (~Rp 51.800/org); skema Firebase RTDB disinkronkan ke proyek live <code>terra-aphelion-iot</code> &amp; aplikasi <strong>TERRA</strong>; roadmap Sprint 3–6 diselaraskan.</li>
+<li><strong>Keputusan terbuka menuju v1.3 (final):</strong> (1) angka threshold final 3 parameter setelah percobaan TC-09 &amp; TC-10 selesai; (2) konfirmasi akhir swap pin SCLK <code>GPIO 18</code> ↔ Buzzer <code>GPIO 13</code> serta pin servo <code>GPIO 16/17</code>; (3) hardening Security Rules Firebase ke UID ESP32 khusus sebelum demo dosen.</li></ul>
   </div>
 
   <div class="doc-footer">
-    <span>APHELION · PRD v1.1 · D3 Teknik Informatika POLINES IK-2B · 25 November 2026</span>
+    <span>APHELION · PRD v1.2 · D3 Teknik Informatika POLINES IK-2B · 26 November 2026</span>
     <span>Halaman 8 / 8</span>
   </div>
 

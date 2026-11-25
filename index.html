@@ -172,7 +172,7 @@
       <div class="flex items-center gap-2">
         <a href="./prd.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800/70 transition-colors">
           <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-          <span>PRD v1.1</span>
+          <span>PRD v1.2</span>
         </a>
 
         <a href="https://www.figma.com/design/KNT6Fqa95sPCVkk8TjrYeI/APHELION-%E2%80%94-Flutter-UI--LEWS-Dashboard-?node-id=0-1&t=OntekiVigaBswWPx-1" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors">
@@ -818,53 +818,60 @@
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
               <tr>
-                <td class="py-2.5 px-4 font-semibold">MPU-6050 (Gyro/Accel)</td>
-                <td class="py-2.5 px-4 font-mono">VCC, GND, SDA, SCL</td>
-                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 21, GPIO 22</td>
-                <td class="py-2.5 px-4 font-mono">I2C (Address 0x68)</td>
-                <td class="py-2.5 px-4 text-slate-500">Sensor kemiringan utama (Roll & Pitch lereng tanah)</td>
+                <td class="py-2.5 px-4 font-semibold">MPU-6050 (Kemiringan)</td>
+                <td class="py-2.5 px-4 font-mono">VCC, GND, SDA, SCL, AD0</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 21, GPIO 22, GND</td>
+                <td class="py-2.5 px-4 font-mono">I2C Bus 1 (0x68)</td>
+                <td class="py-2.5 px-4 text-slate-500">Parameter Inti 1: sudut kemiringan lereng (Roll & Pitch)</td>
               </tr>
               <tr>
-                <td class="py-2.5 px-4 font-semibold">Vibration Sensor SW-420</td>
-                <td class="py-2.5 px-4 font-mono">VCC, GND, DO</td>
-                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 27</td>
-                <td class="py-2.5 px-4 font-mono">Digital Input (Interrupt)</td>
-                <td class="py-2.5 px-4 text-slate-500">Deteksi getaran & retakan awal lereng (Sudah Dibeli di Arduinonano)</td>
+                <td class="py-2.5 px-4 font-semibold">ADXL345 (Getaran Tanah)</td>
+                <td class="py-2.5 px-4 font-mono">CS, SCLK, MOSI, MISO, INT1</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">GPIO 25, 13*, 23, 19, 27</td>
+                <td class="py-2.5 px-4 font-mono">SPI 4-Wire + INT1</td>
+                <td class="py-2.5 px-4 text-slate-500">Parameter Inti 2: getaran & delta percepatan (pengganti SW-420; *opsi swap SCLK 18 ↔ Buzzer 13)</td>
               </tr>
               <tr>
-                <td class="py-2.5 px-4 font-semibold">Soil Moisture Sensor</td>
+                <td class="py-2.5 px-4 font-semibold">Soil Moisture v1.2</td>
                 <td class="py-2.5 px-4 font-mono">VCC, GND, AOUT</td>
-                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 34 (ADC1)</td>
-                <td class="py-2.5 px-4 font-mono">Analog Input (ADC1_CH6)</td>
-                <td class="py-2.5 px-4 text-slate-500">ADC1 aman digunakan bersamaan saat Wi-Fi aktif (Sudah Dibeli di Temins)</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 35 (ADC1)</td>
+                <td class="py-2.5 px-4 font-mono">Analog Input (ADC1_CH7)</td>
+                <td class="py-2.5 px-4 text-slate-500">Parameter Inti 3: kelembapan tanah (wajib VCC 3.3V, ADC1 aman saat Wi-Fi aktif)</td>
               </tr>
               <tr>
-                <td class="py-2.5 px-4 font-semibold">ADXL345 (Eksperimen Komparasi)</td>
-                <td class="py-2.5 px-4 font-mono">VCC, GND, SDA, SCL, CS</td>
-                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 21, GPIO 22</td>
-                <td class="py-2.5 px-4 font-mono">I2C (Address 0x53)</td>
-                <td class="py-2.5 px-4 text-slate-500">Sambungkan CS ke 3.3V (mode I2C) & SDO ke GND (0x53), paralel dengan MPU-6050 (Sudah Dibeli di Shopee)</td>
+                <td class="py-2.5 px-4 font-semibold">LCD 16x2 I2C</td>
+                <td class="py-2.5 px-4 font-mono">VCC, GND, SDA, SCL</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">5V, GND, GPIO 32, GPIO 33</td>
+                <td class="py-2.5 px-4 font-mono">I2C Bus 0 (Wire)</td>
+                <td class="py-2.5 px-4 text-slate-500">Tampilan status lokal pada prototipe (VCC 5V agar kontras jelas)</td>
               </tr>
               <tr>
-                <td class="py-2.5 px-4 font-semibold">Sensor DHT22 / DHT11</td>
+                <td class="py-2.5 px-4 font-semibold">Sensor DHT22</td>
                 <td class="py-2.5 px-4 font-mono">VCC, GND, DATA</td>
                 <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">3.3V, GND, GPIO 4</td>
                 <td class="py-2.5 px-4 font-mono">Single-Bus Digital</td>
-                <td class="py-2.5 px-4 text-slate-500">Pasang pull-up resistor 10k ohm antara VCC dan DATA</td>
+                <td class="py-2.5 px-4 text-slate-500">Info suhu & kelembapan udara di dashboard (non-pemicu alarm)</td>
               </tr>
               <tr>
-                <td class="py-2.5 px-4 font-semibold">Active Buzzer 5V / 3.3V</td>
+                <td class="py-2.5 px-4 font-semibold">Active Buzzer Alarm</td>
                 <td class="py-2.5 px-4 font-mono">(+), (-)</td>
-                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">GPIO 18, GND</td>
-                <td class="py-2.5 px-4 font-mono">Digital Output (PWM/High)</td>
-                <td class="py-2.5 px-4 text-slate-500">Trigger bunyi alarm saat kemiringan > 35° atau air jenuh</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">GPIO 18*, GND</td>
+                <td class="py-2.5 px-4 font-mono">Digital Output</td>
+                <td class="py-2.5 px-4 text-slate-500">Alarm lokal saat status BAHAYA (*pindah GPIO 13 jika ADXL345 pakai VSPI native 18)</td>
               </tr>
               <tr>
                 <td class="py-2.5 px-4 font-semibold">Indikator LED Tri-State</td>
-                <td class="py-2.5 px-4 font-mono">Hijau, Kuning, Merah</td>
-                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">GPIO 19, GPIO 23, GPIO 5</td>
+                <td class="py-2.5 px-4 font-mono">Biru/Hijau, Kuning, Merah</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">GPIO 14, GPIO 26, GPIO 5</td>
                 <td class="py-2.5 px-4 font-mono">Digital Output (GPIO)</td>
-                <td class="py-2.5 px-4 text-slate-500">Gunakan resistor 220 ohm pada anoda tiap LED</td>
+                <td class="py-2.5 px-4 text-slate-500">AMAN (14), WASPADA (26), BAHAYA (5) dengan resistor 220 ohm</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-4 font-semibold">2× Servo MG996R (Usulan)</td>
+                <td class="py-2.5 px-4 font-mono">Signal, VCC, GND</td>
+                <td class="py-2.5 px-4 font-mono text-blue-600 dark:text-blue-400 font-semibold">GPIO 16 & GPIO 17 (PWM)</td>
+                <td class="py-2.5 px-4 font-mono">PWM + 5V Eksternal</td>
+                <td class="py-2.5 px-4 text-slate-500">Penggerak kemiringan miniatur; wajib catu 5V terpisah + common GND</td>
               </tr>
             </tbody>
           </table>
